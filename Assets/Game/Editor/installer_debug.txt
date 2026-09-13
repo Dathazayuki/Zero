@@ -1,0 +1,11 @@
+[00:10:28] Static ctor called
+[00:10:30] OnEditorTick fired, session=False
+[00:10:31] Save result: True, openedExisting=True, roots=8
+[00:10:31] SUCCESS! Scene saved, size=831408 bytes
+[00:10:32] Static ctor called
+[00:11:25] Static ctor called
+[00:11:27] OnEditorTick fired, session=False
+[00:11:28] Save result: True, openedExisting=True, roots=8
+[00:11:28] SUCCESS! Scene saved, size=831245 bytes
+[00:11:28] Validator returned: True
+[00:11:29] Static ctor called

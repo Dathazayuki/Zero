@@ -1,0 +1,880 @@
+diff --git a/D:\du an\Zero1\Assets\Game\Editor\Room1ArchitectureMigration.cs b/D:\du an\Zero1\Assets\Game\Editor\Room1ArchitectureMigration.cs
+deleted file mode 100644
+--- a/D:\du an\Zero1\Assets\Game\Editor\Room1ArchitectureMigration.cs
++++ /dev/null
+@@ -1,875 +0,0 @@
+-using System;
+-using System.Collections.Generic;
+-using System.Linq;
+-using UnityEditor;
+-using UnityEditor.SceneManagement;
+-using UnityEngine;
+-using UnityEngine.ProBuilder;
+-using UnityEngine.ProBuilder.MeshOperations;
+-using UnityEngine.Rendering;
+-using UnityEngine.SceneManagement;
+-using Zero.AnomalyPrototype.Anomalies;
+-
+-namespace Zero.EnvironmentLoop.Editor
+-{
+-    /// <summary>
+-    /// Rebuilds Room 1 architecture with sealed 0.20m walls, 0.25m floor,
+-    /// seamless corner joints, modular doorway variants, and dedicated room materials.
+-    /// Also supports creating the Hidden Room and hidden doorway on Wall_LeftStem for structural anomaly.
+-    /// </summary>
+-    public static class Room1ArchitectureMigration
+-    {
+-        private const string PrefabPath = "Assets/Game/Prefabs/Environment/Room 1.prefab";
+-        private const string ScenePath = "Assets/Game/Scenes/InfiniteStairwayScene.unity";
+-        private const string MaterialFolder = "Assets/Game/Materials/EnvironmentLoop/Room1";
+-
+-        private const string ExteriorSource = "Assets/Game/Materials/EnvironmentLoop/Loop_Concrete.mat";
+-        private const string InteriorSource = "Assets/Game/Model/3dpea.com_Scene/Materials/image_15.mat";
+-        private const string FloorSource = "Assets/Game/Materials/EnvironmentLoop/New Material.mat";
+-
+-        private const string ExteriorPath = MaterialFolder + "/M_Room1_Wall_Exterior.mat";
+-        private const string InteriorPath = MaterialFolder + "/M_Room1_Wall_Interior.mat";
+-        private const string CorePath = MaterialFolder + "/M_Room1_Wall_Core.mat";
+-        private const string FloorPath = MaterialFolder + "/M_Room1_Floor.mat";
+-
+-        private const float WallBottom = -0.20f;
+-        private const float WallTop = 6.20f;
+-        private const float WallThickness = 0.20f;
+-        private const float FloorBottom = -0.25f;
+-        private const float DoorCenterX = -0.146f;
+-        private const float DoorWidth = 1.90f;
+-        private const float DoorHeight = 3.60f;
+-        private const float Epsilon = 0.005f;
+-
+-        // Hidden doorway on Wall_LeftStem
+-        private const float StemWallX = -6.746f;
+-        private const float StemDoorCenterZ = 3.50f;
+-        private const float StemDoorWidth = 1.90f;
+-        private const float StemDoorHeight = 3.60f;
+-
+-        private static readonly Vector2[] Footprint =
+-        {
+-            new Vector2(15.354f, -15.983f),
+-            new Vector2(-15.646f, -15.983f),
+-            new Vector2(-15.646f, -8.983f),
+-            new Vector2(-6.646f, -8.983f),
+-            new Vector2(-6.646f, 9.017f),
+-            new Vector2(6.354f, 9.017f),
+-            new Vector2(6.354f, -8.983f),
+-            new Vector2(15.354f, -8.983f)
+-        };
+-
+-        private static readonly Vector2[] HiddenRoomFootprint =
+-        {
+-            new Vector2(-6.646f, 2.55f),
+-            new Vector2(-6.846f, 2.55f),
+-            new Vector2(-6.846f, -0.50f),
+-            new Vector2(-15.646f, -0.50f),
+-            new Vector2(-15.646f, 8.50f),
+-            new Vector2(-6.846f, 8.50f),
+-            new Vector2(-6.846f, 4.45f),
+-            new Vector2(-6.646f, 4.45f)
+-        };
+-
+-        private sealed class WallSpec
+-        {
+-            public string Name;
+-            public Vector3 Center;
+-            public Vector3 Size;
+-            public Vector3 InteriorNormal;
+-            public Vector3? SecondaryInteriorNormal;
+-        }
+-
+-        [MenuItem("Tools/Room 1/Focus Room 1 In Scene View")]
+-        public static void FocusRoom1InSceneView()
+-        {
+-            Scene activeScene = SceneManager.GetActiveScene();
+-            GameObject sceneInstance = FindRoom1Instance(activeScene);
+-            if (sceneInstance == null) return;
+-
+-            sceneInstance.SetActive(true);
+-            Selection.activeGameObject = sceneInstance;
+-            SceneView.lastActiveSceneView?.FrameSelected();
+-        }
+-
+-        [MenuItem("Tools/Room 1/Toggle Hidden Room Preview")]
+-        public static void ToggleHiddenRoomPreview()
+-        {
+-            Scene activeScene = SceneManager.GetActiveScene();
+-            GameObject sceneInstance = FindRoom1Instance(activeScene);
+-            if (sceneInstance == null) return;
+-
+-            sceneInstance.SetActive(true);
+-            Transform arch = sceneInstance.transform.Find("Architecture_Room1");
+-            if (arch == null) return;
+-
+-            Transform hiddenRoom = arch.Find("HiddenRoom_Architecture");
+-            Transform variantsStem = arch.Find("DoorwayVariants_LeftStem");
+-            if (hiddenRoom == null || variantsStem == null) return;
+-
+-            Transform doorwayHidden = variantsStem.Find("Doorway_Hidden");
+-            Transform doorwayRevealed = variantsStem.Find("Doorway_Revealed");
+-            if (doorwayHidden == null || doorwayRevealed == null) return;
+-
+-            bool isCurrentlyHidden = !hiddenRoom.gameObject.activeSelf;
+-            hiddenRoom.gameObject.SetActive(isCurrentlyHidden);
+-            doorwayHidden.gameObject.SetActive(!isCurrentlyHidden);
+-            doorwayRevealed.gameObject.SetActive(isCurrentlyHidden);
+-
+-            Selection.activeGameObject = isCurrentlyHidden ? hiddenRoom.gameObject : sceneInstance;
+-            SceneView.lastActiveSceneView?.FrameSelected();
+-            Debug.Log($"Hidden Room Preview is now: {(isCurrentlyHidden ? "REVEALED (ACTIVE)" : "HIDDEN (INACTIVE)")}");
+-        }
+-
+-        [MenuItem("Tools/Room 1/Rebuild Architecture (One Shot)")]
+-        public static void Rebuild()
+-        {
+-            Scene activeScene = SceneManager.GetActiveScene();
+-            if (!activeScene.IsValid() || activeScene.path != ScenePath)
+-            {
+-                throw new InvalidOperationException(
+-                    $"Open {ScenePath} before running the Room 1 migration. Active scene: {activeScene.path}");
+-            }
+-
+-            if (EditorApplication.isPlayingOrWillChangePlaymode)
+-            {
+-                throw new InvalidOperationException("Room 1 architecture cannot be rebuilt in Play Mode.");
+-            }
+-
+-            GameObject sceneInstance = FindRoom1Instance(activeScene);
+-            if (sceneInstance == null)
+-            {
+-                throw new InvalidOperationException("The active scene does not contain the Room 1 prefab instance.");
+-            }
+-
+-            string originalInstanceName = sceneInstance.name;
+-            Vector3 originalPosition = sceneInstance.transform.position;
+-            Quaternion originalRotation = sceneInstance.transform.rotation;
+-            Vector3 originalScale = sceneInstance.transform.localScale;
+-
+-            RevertLegacyMeshOverrides(sceneInstance);
+-            EditorSceneManager.MarkSceneDirty(activeScene);
+-            EditorSceneManager.SaveScene(activeScene);
+-
+-            Material exterior = EnsureMaterialClone(ExteriorSource, ExteriorPath, "M_Room1_Wall_Exterior");
+-            Material interior = EnsureMaterialClone(InteriorSource, InteriorPath, "M_Room1_Wall_Interior");
+-            Material core = EnsureMaterialClone(ExteriorSource, CorePath, "M_Room1_Wall_Core");
+-            Material floor = EnsureMaterialClone(FloorSource, FloorPath, "M_Room1_Floor");
+-
+-            GameObject prefabRoot = PrefabUtility.LoadPrefabContents(PrefabPath);
+-            if (prefabRoot == null)
+-            {
+-                throw new InvalidOperationException($"Cannot load prefab at {PrefabPath}.");
+-            }
+-
+-            try
+-            {
+-                RemoveChildIfPresent(prefabRoot.transform, "Architecture_Room1");
+-                RemoveChildIfPresent(prefabRoot.transform, "Exterior-Wall");
+-                RemoveChildIfPresent(prefabRoot.transform, "Inner-Wall");
+-                RemoveChildIfPresent(prefabRoot.transform, "Floor");
+-
+-                float wallHeight = WallTop - WallBottom;
+-                float wallCenterY = (WallBottom + WallTop) * 0.5f;
+-
+-                Transform architecture = CreateContainer(prefabRoot.transform, "Architecture_Room1", false);
+-                Transform walls = CreateContainer(architecture, "Walls", true);
+-
+-                // Main doorway variants (North wall)
+-                Transform doorwayVariants = CreateContainer(architecture, "DoorwayVariants", false);
+-                Transform doorwayNormal = CreateContainer(doorwayVariants, "Doorway_Normal", false);
+-                Transform doorwaySealed = CreateContainer(doorwayVariants, "Doorway_Sealed", false);
+-
+-                // Hidden doorway variants (Wall_LeftStem)
+-                Transform doorwayVariantsStem = CreateContainer(architecture, "DoorwayVariants_LeftStem", false);
+-                Transform doorwayHiddenStem = CreateContainer(doorwayVariantsStem, "Doorway_Hidden", false);
+-                Transform doorwayRevealedStem = CreateContainer(doorwayVariantsStem, "Doorway_Revealed", false);
+-
+-                Transform floorRoot = CreateContainer(architecture, "Floor", true);
+-
+-                // Hidden Room Architecture
+-                Transform hiddenRoom = CreateContainer(architecture, "HiddenRoom_Architecture", false);
+-                Transform hiddenFloorRoot = CreateContainer(hiddenRoom, "Floor", false);
+-                Transform hiddenWallsRoot = CreateContainer(hiddenRoom, "Walls", false);
+-
+-                // Build permanent walls for main room
+-                List<WallSpec> permanentWalls = CreatePermanentWallSpecs();
+-                foreach (WallSpec spec in permanentWalls)
+-                {
+-                    CreateWall(walls, spec, exterior, interior, core, isStatic: true);
+-                }
+-
+-                // Main doorway: Header & FullWall
+-                var headerSpec = new WallSpec
+-                {
+-                    Name = "Door_Header",
+-                    Center = new Vector3(DoorCenterX, (DoorHeight + WallTop) * 0.5f, 9.117f),
+-                    Size = new Vector3(DoorWidth, WallTop - DoorHeight, WallThickness),
+-                    InteriorNormal = Vector3.back
+-                };
+-                CreateWall(doorwayNormal, headerSpec, exterior, interior, core, isStatic: false);
+-
+-                var sealedSpec = new WallSpec
+-                {
+-                    Name = "FullWall",
+-                    Center = new Vector3(DoorCenterX, wallCenterY, 9.117f),
+-                    Size = new Vector3(DoorWidth, wallHeight, WallThickness),
+-                    InteriorNormal = Vector3.back
+-                };
+-                CreateWall(doorwaySealed, sealedSpec, exterior, interior, core, isStatic: false);
+-                doorwaySealed.gameObject.SetActive(false);
+-
+-                // Hidden doorway on LeftStem: FullWall (closed) & Header (revealed)
+-                var stemFullWallSpec = new WallSpec
+-                {
+-                    Name = "Stem_FullWall",
+-                    Center = new Vector3(StemWallX, wallCenterY, StemDoorCenterZ),
+-                    Size = new Vector3(WallThickness, wallHeight, StemDoorWidth),
+-                    InteriorNormal = Vector3.right
+-                };
+-                CreateWall(doorwayHiddenStem, stemFullWallSpec, exterior, interior, core, isStatic: false);
+-
+-                var stemHeaderSpec = new WallSpec
+-                {
+-                    Name = "Stem_Door_Header",
+-                    Center = new Vector3(StemWallX, (StemDoorHeight + WallTop) * 0.5f, StemDoorCenterZ),
+-                    Size = new Vector3(WallThickness, WallTop - StemDoorHeight, StemDoorWidth),
+-                    InteriorNormal = Vector3.right
+-                };
+-                CreateWall(doorwayRevealedStem, stemHeaderSpec, exterior, interior, core, isStatic: false);
+-                doorwayRevealedStem.gameObject.SetActive(false);
+-
+-                // Build main room floor
+-                CreateFloor(floorRoot, floor);
+-
+-                // Build Hidden Room floor & walls
+-                CreateHiddenRoomFloor(hiddenFloorRoot, floor);
+-                List<WallSpec> hiddenWalls = new List<WallSpec>
+-                {
+-                    Wall("Hidden_Wall_West", -15.746f, wallCenterY, 4.00f, 0.20f, wallHeight, 9.40f, Vector3.right),
+-                    Wall("Hidden_Wall_South", -11.246f, wallCenterY, -0.60f, 8.80f, wallHeight, 0.20f, Vector3.forward),
+-                    Wall("Hidden_Wall_North", -11.246f, wallCenterY, 8.60f, 8.80f, wallHeight, 0.20f, Vector3.back)
+-                };
+-                foreach (WallSpec spec in hiddenWalls)
+-                {
+-                    CreateWall(hiddenWallsRoot, spec, exterior, interior, core, isStatic: false);
+-                }
+-                hiddenRoom.gameObject.SetActive(false);
+-
+-                // Configure HiddenRoomAnomaly under AnomalyContent
+-                ConfigureHiddenRoomAnomaly(prefabRoot, doorwayHiddenStem.gameObject, doorwayRevealedStem.gameObject, hiddenRoom.gameObject);
+-
+-                // Validate Prefab integrity
+-                ValidatePrefab(prefabRoot, permanentWalls, headerSpec, sealedSpec, stemFullWallSpec, stemHeaderSpec, hiddenWalls);
+-
+-                PrefabUtility.SaveAsPrefabAsset(prefabRoot, PrefabPath);
+-            }
+-            finally
+-            {
+-                PrefabUtility.UnloadPrefabContents(prefabRoot);
+-            }
+-
+-            AssetDatabase.SaveAssets();
+-            AssetDatabase.Refresh();
+-
+-            sceneInstance = FindRoom1Instance(activeScene);
+-            if (sceneInstance == null)
+-            {
+-                throw new InvalidOperationException("Room 1 instance disappeared after saving its prefab.");
+-            }
+-
+-            sceneInstance.name = originalInstanceName;
+-            sceneInstance.transform.SetPositionAndRotation(originalPosition, originalRotation);
+-            sceneInstance.transform.localScale = originalScale;
+-            CleanArchitectureOverrides(sceneInstance);
+-            ValidateSceneInstance(sceneInstance);
+-            EditorSceneManager.MarkSceneDirty(activeScene);
+-            EditorSceneManager.SaveScene(activeScene);
+-
+-            Debug.Log(
+-                "ROOM1_ARCHITECTURE_REBUILD_PASS: sealed 0.20m walls, 0.25m floor, modular doorway, hidden room and dedicated materials created without Scene Builder.");
+-        }
+-
+-        private static List<WallSpec> CreatePermanentWallSpecs()
+-        {
+-            float wallCenterY = (WallBottom + WallTop) * 0.5f;
+-            float doorLeft = DoorCenterX - DoorWidth * 0.5f;
+-            float doorRight = DoorCenterX + DoorWidth * 0.5f;
+-            float wallHeight = WallTop - WallBottom;
+-
+-            float stemDoorSouth = StemDoorCenterZ - StemDoorWidth * 0.5f; // 2.55f
+-            float stemDoorNorth = StemDoorCenterZ + StemDoorWidth * 0.5f; // 4.45f
+-            float leftStemSouthLength = stemDoorSouth - (-8.983f); // 11.533f
+-            float leftStemSouthCenterZ = (-8.983f + stemDoorSouth) * 0.5f; // -3.2165f
+-
+-            float leftStemNorthLength = 9.017f - stemDoorNorth; // 4.567f
+-            float leftStemNorthCenterZ = (stemDoorNorth + 9.017f) * 0.5f; // 6.7335f
+-
+-            return new List<WallSpec>
+-            {
+-                Wall("Wall_South", -0.146f, wallCenterY, -16.083f, 31.40f, wallHeight, 0.20f, Vector3.forward),
+-                Wall("Wall_WestEnd", -15.746f, wallCenterY, -12.383f, 0.20f, wallHeight, 7.20f, Vector3.right),
+-                Wall("Wall_LeftWing", -11.246f, wallCenterY, -8.883f, 8.80f, wallHeight, 0.20f, Vector3.back),
+-                Wall("Wall_LeftStem_South", StemWallX, wallCenterY, leftStemSouthCenterZ, 0.20f, wallHeight, leftStemSouthLength, Vector3.right, Vector3.back),
+-                Wall("Wall_LeftStem_North", StemWallX, wallCenterY, leftStemNorthCenterZ, 0.20f, wallHeight, leftStemNorthLength, Vector3.right),
+-                Wall("Wall_North_Left", (-6.846f + doorLeft) * 0.5f, wallCenterY, 9.117f, doorLeft + 6.846f, wallHeight, 0.20f, Vector3.back),
+-                Wall("Wall_North_Right", (doorRight + 6.554f) * 0.5f, wallCenterY, 9.117f, 6.554f - doorRight, wallHeight, 0.20f, Vector3.back),
+-                Wall("Wall_RightStem", 6.454f, wallCenterY, 0.017f, 0.20f, wallHeight, 18.00f, Vector3.left, Vector3.back),
+-                Wall("Wall_RightWing", 10.954f, wallCenterY, -8.883f, 8.80f, wallHeight, 0.20f, Vector3.back),
+-                Wall("Wall_EastEnd", 15.454f, wallCenterY, -12.383f, 0.20f, wallHeight, 7.20f, Vector3.left)
+-            };
+-        }
+-
+-        private static WallSpec Wall(
+-            string name,
+-            float centerX,
+-            float centerY,
+-            float centerZ,
+-            float sizeX,
+-            float sizeY,
+-            float sizeZ,
+-            Vector3 interiorNormal,
+-            Vector3? secondaryInteriorNormal = null)
+-        {
+-            return new WallSpec
+-            {
+-                Name = name,
+-                Center = new Vector3(centerX, centerY, centerZ),
+-                Size = new Vector3(sizeX, sizeY, sizeZ),
+-                InteriorNormal = interiorNormal,
+-                SecondaryInteriorNormal = secondaryInteriorNormal
+-            };
+-        }
+-
+-        private static void CreateWall(
+-            Transform parent,
+-            WallSpec spec,
+-            Material exterior,
+-            Material interior,
+-            Material core,
+-            bool isStatic)
+-        {
+-            ProBuilderMesh mesh = ShapeGenerator.GenerateCube(PivotLocation.Center, spec.Size);
+-            mesh.gameObject.name = spec.Name;
+-            mesh.transform.SetParent(parent, false);
+-            mesh.transform.localPosition = Vector3.zero;
+-            mesh.transform.localRotation = Quaternion.identity;
+-            mesh.transform.localScale = Vector3.one;
+-            mesh.positions = mesh.positions.Select(position => position + spec.Center).ToArray();
+-
+-            MeshRenderer renderer = mesh.GetComponent<MeshRenderer>();
+-            renderer.sharedMaterials = new[] { exterior, interior, core };
+-            renderer.shadowCastingMode = ShadowCastingMode.On;
+-            renderer.receiveShadows = true;
+-
+-            foreach (Face face in mesh.faces)
+-            {
+-                Vector3 normal = UnityEngine.ProBuilder.Math.Normal(mesh, face).normalized;
+-                if (Vector3.Dot(normal, spec.InteriorNormal) > 0.9f)
+-                {
+-                    face.submeshIndex = 1;
+-                }
+-                else if (spec.SecondaryInteriorNormal.HasValue &&
+-                         Vector3.Dot(normal, spec.SecondaryInteriorNormal.Value) > 0.9f)
+-                {
+-                    face.submeshIndex = 1;
+-                }
+-                else if (Vector3.Dot(normal, -spec.InteriorNormal) > 0.9f)
+-                {
+-                    face.submeshIndex = 0;
+-                }
+-                else
+-                {
+-                    face.submeshIndex = 2;
+-                }
+-
+-                face.manualUV = true;
+-            }
+-
+-            ApplyRoomAlignedUvs(mesh);
+-            FinalizeMesh(mesh, 0, isStatic);
+-        }
+-
+-        private static void CreateFloor(Transform parent, Material floorMaterial)
+-        {
+-            GameObject floorObject = new GameObject("Floor_Slab");
+-            floorObject.transform.SetParent(parent, false);
+-            floorObject.transform.localPosition = Vector3.zero;
+-            floorObject.transform.localRotation = Quaternion.identity;
+-            floorObject.transform.localScale = Vector3.one;
+-            floorObject.layer = 8;
+-
+-            ProBuilderMesh mesh = floorObject.AddComponent<ProBuilderMesh>();
+-            Vector3[] points = Footprint
+-                .Select(point => new Vector3(point.x, 0f, point.y))
+-                .ToArray();
+-            ActionResult result = mesh.CreateShapeFromPolygon(points, FloorBottom, false);
+-            if (result.status != ActionResult.Status.Success)
+-            {
+-                throw new InvalidOperationException($"Failed to create Room 1 floor: {result.notification}");
+-            }
+-
+-            MeshRenderer renderer = mesh.GetComponent<MeshRenderer>();
+-            renderer.sharedMaterial = floorMaterial;
+-            renderer.shadowCastingMode = ShadowCastingMode.On;
+-            renderer.receiveShadows = true;
+-            foreach (Face face in mesh.faces)
+-            {
+-                face.submeshIndex = 0;
+-                face.manualUV = true;
+-            }
+-
+-            ApplyRoomAlignedUvs(mesh);
+-            FinalizeMesh(mesh, 8, isStatic: true);
+-        }
+-
+-        private static void CreateHiddenRoomFloor(Transform parent, Material floorMaterial)
+-        {
+-            GameObject floorObject = new GameObject("Hidden_Floor_Slab");
+-            floorObject.transform.SetParent(parent, false);
+-            floorObject.transform.localPosition = Vector3.zero;
+-            floorObject.transform.localRotation = Quaternion.identity;
+-            floorObject.transform.localScale = Vector3.one;
+-            floorObject.layer = 8;
+-
+-            ProBuilderMesh mesh = floorObject.AddComponent<ProBuilderMesh>();
+-            Vector3[] points = HiddenRoomFootprint
+-                .Select(point => new Vector3(point.x, 0f, point.y))
+-                .ToArray();
+-            ActionResult result = mesh.CreateShapeFromPolygon(points, FloorBottom, false);
+-            if (result.status != ActionResult.Status.Success)
+-            {
+-                throw new InvalidOperationException($"Failed to create Hidden Room floor: {result.notification}");
+-            }
+-
+-            MeshRenderer renderer = mesh.GetComponent<MeshRenderer>();
+-            renderer.sharedMaterial = floorMaterial;
+-            renderer.shadowCastingMode = ShadowCastingMode.On;
+-            renderer.receiveShadows = true;
+-            foreach (Face face in mesh.faces)
+-            {
+-                face.submeshIndex = 0;
+-                face.manualUV = true;
+-            }
+-
+-            ApplyRoomAlignedUvs(mesh);
+-            FinalizeMesh(mesh, 8, isStatic: false);
+-        }
+-
+-        private static void ConfigureHiddenRoomAnomaly(
+-            GameObject prefabRoot,
+-            GameObject doorwayHidden,
+-            GameObject doorwayRevealed,
+-            GameObject hiddenRoomRoot)
+-        {
+-            Transform anomalyContent = prefabRoot.transform.Find("AnomalyContent");
+-            if (anomalyContent == null)
+-            {
+-                return;
+-            }
+-
+-            Transform hiddenAnomalyTrans = anomalyContent.Find("HiddenRoomAnomaly");
+-            GameObject hiddenAnomalyGo;
+-            if (hiddenAnomalyTrans == null)
+-            {
+-                hiddenAnomalyGo = new GameObject("HiddenRoomAnomaly");
+-                hiddenAnomalyGo.transform.SetParent(anomalyContent, false);
+-                hiddenAnomalyGo.transform.localPosition = Vector3.zero;
+-                hiddenAnomalyGo.transform.localRotation = Quaternion.identity;
+-                hiddenAnomalyGo.transform.localScale = Vector3.one;
+-            }
+-            else
+-            {
+-                hiddenAnomalyGo = hiddenAnomalyTrans.gameObject;
+-            }
+-
+-            HiddenRoomAnomaly anomalyComp = hiddenAnomalyGo.GetComponent<HiddenRoomAnomaly>();
+-            if (anomalyComp == null)
+-            {
+-                anomalyComp = hiddenAnomalyGo.AddComponent<HiddenRoomAnomaly>();
+-            }
+-
+-            anomalyComp.Configure(doorwayHidden, doorwayRevealed, hiddenRoomRoot);
+-
+-            AnomalyData dataAsset = AssetDatabase.LoadAssetAtPath<AnomalyData>("Assets/Game/ScriptableObjects/Anomalies/A12_HiddenRoom.asset");
+-            if (dataAsset != null)
+-            {
+-                anomalyComp.Initialize(dataAsset);
+-                SerializedObject anomalySo = new SerializedObject(anomalyComp);
+-                SerializedProperty dataProp = anomalySo.FindProperty("data");
+-                if (dataProp != null)
+-                {
+-                    dataProp.objectReferenceValue = dataAsset;
+-                    anomalySo.ApplyModifiedPropertiesWithoutUndo();
+-                }
+-            }
+-
+-            RoomAnomalyController controller = prefabRoot.GetComponent<RoomAnomalyController>();
+-            if (controller != null)
+-            {
+-                SerializedObject controllerSo = new SerializedObject(controller);
+-                SerializedProperty slotsProp = controllerSo.FindProperty("anomalySlots");
+-                if (slotsProp != null && slotsProp.isArray)
+-                {
+-                    bool found = false;
+-                    for (int i = 0; i < slotsProp.arraySize; i++)
+-                    {
+-                        if (slotsProp.GetArrayElementAtIndex(i).objectReferenceValue == anomalyComp)
+-                        {
+-                            found = true;
+-                            break;
+-                        }
+-                    }
+-
+-                    if (!found)
+-                    {
+-                        int newIndex = slotsProp.arraySize;
+-                        slotsProp.InsertArrayElementAtIndex(newIndex);
+-                        slotsProp.GetArrayElementAtIndex(newIndex).objectReferenceValue = anomalyComp;
+-                        controllerSo.ApplyModifiedPropertiesWithoutUndo();
+-                    }
+-                }
+-            }
+-
+-            EditorUtility.SetDirty(anomalyComp);
+-            EditorUtility.SetDirty(hiddenAnomalyGo);
+-            if (controller != null)
+-            {
+-                EditorUtility.SetDirty(controller);
+-            }
+-        }
+-
+-        private static void ApplyRoomAlignedUvs(ProBuilderMesh mesh)
+-        {
+-            Vector3[] positions = mesh.positions.ToArray();
+-            Vector2[] uvs = new Vector2[positions.Length];
+-
+-            foreach (Face face in mesh.faces)
+-            {
+-                Vector3 normal = UnityEngine.ProBuilder.Math.Normal(mesh, face).normalized;
+-                foreach (int index in face.distinctIndexes)
+-                {
+-                    Vector3 position = positions[index];
+-                    if (Mathf.Abs(normal.y) > 0.9f)
+-                    {
+-                        uvs[index] = new Vector2(position.x, position.z);
+-                    }
+-                    else if (Mathf.Abs(normal.x) > 0.9f)
+-                    {
+-                        uvs[index] = new Vector2(position.z, position.y);
+-                    }
+-                    else
+-                    {
+-                        uvs[index] = new Vector2(position.x, position.y);
+-                    }
+-                }
+-            }
+-
+-            mesh.textures = uvs;
+-        }
+-
+-        private static void FinalizeMesh(ProBuilderMesh mesh, int layer, bool isStatic)
+-        {
+-            mesh.gameObject.layer = layer;
+-            mesh.gameObject.isStatic = isStatic;
+-            mesh.ToMesh();
+-            mesh.Refresh();
+-
+-            MeshFilter filter = mesh.GetComponent<MeshFilter>();
+-            Mesh meshAsset = filter != null ? filter.sharedMesh : null;
+-
+-            MeshCollider collider = mesh.gameObject.AddComponent<MeshCollider>();
+-            collider.sharedMesh = meshAsset;
+-            collider.convex = false;
+-            collider.isTrigger = false;
+-            EditorUtility.SetDirty(mesh);
+-            EditorUtility.SetDirty(collider);
+-        }
+-
+-        private static Transform CreateContainer(Transform parent, string name, bool isStatic)
+-        {
+-            GameObject gameObject = new GameObject(name);
+-            gameObject.transform.SetParent(parent, false);
+-            gameObject.transform.localPosition = Vector3.zero;
+-            gameObject.transform.localRotation = Quaternion.identity;
+-            gameObject.transform.localScale = Vector3.one;
+-            gameObject.isStatic = isStatic;
+-            return gameObject.transform;
+-        }
+-
+-        private static void RemoveChildIfPresent(Transform root, string childName)
+-        {
+-            Transform child = root.Find(childName);
+-            if (child != null)
+-            {
+-                UnityEngine.Object.DestroyImmediate(child.gameObject);
+-            }
+-        }
+-
+-        private static Material EnsureMaterialClone(string sourcePath, string destinationPath, string materialName)
+-        {
+-            EnsureAssetFolder(MaterialFolder);
+-            Material source = AssetDatabase.LoadAssetAtPath<Material>(sourcePath);
+-            if (source == null)
+-            {
+-                throw new InvalidOperationException($"Missing source material: {sourcePath}");
+-            }
+-
+-            Material destination = AssetDatabase.LoadAssetAtPath<Material>(destinationPath);
+-            if (destination == null)
+-            {
+-                destination = new Material(source) { name = materialName };
+-                AssetDatabase.CreateAsset(destination, destinationPath);
+-            }
+-            else
+-            {
+-                EditorUtility.CopySerialized(source, destination);
+-                destination.name = materialName;
+-                EditorUtility.SetDirty(destination);
+-            }
+-
+-            return destination;
+-        }
+-
+-        private static void EnsureAssetFolder(string folderPath)
+-        {
+-            string[] parts = folderPath.Split('/');
+-            string current = parts[0];
+-            for (int i = 1; i < parts.Length; i++)
+-            {
+-                string next = current + "/" + parts[i];
+-                if (!AssetDatabase.IsValidFolder(next))
+-                {
+-                    AssetDatabase.CreateFolder(current, parts[i]);
+-                }
+-
+-                current = next;
+-            }
+-        }
+-
+-        private static GameObject FindRoom1Instance(Scene scene)
+-        {
+-            foreach (GameObject root in scene.GetRootGameObjects())
+-            {
+-                if (PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(root) == PrefabPath)
+-                {
+-                    return root;
+-                }
+-            }
+-
+-            return null;
+-        }
+-
+-        private static void RevertLegacyMeshOverrides(GameObject sceneInstance)
+-        {
+-            string[] legacyNames = { "Exterior-Wall", "Inner-Wall", "Floor" };
+-            foreach (string legacyName in legacyNames)
+-            {
+-                Transform legacy = sceneInstance.transform.Find(legacyName);
+-                if (legacy == null)
+-                {
+-                    continue;
+-                }
+-
+-                Component[] components =
+-                {
+-                    legacy.GetComponent<ProBuilderMesh>(),
+-                    legacy.GetComponent<MeshFilter>(),
+-                    legacy.GetComponent<MeshCollider>()
+-                };
+-
+-                foreach (Component component in components.Where(component => component != null))
+-                {
+-                    if (PrefabUtility.IsPartOfPrefabInstance(component))
+-                    {
+-                        PrefabUtility.RevertObjectOverride(component, InteractionMode.AutomatedAction);
+-                    }
+-                }
+-            }
+-        }
+-
+-        private static void ValidatePrefab(
+-            GameObject prefabRoot,
+-            IEnumerable<WallSpec> permanentWalls,
+-            WallSpec header,
+-            WallSpec sealedWall,
+-            WallSpec stemFullWall,
+-            WallSpec stemHeader,
+-            IEnumerable<WallSpec> hiddenWalls)
+-        {
+-            if (prefabRoot.transform.Find("Exterior-Wall") != null ||
+-                prefabRoot.transform.Find("Inner-Wall") != null ||
+-                prefabRoot.transform.Find("Floor") != null)
+-            {
+-                throw new InvalidOperationException("Legacy Room 1 geometry was not removed.");
+-            }
+-
+-            Transform architecture = Require(prefabRoot.transform, "Architecture_Room1");
+-            Transform walls = Require(architecture, "Walls");
+-            foreach (WallSpec spec in permanentWalls)
+-            {
+-                ValidateMeshBounds(Require(walls, spec.Name), spec.Size, spec.Name);
+-            }
+-
+-            // Main doorway variants
+-            Transform variants = Require(architecture, "DoorwayVariants");
+-            Transform normal = Require(variants, "Doorway_Normal");
+-            Transform doorwaySealed = Require(variants, "Doorway_Sealed");
+-            ValidateMeshBounds(Require(normal, header.Name), header.Size, header.Name);
+-            ValidateMeshBounds(Require(doorwaySealed, sealedWall.Name), sealedWall.Size, sealedWall.Name);
+-            if (doorwaySealed.gameObject.activeSelf)
+-            {
+-                throw new InvalidOperationException("Doorway_Sealed must be inactive by default.");
+-            }
+-
+-            // Hidden doorway variants on LeftStem
+-            Transform variantsStem = Require(architecture, "DoorwayVariants_LeftStem");
+-            Transform doorwayHiddenStem = Require(variantsStem, "Doorway_Hidden");
+-            Transform doorwayRevealedStem = Require(variantsStem, "Doorway_Revealed");
+-            ValidateMeshBounds(Require(doorwayHiddenStem, stemFullWall.Name), stemFullWall.Size, stemFullWall.Name);
+-            ValidateMeshBounds(Require(doorwayRevealedStem, stemHeader.Name), stemHeader.Size, stemHeader.Name);
+-            if (doorwayRevealedStem.gameObject.activeSelf)
+-            {
+-                throw new InvalidOperationException("Doorway_Revealed on LeftStem must be inactive by default.");
+-            }
+-
+-            // Main Floor
+-            Transform floor = Require(Require(architecture, "Floor"), "Floor_Slab");
+-            ProBuilderMesh floorMesh = floor.GetComponent<ProBuilderMesh>();
+-            MeshFilter floorFilter = floor.GetComponent<MeshFilter>();
+-            if (floorMesh == null || floorFilter == null || floorFilter.sharedMesh == null ||
+-                Mathf.Abs(floorFilter.sharedMesh.bounds.size.y - 0.25f) > Epsilon)
+-            {
+-                throw new InvalidOperationException("Floor_Slab does not have the required 0.25m thickness.");
+-            }
+-            if (floor.GetComponent<MeshCollider>() == null || floor.gameObject.layer != 8)
+-            {
+-                throw new InvalidOperationException("Floor_Slab collider/layer configuration is invalid.");
+-            }
+-
+-            // Hidden Room Architecture
+-            Transform hiddenRoom = Require(architecture, "HiddenRoom_Architecture");
+-            Transform hiddenFloor = Require(Require(hiddenRoom, "Floor"), "Hidden_Floor_Slab");
+-            ProBuilderMesh hiddenFloorMesh = hiddenFloor.GetComponent<ProBuilderMesh>();
+-            MeshFilter hiddenFloorFilter = hiddenFloor.GetComponent<MeshFilter>();
+-            if (hiddenFloorMesh == null || hiddenFloorFilter == null || hiddenFloorFilter.sharedMesh == null ||
+-                Mathf.Abs(hiddenFloorFilter.sharedMesh.bounds.size.y - 0.25f) > Epsilon)
+-            {
+-                throw new InvalidOperationException("Hidden_Floor_Slab does not have the required 0.25m thickness.");
+-            }
+-            if (hiddenFloor.GetComponent<MeshCollider>() == null || hiddenFloor.gameObject.layer != 8)
+-            {
+-                throw new InvalidOperationException("Hidden_Floor_Slab collider/layer configuration is invalid.");
+-            }
+-
+-            Transform hiddenWallsRoot = Require(hiddenRoom, "Walls");
+-            foreach (WallSpec spec in hiddenWalls)
+-            {
+-                ValidateMeshBounds(Require(hiddenWallsRoot, spec.Name), spec.Size, spec.Name);
+-            }
+-
+-            if (hiddenRoom.gameObject.activeSelf)
+-            {
+-                throw new InvalidOperationException("HiddenRoom_Architecture must be inactive by default.");
+-            }
+-        }
+-
+-        private static void ValidateMeshBounds(Transform target, Vector3 expectedSize, string label)
+-        {
+-            ProBuilderMesh mesh = target.GetComponent<ProBuilderMesh>();
+-            MeshFilter filter = target.GetComponent<MeshFilter>();
+-            MeshCollider collider = target.GetComponent<MeshCollider>();
+-            if (mesh == null || filter == null || filter.sharedMesh == null || collider == null)
+-            {
+-                throw new InvalidOperationException($"{label} requires ProBuilderMesh, MeshFilter with sharedMesh, and MeshCollider.");
+-            }
+-
+-            Vector3 actual = filter.sharedMesh.bounds.size;
+-            if (Mathf.Abs(actual.x - expectedSize.x) > Epsilon ||
+-                Mathf.Abs(actual.y - expectedSize.y) > Epsilon ||
+-                Mathf.Abs(actual.z - expectedSize.z) > Epsilon)
+-            {
+-                throw new InvalidOperationException(
+-                    $"{label} bounds mismatch. Expected {expectedSize}, got {actual}.");
+-            }
+-
+-            if (target.localPosition != Vector3.zero || target.localRotation != Quaternion.identity ||
+-                target.localScale != Vector3.one)
+-            {
+-                throw new InvalidOperationException($"{label} transform must be normalized.");
+-            }
+-        }
+-
+-        private static Transform Require(Transform parent, string childName)
+-        {
+-            Transform child = parent.Find(childName);
+-            if (child == null)
+-            {
+-                throw new InvalidOperationException($"Missing required Room 1 object: {parent.name}/{childName}");
+-            }
+-
+-            return child;
+-        }
+-
+-        private static void ValidateSceneInstance(GameObject sceneInstance)
+-        {
+-            Transform architecture = sceneInstance.transform.Find("Architecture_Room1");
+-            if (architecture == null)
+-            {
+-                throw new InvalidOperationException("Scene instance did not receive Architecture_Room1 from the prefab.");
+-            }
+-
+-            if (sceneInstance.transform.Find("Exterior-Wall") != null ||
+-                sceneInstance.transform.Find("Inner-Wall") != null ||
+-                sceneInstance.transform.Find("Floor") != null)
+-            {
+-                throw new InvalidOperationException("Scene instance still contains legacy Room 1 geometry.");
+-            }
+-        }
+-
+-        private static void CleanArchitectureOverrides(GameObject sceneInstance)
+-        {
+-            Transform architecture = sceneInstance.transform.Find("Architecture_Room1");
+-            if (architecture != null)
+-            {
+-                foreach (Component comp in architecture.GetComponentsInChildren<Component>(true))
+-                {
+-                    if (PrefabUtility.IsPartOfPrefabInstance(comp))
+-                    {
+-                        PrefabUtility.RevertObjectOverride(comp, InteractionMode.AutomatedAction);
+-                    }
+-                }
+-            }
+-
+-            PropertyModification[] mods = PrefabUtility.GetPropertyModifications(sceneInstance);
+-            if (mods != null)
+-            {
+-                var filtered = mods.Where(m =>
+-                {
+-                    if (m.target == null) return false;
+-                    if (m.target is Component c && c.transform != null)
+-                    {
+-                        Transform t = c.transform;
+-                        while (t != null)
+-                        {
+-                            if (t.name == "Architecture_Room1") return false;
+-                            t = t.parent;
+-                        }
+-                    }
+-                    else if (m.target is GameObject go)
+-                    {
+-                        Transform t = go.transform;
+-                        while (t != null)
+-                        {
+-                            if (t.name == "Architecture_Room1") return false;
+-                            t = t.parent;
+-                        }
+-                    }
+-                    return true;
+-                }).ToArray();
+-
+-                PrefabUtility.SetPropertyModifications(sceneInstance, filtered);
+-            }
+-        }
+-    }
+-}
