@@ -15,6 +15,7 @@ MonoBehaviour:
   id: reflection.wrong
   displayName: Wrong Reflection
   type: 4
+  pacingTier: 2
   difficulty: 2
   spawnWeight: 0.8
   canKillPlayer: 1

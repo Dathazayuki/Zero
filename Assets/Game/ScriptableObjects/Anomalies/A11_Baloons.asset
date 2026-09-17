@@ -15,7 +15,8 @@ MonoBehaviour:
   id: object.balloons
   displayName: Floating Balloons
   type: 1
+  pacingTier: 1
   difficulty: 1
-  spawnWeight: 2
+  spawnWeight: 1.12
   canKillPlayer: 0
   description: 

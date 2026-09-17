@@ -70,6 +70,15 @@ namespace Zero.AnomalyPrototype.Player
         private void Awake()
         {
             characterController = GetComponent<CharacterController>();
+            if (GetComponentInChildren<Animator>(true) != null &&
+                GetComponent<PlayerLocomotionAnimator>() == null)
+            {
+                // Keep locomotion animation available in every scene that uses this
+                // controller and includes a character model. No scene-time setup or
+                // root-motion ownership is required.
+                gameObject.AddComponent<PlayerLocomotionAnimator>();
+            }
+
             if (playerCamera == null)
             {
                 playerCamera = GetComponentInChildren<Camera>(true);

@@ -184,7 +184,7 @@ namespace Zero.EnvironmentLoop
             }
 
             RoomAnomalyController roomAnomalies = GetComponentInChildren<RoomAnomalyController>(true);
-            roomAnomalies?.ResetRoom();
+            roomAnomalies?.ResetRoom(true);
             HideFloorNumber();
 
         }
@@ -202,6 +202,9 @@ namespace Zero.EnvironmentLoop
 
         public void ConfigureNavigation(StairLoopManager manager)
         {
+            foreach (var blood in GetComponentsInChildren<SeaOfBloodAnomaly>(true))
+                blood.BindFloorContext(manager, this);
+
             foreach (var reflection in GetComponentsInChildren<WrongReflectionAnomaly>(true))
                 reflection.BindFloorContext(manager, this);
 

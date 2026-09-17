@@ -246,13 +246,13 @@ namespace Zero.EnvironmentLoop.Editor
             Require(manager.PoolSize >= StairLoopManager.MinimumPoolSize,
                 $"{context}: pool is smaller than the minimum.");
             Require(manager.ActiveSegmentCount == StairLoopManager.ActiveWindowSize,
-                $"{context}: active window does not contain five segments.");
+                $"{context}: active window does not contain three segments.");
             Require(manager.InactiveSegmentCount == manager.PoolSize - StairLoopManager.ActiveWindowSize,
                 $"{context}: inactive pool count is inconsistent.");
 
             FloorSegment[] ordered = manager.GetOrderedSegments();
-            Require(ordered.Length == StairLoopManager.ActiveWindowSize && ordered[2] == manager.CurrentSegment,
-                $"{context}: active order is not Below2-Below1-Current-Above1-Above2.");
+            Require(ordered.Length == StairLoopManager.ActiveWindowSize && ordered[1] == manager.CurrentSegment,
+                $"{context}: active order is not Below1-Current-Above1.");
             Require(CountEnabledShadowCasters(manager.CurrentSegment) <= MaximumCurrentShadowCasters,
                 $"{context}: Current exceeds its realtime shadow-caster budget.");
             for (int i = 0; i < ordered.Length; i++)

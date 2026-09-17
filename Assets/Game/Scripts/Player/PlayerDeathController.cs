@@ -34,7 +34,7 @@ namespace Zero.AnomalyPrototype.Player
         [SerializeField, Min(0f)] private float cameraApproachDuration = 0.45f;
         [SerializeField, Min(0f)] private float shakeHoldDuration = 0.65f;
         [SerializeField, Min(0f)] private float blackoutFadeDuration = 0.4f;
-        [SerializeField, Min(0f)] private float blackoutHoldDuration = 0.15f;
+        [SerializeField, Min(0f)] private float blackoutHoldDuration = 2.5f;
         [SerializeField, Min(0f)] private float respawnFadeDuration = 0.55f;
 
         [Header("Jumpscare camera")]
@@ -49,6 +49,11 @@ namespace Zero.AnomalyPrototype.Player
         [SerializeField, Min(0f)] private float devourShakeMultiplier = 2.5f;
 
         [Header("Blood")]
+        [SerializeField, Min(0.01f)] private float suffocationDuration = 1.1f;
+        [SerializeField, Min(0f)] private float suffocationSink = 0.12f;
+        [SerializeField, Range(1f, 120f)] private float suffocationFieldOfView = 34f;
+
+        [Header("Blood overlay")]
         [SerializeField, Min(0f)] private float bloodRevealDuration = 0.75f;
         [SerializeField, Range(0f, 1f)] private float bloodMaximumAlpha = 0.85f;
         [SerializeField, Min(0f)] private float bloodVerticalDrift = 12f;
@@ -68,6 +73,7 @@ namespace Zero.AnomalyPrototype.Player
 
         public DeathState State { get; private set; } = DeathState.Alive;
         public bool IsDeathInProgress => State != DeathState.Alive;
+        public bool IsScreenBlack => (State == DeathState.Blackout && blackoutCanvasGroup != null && blackoutCanvasGroup.alpha >= 0.99f) || State == DeathState.Respawning;
 
         private void Awake()
         {
@@ -109,7 +115,7 @@ namespace Zero.AnomalyPrototype.Player
                 return Reject(source, "missing-player-or-camera");
             }
 
-            if (presentation == null || !presentation.HasCameraPose)
+            if (presentation == null || (presentation.MotionStyle != DeathMotionStyle.Suffocation && !presentation.HasCameraPose))
             {
                 Debug.LogWarning(
                     $"DEATH_CONFIGURATION_INVALID: anomaly={source.name}, " +
@@ -150,82 +156,109 @@ namespace Zero.AnomalyPrototype.Player
             float bloodElapsed = 0f;
 
             float elapsed = 0f;
-            float duration = Mathf.Max(0f, cameraApproachDuration);
-            while (elapsed < duration)
+            float duration;
+            if (presentation != null && presentation.MotionStyle == DeathMotionStyle.Suffocation)
             {
-                elapsed += Time.unscaledDeltaTime;
-                bloodElapsed += Time.unscaledDeltaTime;
-                float t = duration <= Mathf.Epsilon ? 1f : Mathf.Clamp01(elapsed / duration);
-                float eased = t * t * (3f - 2f * t);
-                if (presentation != null && presentation.TryGetCameraPose(out Vector3 targetPosition,
-                        out Quaternion targetRotation))
+                Debug.Log("DEATH_SUFFOCATION_STARTED", this);
+                duration = Mathf.Max(0.01f, suffocationDuration);
+                while (elapsed < duration)
                 {
+                    elapsed += Time.unscaledDeltaTime;
+                    bloodElapsed += Time.unscaledDeltaTime;
+                    float t = Mathf.Clamp01(elapsed / duration);
+                    float strength = t * t;
+                    float noise = (Mathf.PerlinNoise(elapsed * 18f, 0.37f) - 0.5f) * 2f;
+                    float noiseY = (Mathf.PerlinNoise(0.71f, elapsed * 21f) - 0.5f) * 2f;
                     playerCamera.transform.SetPositionAndRotation(
-                        Vector3.Lerp(cameraStartPosition, targetPosition, eased),
-                        Quaternion.Slerp(cameraStartRotation, targetRotation, eased));
+                        cameraStartPosition + Vector3.down * (suffocationSink * t) +
+                        cameraStartRotation * new Vector3(noise, noiseY, 0f) * (positionShake * strength),
+                        cameraStartRotation * Quaternion.Euler(noiseY * strength, noise * strength, noise * 3f * strength));
+                    playerCamera.fieldOfView = Mathf.Lerp(cameraStartFov, suffocationFieldOfView, t) +
+                        Mathf.Sin(elapsed * 24f) * 1.5f * Mathf.Sin(t * Mathf.PI);
+                    UpdateBloodReveal(bloodElapsed);
+                    yield return null;
                 }
-
-                playerCamera.fieldOfView = Mathf.Lerp(cameraStartFov, jumpscareFieldOfView, eased);
-                UpdateBloodReveal(bloodElapsed);
-                yield return null;
             }
-
-            elapsed = 0f;
-            duration = Mathf.Max(0f, shakeHoldDuration);
-            while (elapsed < duration)
+            else
             {
-                elapsed += Time.unscaledDeltaTime;
-                bloodElapsed += Time.unscaledDeltaTime;
-                ApplyJumpscareCamera(
-                    presentation,
-                    elapsed,
-                    cameraStartPosition,
-                    cameraStartRotation);
-                UpdateBloodReveal(bloodElapsed);
-                yield return null;
-            }
-
-            if (presentation != null && presentation.TryGetDevourTarget(out _))
-            {
-                Vector3 lungeStartPosition = playerCamera.transform.position;
-                Quaternion lungeStartRotation = playerCamera.transform.rotation;
-                float lungeStartFov = playerCamera.fieldOfView;
-                elapsed = 0f;
-                duration = Mathf.Max(0f, devourLungeDuration);
-                Debug.Log("DEATH_DEVOUR_LUNGE_STARTED", this);
-
-                if (duration <= Mathf.Epsilon)
+                duration = Mathf.Max(0f, cameraApproachDuration);
+                while (elapsed < duration)
                 {
-                    ApplyDevourCamera(
-                        presentation,
-                        lungeStartPosition,
-                        lungeStartRotation,
-                        lungeStartFov,
-                        1f);
-                }
-                else
-                {
-                    while (elapsed < duration)
+                    elapsed += Time.unscaledDeltaTime;
+                    bloodElapsed += Time.unscaledDeltaTime;
+                    float t = duration <= Mathf.Epsilon ? 1f : Mathf.Clamp01(elapsed / duration);
+                    float eased = t * t * (3f - 2f * t);
+                    if (presentation != null && presentation.TryGetCameraPose(out Vector3 targetPosition,
+                            out Quaternion targetRotation))
                     {
-                        elapsed += Time.unscaledDeltaTime;
-                        bloodElapsed += Time.unscaledDeltaTime;
-                        float t = Mathf.Clamp01(elapsed / duration);
+                        playerCamera.transform.SetPositionAndRotation(
+                            Vector3.Lerp(cameraStartPosition, targetPosition, eased),
+                            Quaternion.Slerp(cameraStartRotation, targetRotation, eased));
+                    }
+
+                    playerCamera.fieldOfView = Mathf.Lerp(cameraStartFov, jumpscareFieldOfView, eased);
+                    UpdateBloodReveal(bloodElapsed);
+                    yield return null;
+                }
+
+                elapsed = 0f;
+                duration = Mathf.Max(0f, shakeHoldDuration);
+                while (elapsed < duration)
+                {
+                    elapsed += Time.unscaledDeltaTime;
+                    bloodElapsed += Time.unscaledDeltaTime;
+                    ApplyJumpscareCamera(
+                        presentation,
+                        elapsed,
+                        cameraStartPosition,
+                        cameraStartRotation);
+                    UpdateBloodReveal(bloodElapsed);
+                    yield return null;
+                }
+
+                if (presentation != null && presentation.TryGetDevourTarget(out _))
+                {
+                    Vector3 lungeStartPosition = playerCamera.transform.position;
+                    Quaternion lungeStartRotation = playerCamera.transform.rotation;
+                    float lungeStartFov = playerCamera.fieldOfView;
+                    elapsed = 0f;
+                    duration = Mathf.Max(0f, devourLungeDuration);
+                    Debug.Log("DEATH_DEVOUR_LUNGE_STARTED", this);
+
+                    if (duration <= Mathf.Epsilon)
+                    {
                         ApplyDevourCamera(
                             presentation,
                             lungeStartPosition,
                             lungeStartRotation,
                             lungeStartFov,
-                            t);
-                        UpdateBloodReveal(bloodElapsed);
-                        yield return null;
+                            1f);
                     }
+                    else
+                    {
+                        while (elapsed < duration)
+                        {
+                            elapsed += Time.unscaledDeltaTime;
+                            bloodElapsed += Time.unscaledDeltaTime;
+                            float t = Mathf.Clamp01(elapsed / duration);
+                            ApplyDevourCamera(
+                                presentation,
+                                lungeStartPosition,
+                                lungeStartRotation,
+                                lungeStartFov,
+                                t);
+                            UpdateBloodReveal(bloodElapsed);
+                            yield return null;
+                        }
+                    }
+
+                    Debug.Log("DEATH_DEVOUR_LUNGE_COMPLETED", this);
+                }
+                else
+                {
+                    Debug.LogWarning("DEATH_DEVOUR_LUNGE_SKIPPED: FocusTarget is missing.", this);
                 }
 
-                Debug.Log("DEATH_DEVOUR_LUNGE_COMPLETED", this);
-            }
-            else
-            {
-                Debug.LogWarning("DEATH_DEVOUR_LUNGE_SKIPPED: FocusTarget is missing.", this);
             }
 
             State = DeathState.Blackout;
@@ -243,31 +276,36 @@ namespace Zero.AnomalyPrototype.Player
             }
 
             SetBlackoutAlpha(1f);
-            UpdateBloodReveal(float.MaxValue);
+            ClearBlood();
             Debug.Log("DEATH_BLACKOUT", this);
 
-            if (blackoutHoldDuration > 0f)
+            // Delay 2-3 giây ở màn hình đen trước khi hồi sinh cho mọi thứ kịp reset sạch sẽ về trạng thái ban đầu
+            float totalHold = Mathf.Max(blackoutHoldDuration, 2.5f);
+            float preResetHold = Mathf.Min(0.8f, totalHold * 0.35f);
+            float postResetHold = totalHold - preResetHold;
+
+            if (preResetHold > 0f)
             {
-                yield return new WaitForSecondsRealtime(blackoutHoldDuration);
+                yield return new WaitForSecondsRealtime(preResetHold);
             }
 
             ResetWorldAndPlayer();
-            State = DeathState.Respawning;
             Debug.Log("DEATH_WORLD_RESET", this);
+
+            if (postResetHold > 0f)
+            {
+                yield return new WaitForSecondsRealtime(postResetHold);
+            }
+
+            State = DeathState.Respawning;
 
             elapsed = 0f;
             duration = Mathf.Max(0f, respawnFadeDuration);
-            float startingBloodAlpha = bloodCanvasGroup != null ? bloodCanvasGroup.alpha : 0f;
             while (elapsed < duration)
             {
                 elapsed += Time.unscaledDeltaTime;
                 float t = duration <= Mathf.Epsilon ? 1f : Mathf.Clamp01(elapsed / duration);
                 SetBlackoutAlpha(1f - t);
-                if (bloodCanvasGroup != null)
-                {
-                    bloodCanvasGroup.alpha = Mathf.Lerp(startingBloodAlpha, 0f, t);
-                }
-
                 yield return null;
             }
 
@@ -288,9 +326,10 @@ namespace Zero.AnomalyPrototype.Player
         {
             Vector3 position = fallbackPosition;
             Quaternion rotation = fallbackRotation;
-            if (presentation != null)
+            if (presentation != null && presentation.TryGetCameraPose(out Vector3 targetPosition, out Quaternion targetRotation))
             {
-                presentation.TryGetCameraPose(out position, out rotation);
+                position = targetPosition;
+                rotation = targetRotation;
             }
 
             float noiseTime = Time.unscaledTime * 31.7f + elapsed;
@@ -381,6 +420,7 @@ namespace Zero.AnomalyPrototype.Player
 
             Physics.SyncTransforms();
             RestoreCamera();
+            ClearBlood();
         }
 
         private void LockPlayer()
@@ -568,6 +608,15 @@ namespace Zero.AnomalyPrototype.Player
             if (jumpscareAudioSource == null)
             {
                 jumpscareAudioSource = GetComponent<AudioSource>();
+            }
+
+            if (blackoutCanvasGroup != null)
+            {
+                Canvas blackoutCanvas = blackoutCanvasGroup.GetComponentInParent<Canvas>();
+                if (blackoutCanvas != null)
+                {
+                    blackoutCanvas.sortingOrder = 1000;
+                }
             }
         }
 

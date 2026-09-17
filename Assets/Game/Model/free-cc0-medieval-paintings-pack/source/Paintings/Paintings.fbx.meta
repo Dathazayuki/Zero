@@ -3,7 +3,12 @@ guid: a2971b8f849affd41b2dde3915de44e3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cuadros
+    second: {fileID: 2100000, guid: 10b0259e7761039498d041d6b475f1e1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

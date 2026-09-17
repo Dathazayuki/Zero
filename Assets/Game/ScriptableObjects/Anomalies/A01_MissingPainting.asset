@@ -15,6 +15,7 @@ MonoBehaviour:
   id: strange.painting
   displayName: Strange Painting
   type: 0
+  pacingTier: 1
   difficulty: 1
   spawnWeight: 1.2
   canKillPlayer: 0

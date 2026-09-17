@@ -51,6 +51,9 @@ namespace Zero.AnomalyPrototype.Anomalies
         private Vector3 playerPositionAtManifest;
         private int manifestationFrame = -1;
         private bool deathRequested;
+        private LayerMask originalMirrorReflectionMask;
+        private bool mirrorMaskCaptured;
+        private bool mirrorMaskModified;
 
         public Transform ReflectedCharacter => reflectedCharacter;
         public bool IsReflectionVisible => IsActive && reflectedCharacter != null &&
@@ -77,6 +80,17 @@ namespace Zero.AnomalyPrototype.Anomalies
 
         public override void CaptureNormalState()
         {
+            if (planarMirror == null)
+            {
+                planarMirror = GetComponentInChildren<PlanarMirrorRenderer>(true);
+            }
+
+            if (planarMirror != null && !mirrorMaskCaptured)
+            {
+                originalMirrorReflectionMask = planarMirror.ReflectionMask;
+                mirrorMaskCaptured = true;
+            }
+
             if (reflectedCharacter == null)
             {
                 return;
@@ -173,6 +187,7 @@ namespace Zero.AnomalyPrototype.Anomalies
             reflectedCharacter.gameObject.SetActive(false);
 
             planarMirror.BindSourceCamera(playerCamera);
+            ApplyPlayerReflectionMaskExclusion();
             int reflectionLayerBit = 1 << reflectionOnlyLayer;
             bool mainCameraExcludesCharacter = (playerCamera.cullingMask & reflectionLayerBit) == 0;
             bool mirrorCameraIncludesCharacter = planarMirror.MirrorCamera != null &&
@@ -198,6 +213,7 @@ namespace Zero.AnomalyPrototype.Anomalies
             manifestedBehindPlayer = false;
             manifestationFrame = -1;
             deathRequested = false;
+            RestoreMirrorReflectionMask();
             if (reflectedCharacter == null)
             {
                 return;
@@ -233,8 +249,61 @@ namespace Zero.AnomalyPrototype.Anomalies
 
         private void OnDisable()
         {
+            RestoreMirrorReflectionMask();
             HideCharacter();
             mirrorLookTimer = 0f;
+        }
+
+        private void ApplyPlayerReflectionMaskExclusion()
+        {
+            if (planarMirror == null)
+            {
+                return;
+            }
+
+            if (!mirrorMaskCaptured)
+            {
+                originalMirrorReflectionMask = planarMirror.ReflectionMask;
+                mirrorMaskCaptured = true;
+            }
+
+            LayerMask playerMask = ResolvePlayerLayerMask();
+            if (playerMask.value != 0)
+            {
+                LayerMask anomalyReflectionMask = originalMirrorReflectionMask & ~playerMask;
+                planarMirror.SetReflectionMask(anomalyReflectionMask);
+                mirrorMaskModified = true;
+                Debug.Log(
+                    $"WRONG_REFLECTION_EXCLUDE_PLAYER: Excluded player layers from mirror mask (playerMask={playerMask.value:X}, original={originalMirrorReflectionMask.value:X}, current={anomalyReflectionMask.value:X})",
+                    this);
+            }
+            else
+            {
+                Debug.LogWarning(
+                    "WRONG_REFLECTION_EXCLUDE_PLAYER_SKIPPED: 'Player' layer not found in project Tags and Layers.",
+                    this);
+            }
+        }
+
+        private LayerMask ResolvePlayerLayerMask()
+        {
+            int playerLayer = LayerMask.NameToLayer("Player");
+            if (playerLayer >= 0)
+            {
+                return 1 << playerLayer;
+            }
+
+            return 0;
+        }
+
+        private void RestoreMirrorReflectionMask()
+        {
+            if (mirrorMaskModified && planarMirror != null && mirrorMaskCaptured)
+            {
+                planarMirror.SetReflectionMask(originalMirrorReflectionMask);
+                mirrorMaskModified = false;
+                Debug.Log("WRONG_REFLECTION_RESTORE_PLAYER: Restored original mirror reflection mask.", this);
+            }
         }
 
         private void UpdateMirrorGaze()

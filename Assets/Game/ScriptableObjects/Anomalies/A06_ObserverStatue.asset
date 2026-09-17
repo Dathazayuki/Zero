@@ -15,6 +15,7 @@ MonoBehaviour:
   id: observer.statue
   displayName: Observer Statue
   type: 5
+  pacingTier: 2
   difficulty: 3
   spawnWeight: 0.85
   canKillPlayer: 1

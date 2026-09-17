@@ -2,8 +2,12 @@ using UnityEngine;
 
 namespace Zero.AnomalyPrototype.Anomalies
 {
+    public enum DeathMotionStyle { Devour, Suffocation }
+
     public sealed class AnomalyDeathPresentation : MonoBehaviour
     {
+        [SerializeField] private DeathMotionStyle motionStyle = DeathMotionStyle.Devour;
+        public DeathMotionStyle MotionStyle => motionStyle;
         [SerializeField] private Transform focusTarget;
         [SerializeField] private Transform jumpscareCameraAnchor;
         [SerializeField] private Animator animator;

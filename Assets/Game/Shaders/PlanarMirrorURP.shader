@@ -50,6 +50,7 @@ Shader "Zero/Planar Mirror URP"
             TEXTURE2D(_BaseMap);
             SAMPLER(sampler_BaseMap);
             float4 _BaseMap_TexelSize;
+            float4x4 _ReflectionVP;
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _BaseMap_ST;
@@ -65,21 +66,21 @@ Shader "Zero/Planar Mirror URP"
                 Varyings output;
                 output.positionCS = TransformObjectToHClip(input.positionOS.xyz);
                 output.uv = TRANSFORM_TEX(input.uv, _BaseMap);
-                output.screenPosition = ComputeScreenPos(output.positionCS);
+                output.screenPosition = mul(_ReflectionVP,
+                    float4(TransformObjectToWorld(input.positionOS.xyz), 1.0));
                 return output;
             }
 
             half4 Frag(Varyings input) : SV_Target
             {
-                float2 screenUv = input.screenPosition.xy / input.screenPosition.w;
+                float2 screenUv = input.screenPosition.xy / input.screenPosition.w * 0.5 + 0.5;
                 #if UNITY_UV_STARTS_AT_TOP
-                    if (_BaseMap_TexelSize.y < 0.0)
-                    {
-                        screenUv.y = 1.0 - screenUv.y;
-                    }
+                    screenUv.y = 1.0 - screenUv.y;
                 #endif
 
-                float2 uv = lerp(screenUv, input.uv, saturate(_UseMeshUV));
+                // Rotation and manual flips only correct legacy FBX UVs. The
+                // projected reflection already includes the physical mirror transform.
+                float2 uv = input.uv;
                 float2 centered = uv - 0.5;
                 float radiansValue = radians(_UVRotationDegrees);
                 float sineValue;
@@ -100,6 +101,7 @@ Shader "Zero/Planar Mirror URP"
                     uv.y = 1.0 - uv.y;
                 }
 
+                uv = lerp(screenUv, uv, saturate(_UseMeshUV));
                 return SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, uv) * _BaseColor;
             }
             ENDHLSL

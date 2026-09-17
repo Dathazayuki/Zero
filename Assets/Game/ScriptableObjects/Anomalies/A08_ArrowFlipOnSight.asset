@@ -15,7 +15,8 @@ MonoBehaviour:
   id: arrow.flip-on-sight
   displayName: Arrow Flip On Sight
   type: 4
+  pacingTier: 1
   difficulty: 2
-  spawnWeight: 2
+  spawnWeight: 1.1
   canKillPlayer: 0
   description: The direction arrow turns around when observed.

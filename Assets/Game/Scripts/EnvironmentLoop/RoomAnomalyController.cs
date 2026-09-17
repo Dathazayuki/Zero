@@ -10,6 +10,7 @@ namespace Zero.EnvironmentLoop
         [SerializeField] private AnomalyBehaviour[] anomalySlots;
         [SerializeField] private CorrectArrowController correctArrowController;
         private bool runtimeNormalStateCaptured;
+        private bool anomalyBaselineRestored;
 
         public Transform RoomRoot => roomRoot != null ? roomRoot : transform;
         public IReadOnlyList<AnomalyBehaviour> AnomalySlots => anomalySlots;
@@ -55,7 +56,11 @@ namespace Zero.EnvironmentLoop
                     continue;
                 }
 
-                if (anomaly is WatchingStatueAnomaly watching)
+                if (anomaly is SeaOfBloodAnomaly seaOfBlood)
+                {
+                    seaOfBlood.BindPlayer(player, playerCamera);
+                }
+                else if (anomaly is WatchingStatueAnomaly watching)
                 {
                     watching.BindPlayer(player);
                 }
@@ -83,15 +88,57 @@ namespace Zero.EnvironmentLoop
                 {
                     wrongReflection.BindPlayer(player, playerCamera);
                 }
+                else if (anomaly is TwoChildrenAnomaly twoChildren)
+                {
+                    twoChildren.BindPlayer(player, playerCamera);
+                }
                 else if (anomaly is HiddenRoomAnomaly hiddenRoom)
                 {
                     hiddenRoom.BindRoomContext(playerCamera, correctArrowController);
+                    hiddenRoom.BindPlayer(player);
+                }
+                else if (anomaly is HorrorDollAnomaly horrorDoll)
+                {
+                    horrorDoll.BindPlayer(player, playerCamera);
+                }
+                else if (anomaly is RotatingArrowAnomaly rotatingArrow)
+                {
+                    rotatingArrow.BindRoomContext(correctArrowController, playerCamera);
+                }
+                else if (anomaly is SpeedTimeAnomaly speedTime)
+                {
+                    speedTime.CaptureNormalState();
+                }
+                else if (anomaly is ScreenSmartPhoneAnomaly smartPhone)
+                {
+                    smartPhone.CaptureNormalState();
+                }
+                else if (anomaly is ScreamTraceAnomaly screamTrace)
+                {
+                    screamTrace.CaptureNormalState();
+                }
+                else if (anomaly is EyePictureLookAnomaly eyePicture)
+                {
+                    eyePicture.BindPlayer(player);
+                }
+                else if (anomaly is PictureMissingEyeAnomaly missingEye)
+                {
+                    missingEye.CaptureNormalState();
+                }
+                else if (anomaly is TVCartoonAnomaly tvCartoon)
+                {
+                    tvCartoon.CaptureNormalState();
+                }
+                else if (anomaly is ElevatorAnomaly elevatorAnomaly)
+                {
+                    elevatorAnomaly.CaptureNormalState();
                 }
 
                 anomaly.CaptureNormalState();
             }
 
             runtimeNormalStateCaptured = true;
+            anomalyBaselineRestored = false;
             ResetRoom();
             ActiveAnomaly = null;
         }
@@ -117,8 +164,9 @@ namespace Zero.EnvironmentLoop
             }
         }
 
-        public void ResetRoom()
+        public void ResetRoom(bool forceRestore = false)
         {
+            if (forceRestore) anomalyBaselineRestored = false;
             if (!runtimeNormalStateCaptured)
             {
                 ActiveAnomaly = null;
@@ -151,6 +199,7 @@ namespace Zero.EnvironmentLoop
                 }
 
                 ActiveAnomaly = anomaly;
+                anomalyBaselineRestored = false;
                 ActiveAnomaly.Activate();
                 return true;
             }
@@ -187,6 +236,13 @@ namespace Zero.EnvironmentLoop
 
         private void ResetAnomaliesOnly()
         {
+            // PrepareRound and Activate follow ResetSegment. Do not reset every
+            // animator, mirror and navigation agent again when already clean.
+            if (anomalyBaselineRestored && ActiveAnomaly == null)
+            {
+                return;
+            }
+
             if (anomalySlots != null)
             {
                 for (int i = 0; i < anomalySlots.Length; i++)
@@ -196,6 +252,7 @@ namespace Zero.EnvironmentLoop
             }
 
             ActiveAnomaly = null;
+            anomalyBaselineRestored = true;
         }
 
         private static TravelDirection Reverse(TravelDirection direction)

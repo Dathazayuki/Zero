@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Zero.EnvironmentLoop
 {
@@ -11,6 +12,8 @@ namespace Zero.EnvironmentLoop
         [SerializeField] private LayerMask reflectionMask = ~0;
         [SerializeField, Range(128, 2048)] private int textureWidth = 768;
         [SerializeField, Range(128, 2048)] private int textureHeight = 768;
+        [Tooltip("Match the source camera resolution, capped at 2048 pixels per dimension.")]
+        [SerializeField] private bool matchSourceResolution = true;
         [SerializeField, Min(0f)] private float clipPlaneOffset = 0.03f;
         [SerializeField] private bool useHdr = true;
         [SerializeField] private bool renderOnlyWhenVisible = true;
@@ -25,14 +28,20 @@ namespace Zero.EnvironmentLoop
         private static readonly int UvRotationId = Shader.PropertyToID("_UVRotationDegrees");
         private static readonly int FlipXId = Shader.PropertyToID("_FlipX");
         private static readonly int FlipYId = Shader.PropertyToID("_FlipY");
+        private static readonly int ReflectionVpId = Shader.PropertyToID("_ReflectionVP");
         private RenderTexture reflectionTexture;
         private MaterialPropertyBlock propertyBlock;
         private Matrix4x4 originalProjection;
+        private int TargetWidth => matchSourceResolution && sourceCamera != null
+            ? Mathf.Clamp(sourceCamera.pixelWidth, 128, 2048) : textureWidth;
+        private int TargetHeight => matchSourceResolution && sourceCamera != null
+            ? Mathf.Clamp(sourceCamera.pixelHeight, 128, 2048) : textureHeight;
 
         public Camera MirrorCamera => mirrorCamera;
         public Renderer SurfaceRenderer => mirrorSurfaceRenderer;
         public Transform MirrorPlane => mirrorPlane != null ? mirrorPlane : transform;
         public bool IsConfigured => mirrorCamera != null && mirrorSurfaceRenderer != null && MirrorPlane != null;
+        public LayerMask ReflectionMask => reflectionMask;
 
         public void BindSourceCamera(Camera camera)
         {
@@ -92,8 +101,8 @@ namespace Zero.EnvironmentLoop
                 return;
             }
 
-            if (reflectionTexture == null || reflectionTexture.width != textureWidth ||
-                reflectionTexture.height != textureHeight)
+            if (reflectionTexture == null || reflectionTexture.width != TargetWidth ||
+                reflectionTexture.height != TargetHeight)
             {
                 ConfigureCameraAndTexture();
             }
@@ -141,14 +150,14 @@ namespace Zero.EnvironmentLoop
                 return;
             }
 
-            if (reflectionTexture == null || reflectionTexture.width != textureWidth ||
-                reflectionTexture.height != textureHeight)
+            if (reflectionTexture == null || reflectionTexture.width != TargetWidth ||
+                reflectionTexture.height != TargetHeight)
             {
                 ReleaseTexture();
                 RenderTextureFormat format = useHdr
                     ? RenderTextureFormat.DefaultHDR
                     : RenderTextureFormat.Default;
-                reflectionTexture = new RenderTexture(textureWidth, textureHeight, 24, format)
+                reflectionTexture = new RenderTexture(TargetWidth, TargetHeight, 24, format)
                 {
                     name = $"PlanarMirror_{name}",
                     hideFlags = HideFlags.DontSave,
@@ -165,6 +174,9 @@ namespace Zero.EnvironmentLoop
             mirrorCamera.targetTexture = reflectionTexture;
             mirrorCamera.cullingMask = reflectionMask;
             mirrorCamera.stereoTargetEye = StereoTargetEyeMask.None;
+            // Baked occlusion from behind the mirror is not valid for this reflected view.
+            mirrorCamera.useOcclusionCulling = false;
+            mirrorCamera.allowDynamicResolution = false;
             mirrorCamera.enabled = true;
             originalProjection = sourceCamera.projectionMatrix;
 
@@ -219,6 +231,12 @@ namespace Zero.EnvironmentLoop
                 clipPlaneOffset);
             mirrorCamera.projectionMatrix = originalProjection;
             mirrorCamera.projectionMatrix = mirrorCamera.CalculateObliqueMatrix(clipPlane);
+            propertyBlock ??= new MaterialPropertyBlock();
+            mirrorSurfaceRenderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetMatrix(ReflectionVpId,
+                GL.GetGPUProjectionMatrix(mirrorCamera.projectionMatrix, true) *
+                mirrorCamera.worldToCameraMatrix);
+            mirrorSurfaceRenderer.SetPropertyBlock(propertyBlock);
         }
 
         private void ApplyTextureToSurface()
@@ -320,19 +338,57 @@ namespace Zero.EnvironmentLoop
     [DisallowMultipleComponent]
     public sealed class PlanarMirrorCameraCulling : MonoBehaviour
     {
+        private Camera targetCamera;
+        private bool previousCulling;
+        private bool cullingOverridden;
+
+        private void OnEnable()
+        {
+            targetCamera = GetComponent<Camera>();
+            RenderPipelineManager.beginCameraRendering += BeginCameraRendering;
+            RenderPipelineManager.endCameraRendering += EndCameraRendering;
+        }
+
+        private void BeginCameraRendering(ScriptableRenderContext context, Camera camera)
+        {
+            if (camera == targetCamera) BeginCulling();
+        }
+
+        private void EndCameraRendering(ScriptableRenderContext context, Camera camera)
+        {
+            if (camera == targetCamera) RestoreCulling();
+        }
+
+        private void BeginCulling()
+        {
+            if (cullingOverridden) return;
+            previousCulling = GL.invertCulling;
+            GL.invertCulling = !previousCulling;
+            cullingOverridden = true;
+        }
+
+        private void RestoreCulling()
+        {
+            if (!cullingOverridden) return;
+            GL.invertCulling = previousCulling;
+            cullingOverridden = false;
+        }
+
         private void OnPreCull()
         {
-            GL.invertCulling = true;
+            if (GraphicsSettings.currentRenderPipeline == null) BeginCulling();
         }
 
         private void OnPostRender()
         {
-            GL.invertCulling = false;
+            if (GraphicsSettings.currentRenderPipeline == null) RestoreCulling();
         }
 
         private void OnDisable()
         {
-            GL.invertCulling = false;
+            RenderPipelineManager.beginCameraRendering -= BeginCameraRendering;
+            RenderPipelineManager.endCameraRendering -= EndCameraRendering;
+            RestoreCulling();
         }
     }
 }

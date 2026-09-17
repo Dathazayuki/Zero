@@ -15,6 +15,7 @@ MonoBehaviour:
   id: watching.statue
   displayName: Watching Statue
   type: 4
+  pacingTier: 2
   difficulty: 2
   spawnWeight: 0.95
   canKillPlayer: 1

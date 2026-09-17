@@ -15,7 +15,8 @@ MonoBehaviour:
   id: moving.chair
   displayName: Moving Chair
   type: 0
+  pacingTier: 0
   difficulty: 1
-  spawnWeight: 2
+  spawnWeight: 1
   canKillPlayer: 0
   description: The chair has shifted into the corridor.

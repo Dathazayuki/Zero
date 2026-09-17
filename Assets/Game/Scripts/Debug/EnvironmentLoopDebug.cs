@@ -65,6 +65,36 @@ namespace Zero.EnvironmentLoop
                 anomalyGame.ForceCurrentAnomaly("reflection.wrong");
             }
 
+            if (anomalyGame != null && Input.GetKeyDown(KeyCode.F10))
+            {
+                anomalyGame.ForceCurrentAnomaly("sign.inverted-exit");
+            }
+
+            if (anomalyGame != null && Input.GetKeyDown(KeyCode.F11))
+            {
+                anomalyGame.ForceCurrentAnomaly("creature.two_children");
+            }
+
+            if (anomalyGame != null && Input.GetKeyDown(KeyCode.F12))
+            {
+                anomalyGame.ForceCurrentAnomaly("object.missing-clock");
+            }
+
+            if (anomalyGame != null && Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                anomalyGame.ForceCurrentAnomaly("creature.speed_animation");
+            }
+
+            if (anomalyGame != null && Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                anomalyGame.ForceCurrentAnomaly("creature.horror_doll");
+            }
+
+            if (anomalyGame != null && Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                anomalyGame.ForceCurrentAnomaly("environment.sea_of_blood");
+            }
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (anomalyGame != null && Input.GetKeyDown(KeyCode.F9))
             {
@@ -94,14 +124,12 @@ namespace Zero.EnvironmentLoop
                   $"Floor Number: {anomalyGame.DisplayedFloorNumber}/8 | " +
                   $"Correct/Wrong: {anomalyGame.CorrectDecisions}/{anomalyGame.IncorrectDecisions}";
             string text =
-                $"ENVIRONMENT LOOP  [F1 UI] [F2 NORMAL] [F3 ANOMALY] [F4 OBSERVER] [F5 LIGHT] [F6 ARROW] [F7 CEILING] [F8 MIRROR] [F9 ENDING]\n" +
+                $"ENVIRONMENT LOOP  [F1 UI] [F2 NORMAL] [F3 ANOMALY] [F4 OBSERVER] [F5 LIGHT] [F6 ARROW] [F7 CEILING] [F8 MIRROR] [F10 EXIT] [F11 TWO_CHILDREN] [F12 CLOCK] [1 SPEED_ANIM] [2 DOLL] [3 BLOOD] [F9 ENDING]\n" +
                 $"Logical Floor: {floorProgressManager.LogicalFloorIndex}\n" +
                 $"Travel Direction: {direction}\n" +
                 $"Current: {stairLoopManager.CurrentSegment?.SegmentId ?? "None"}\n" +
-                $"Below2: {stairLoopManager.Below2Segment?.SegmentId ?? "None"}\n" +
                 $"Below1: {stairLoopManager.Below1Segment?.SegmentId ?? "None"}\n" +
                 $"Above1: {stairLoopManager.Above1Segment?.SegmentId ?? "None"}\n" +
-                $"Above2: {stairLoopManager.Above2Segment?.SegmentId ?? "None"}\n" +
                 $"Pool: {stairLoopManager.PoolOrder}\n" +
                 $"Active/Inactive/Total: {stairLoopManager.ActiveSegmentCount}/" +
                 $"{stairLoopManager.InactiveSegmentCount}/{stairLoopManager.PoolSize}\n" +
@@ -109,8 +137,8 @@ namespace Zero.EnvironmentLoop
                 $"Gameplay: {anomalyState}\n" +
                 $"State: {stairLoopManager.LastOperationMessage}";
 
-            GUI.Box(new Rect(16f, 16f, 680f, 272f), GUIContent.none, boxStyle);
-            GUI.Label(new Rect(30f, 27f, 650f, 250f), text, labelStyle);
+            GUI.Box(new Rect(16f, 16f, 780f, 272f), GUIContent.none, boxStyle);
+            GUI.Label(new Rect(30f, 27f, 750f, 250f), text, labelStyle);
         }
 
         private void EnsureStyles()

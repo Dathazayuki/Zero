@@ -7,13 +7,13 @@ namespace Zero.EnvironmentLoop
 {
     public sealed class StairLoopManager : MonoBehaviour
     {
-        public const int MinimumPoolSize = 9;
-        public const int ActiveWindowSize = 5;
+        public const int MinimumPoolSize = 5;
+        public const int ActiveWindowSize = 3;
         public const int RequiredPoolSize = MinimumPoolSize;
 
         [SerializeField] private FloorProgressManager progressManager;
         [SerializeField] private FloorSegment[] initialSegments;
-        [SerializeField, Min(2)] private int initialCurrentIndex = 2;
+        [SerializeField, Min(1)] private int initialCurrentIndex = 2;
         [SerializeField] private DirectionalAnomalyGameManager anomalyGameManager;
         [SerializeField] private FloorSegment endingSegmentPrefab;
         [SerializeField, Min(0)] private int maximumCurrentShadowCasters = 4;
@@ -33,10 +33,10 @@ namespace Zero.EnvironmentLoop
         public FloorSegment CurrentSegment { get; private set; }
         public FloorSegment BottomSegment => activeSegments.First?.Value;
         public FloorSegment TopSegment => activeSegments.Last?.Value;
-        public FloorSegment Below2Segment => activeSegments.First?.Value;
-        public FloorSegment Below1Segment => activeSegments.First?.Next?.Value;
-        public FloorSegment Above1Segment => activeSegments.Last?.Previous?.Value;
-        public FloorSegment Above2Segment => activeSegments.Last?.Value;
+        public FloorSegment Below2Segment => null;
+        public FloorSegment Below1Segment => GetAdjacentCurrent(TravelDirection.Down);
+        public FloorSegment Above1Segment => GetAdjacentCurrent(TravelDirection.Up);
+        public FloorSegment Above2Segment => null;
         public int SegmentCount => activeSegments.Count;
         public int ActiveSegmentCount => activeSegments.Count;
         public int InactiveSegmentCount => inactiveSegments.Count;
@@ -127,28 +127,21 @@ namespace Zero.EnvironmentLoop
                 pooledSegments.Add(segment);
             }
 
-            int currentIndex = Mathf.Clamp(initialCurrentIndex, 2, pooledSegments.Count - 3);
-            FloorSegment below2 = pooledSegments[currentIndex - 2];
+            int currentIndex = Mathf.Clamp(initialCurrentIndex, 1, pooledSegments.Count - 2);
             FloorSegment below1 = pooledSegments[currentIndex - 1];
             CurrentSegment = pooledSegments[currentIndex];
             FloorSegment above1 = pooledSegments[currentIndex + 1];
-            FloorSegment above2 = pooledSegments[currentIndex + 2];
 
             below1.PlaceBelow(CurrentSegment);
-            below2.PlaceBelow(below1);
             above1.PlaceAbove(CurrentSegment);
-            above2.PlaceAbove(above1);
-            activeSegments.AddLast(below2);
             activeSegments.AddLast(below1);
             activeSegments.AddLast(CurrentSegment);
             activeSegments.AddLast(above1);
-            activeSegments.AddLast(above2);
 
             for (int i = 0; i < pooledSegments.Count; i++)
             {
                 FloorSegment segment = pooledSegments[i];
-                if (segment == below2 || segment == below1 || segment == CurrentSegment ||
-                    segment == above1 || segment == above2)
+                if (segment == below1 || segment == CurrentSegment || segment == above1)
                 {
                     continue;
                 }
@@ -163,7 +156,7 @@ namespace Zero.EnvironmentLoop
             ApplyLightingBudgets();
             Physics.SyncTransforms();
             IsInitialized = true;
-            LastOperationMessage = "Ready: Below2 -> Below1 -> Current -> Above1 -> Above2";
+            LastOperationMessage = "Ready: Below1 -> Current -> Above1";
             Debug.Log(
                 $"ENV_LOOP_READY: current={CurrentSegment.SegmentId}, active={PoolOrder}, " +
                 $"pool={PoolSize}, inactive={InactiveSegmentCount}",
@@ -201,28 +194,21 @@ namespace Zero.EnvironmentLoop
                 segment.ConfigureCommitTriggers(this);
             }
 
-            int currentIndex = Mathf.Clamp(initialCurrentIndex, 2, pooledSegments.Count - 3);
-            FloorSegment below2 = pooledSegments[currentIndex - 2];
+            int currentIndex = Mathf.Clamp(initialCurrentIndex, 1, pooledSegments.Count - 2);
             FloorSegment below1 = pooledSegments[currentIndex - 1];
             CurrentSegment = pooledSegments[currentIndex];
             FloorSegment above1 = pooledSegments[currentIndex + 1];
-            FloorSegment above2 = pooledSegments[currentIndex + 2];
 
             below1.PlaceBelow(CurrentSegment);
-            below2.PlaceBelow(below1);
             above1.PlaceAbove(CurrentSegment);
-            above2.PlaceAbove(above1);
-            activeSegments.AddLast(below2);
             activeSegments.AddLast(below1);
             activeSegments.AddLast(CurrentSegment);
             activeSegments.AddLast(above1);
-            activeSegments.AddLast(above2);
 
             for (int i = 0; i < pooledSegments.Count; i++)
             {
                 FloorSegment segment = pooledSegments[i];
-                if (segment != below2 && segment != below1 && segment != CurrentSegment &&
-                    segment != above1 && segment != above2)
+                if (segment != below1 && segment != CurrentSegment && segment != above1)
                 {
                     ReleaseToInactivePool(segment);
                 }
@@ -234,7 +220,7 @@ namespace Zero.EnvironmentLoop
             ApplyNavigationRoles();
             ApplyLightingBudgets();
             Physics.SyncTransforms();
-            LastOperationMessage = "Reset to initial five-segment window";
+            LastOperationMessage = "Reset to initial three-segment window";
             Debug.Log(
                 $"ENV_LOOP_RESET_TO_INITIAL: current={CurrentSegment.SegmentId}, active={PoolOrder}, " +
                 $"pool={PoolSize}, inactive={InactiveSegmentCount}",
@@ -286,9 +272,9 @@ namespace Zero.EnvironmentLoop
                 return Reject($"Active window requires exactly {ActiveWindowSize} segments");
             }
 
-            if (inactiveSegments.Count < 4)
+            if (inactiveSegments.Count < 2)
             {
-                return Reject("Five-segment active window requires four inactive reserves before every commit");
+                return Reject("Three-segment active window requires two inactive reserves before every commit");
             }
 
             if (anomalyGameManager != null && !anomalyGameManager.RegisterPendingDecision(direction))
@@ -298,18 +284,16 @@ namespace Zero.EnvironmentLoop
 
             FloorSegment origin = CurrentSegment;
             FloorSegment[] oldWindow = GetOrderedSegments();
-            FloorSegment newBelow2 = TakeRandomInactiveSegment();
             FloorSegment newBelow1 = TakeRandomInactiveSegment();
             FloorSegment newAbove1 = TakeRandomInactiveSegment();
-            FloorSegment newAbove2 = TakeRandomInactiveSegment();
-            if (newBelow2 == null || newBelow1 == null || newAbove1 == null || newAbove2 == null)
+            if (newBelow1 == null || newAbove1 == null)
             {
-                return Reject("Dynamic pool transaction could not acquire four distinct reserve segments");
+                return Reject("Dynamic pool transaction could not acquire two distinct reserve segments");
             }
 
             CurrentSegment = targetSegment;
             CurrentSegment.ConsumeCommitTriggers();
-            anomalyGameManager?.RecordCurrentAnomalyEncounter();
+            anomalyGameManager?.RecordCurrentEncounter();
             progressManager.Commit(direction);
 
             for (int i = 0; i < oldWindow.Length; i++)
@@ -321,20 +305,14 @@ namespace Zero.EnvironmentLoop
             }
 
             ActivateBelow(newBelow1, CurrentSegment);
-            ActivateBelow(newBelow2, newBelow1);
             ActivateAbove(newAbove1, CurrentSegment);
-            ActivateAbove(newAbove2, newAbove1);
             activeSegments.Clear();
-            activeSegments.AddLast(newBelow2);
             activeSegments.AddLast(newBelow1);
             activeSegments.AddLast(CurrentSegment);
             activeSegments.AddLast(newAbove1);
-            activeSegments.AddLast(newAbove2);
 
-            anomalyGameManager?.PrepareSegment(newBelow2);
             anomalyGameManager?.PrepareSegment(newBelow1);
             anomalyGameManager?.PrepareSegment(newAbove1);
-            anomalyGameManager?.PrepareSegment(newAbove2);
             ApplyNavigationRoles();
             ApplyLightingBudgets();
             Physics.SyncTransforms();
@@ -398,9 +376,8 @@ namespace Zero.EnvironmentLoop
             }
             endingCleanup = null;
             Debug.Log("ENDING_FLOOR_CLEANUP_COMPLETE", this);
-            var flow = Zero.AnomalyPrototype.Flow.GameFlowController.Instance;
-            if (flow != null && !flow.DeferEndingLoadUntilWhiteout && !flow.IsTransitioning)
-                flow.BeginEndingPreload();
+            // Office load starts in ActivatePreloadedEndingScene after an opaque
+            // white frame. Async scene loading can still stall its first frame.
         }
 
         public FloorSegment GetAdjacentCurrent(TravelDirection direction)
@@ -464,14 +441,14 @@ namespace Zero.EnvironmentLoop
 
         private void ActivateBelow(FloorSegment segment, FloorSegment target)
         {
-            segment.ResetSegment();
+            // Inactive pool entries were reset when released.
             segment.PlaceBelow(target);
             segment.gameObject.SetActive(true);
         }
 
         private void ActivateAbove(FloorSegment segment, FloorSegment target)
         {
-            segment.ResetSegment();
+            // Inactive pool entries were reset when released.
             segment.PlaceAbove(target);
             segment.gameObject.SetActive(true);
         }
@@ -500,7 +477,7 @@ namespace Zero.EnvironmentLoop
             {
                 FloorSegment segment = ordered[i];
                 bool isCurrent = segment == CurrentSegment;
-                bool isAdjacent = i == 1 || i == 3;
+                bool isAdjacent = segment == Below1Segment || segment == Above1Segment;
                 segment.ApplyLightingBudget(
                     isCurrent || isAdjacent,
                     isCurrent,

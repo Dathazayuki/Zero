@@ -15,6 +15,7 @@ MonoBehaviour:
   id: creature.ceiling
   displayName: Ceiling Creature
   type: 5
+  pacingTier: 2
   difficulty: 3
   spawnWeight: 1
   canKillPlayer: 1

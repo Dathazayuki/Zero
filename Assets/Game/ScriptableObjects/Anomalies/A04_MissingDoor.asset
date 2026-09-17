@@ -15,6 +15,7 @@ MonoBehaviour:
   id: missing.door
   displayName: Missing Door
   type: 1
+  pacingTier: 1
   difficulty: 1
   spawnWeight: 1.1
   canKillPlayer: 0
