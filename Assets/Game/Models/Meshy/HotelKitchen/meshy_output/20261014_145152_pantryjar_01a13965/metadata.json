@@ -1,0 +1,70 @@
+{
+  "schema_version": 2,
+  "project_name": "PantryJar",
+  "folder": "20261014_145152_pantryjar_01a13965",
+  "root_task_id": "01a13965-6b41-7608-8125-5f970ed2a8e1",
+  "created_at": "2026-10-14T07:51:52.866Z",
+  "updated_at": "2026-10-14T08:06:16.508Z",
+  "tasks": [
+    {
+      "task_id": "01a13965-6b41-7608-8125-5f970ed2a8e1",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.png"
+      ],
+      "task_json": "task_01a13965-6b41-7608-8125-5f970ed2a8e1.json",
+      "operation_id": null,
+      "created_at": "2026-10-14T07:53:38.735Z",
+      "updated_at": "2026-10-14T07:55:10.219Z"
+    },
+    {
+      "task_id": "01a1396a-e56d-72e6-b29a-3e20915b7ea3",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "refine",
+      "parent_task_id": "01a13965-6b41-7608-8125-5f970ed2a8e1",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a1396a-e56d-72e6-b29a-3e20915b7ea3.json",
+      "operation_id": "ir4-kitchen-20261014-pantryjar-refine-compatible",
+      "created_at": "2026-10-14T07:57:50.867Z",
+      "updated_at": "2026-10-14T07:59:56.553Z"
+    },
+    {
+      "task_id": "01a1396a-e56d-72e6-b29a-3e20915b7ea3",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "delivered",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "textured.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-14T08:01:36.043Z",
+      "updated_at": "2026-10-14T08:01:41.444Z"
+    },
+    {
+      "task_id": "01a13965-6b41-7608-8125-5f970ed2a8e1",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "sourceQuad",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-14T08:06:16.508Z",
+      "updated_at": "2026-10-14T08:06:16.508Z"
+    }
+  ]
+}

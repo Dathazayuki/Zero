@@ -14,6 +14,7 @@ namespace Zero.AnomalyPrototype.Flow
         [SerializeField, Min(0.1f)] private float cooldown = 1f;
 
         private bool coolingDown;
+        private SourceSoundPlayback soundPlayback;
 
         public string InteractionPrompt => "GỌI THANG MÁY";
 
@@ -36,7 +37,7 @@ namespace Zero.AnomalyPrototype.Flow
             sequenceController?.PlayElevatorError();
             if (audioSource != null && errorClip != null)
             {
-                audioSource.PlayOneShot(errorClip);
+                GameAudioBootstrap.BindSource(ref soundPlayback, audioSource).Play(null, errorClip);
             }
 
             StartCoroutine(ResetCooldown());

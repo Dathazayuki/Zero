@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606137f86da5a0a49a78bed7c668ba12, type: 3}
+  m_Name: InfinityRoom1
+  m_EditorClassIdentifier: 
+  roomId: infinity-room-1
+  designTheme: The Gallery
+  contentReady: 1
+  useAuthoredScenePool: 1
+  segmentPrefab: {fileID: 5295282877717853412, guid: 515be0d74ae0a92478c282d8894d0457, type: 3}
+  anomalyRoster:
+  - {fileID: 11400000, guid: 1eae73ec543ae3149b0deb2d39ec9f24, type: 2}
+  - {fileID: 11400000, guid: 1da6515c9b089c940992aa12774afc2b, type: 2}
+  - {fileID: 11400000, guid: b4da957e6e726e141baf830e53343a56, type: 2}
+  - {fileID: 11400000, guid: 7cff8b4d0319db246a39e2416a4e5e44, type: 2}
+  - {fileID: 11400000, guid: 6b709d0ec20f8a244b92a03b648caf17, type: 2}
+  - {fileID: 11400000, guid: f6f115a262d7ce942954d443d423ba50, type: 2}
+  - {fileID: 11400000, guid: b22225e3dfb43764cb51d009e4fd1e37, type: 2}
+  - {fileID: 11400000, guid: bec5b86032c95264d861105190bdadd9, type: 2}
+  - {fileID: 11400000, guid: dade939b19ac5114c80dc9ad74014edd, type: 2}
+  - {fileID: 11400000, guid: 7e30a6b1c4e84f208107a2d65e3b1819, type: 2}
+  - {fileID: 11400000, guid: 6df07b3a80a0028449e9197a1a764cbc, type: 2}
+  - {fileID: 11400000, guid: 6d29a5b0c3e74f107006a1d54e2a1718, type: 2}
+  - {fileID: 11400000, guid: 7a82b941de514a6da7c309f8c66e92b3, type: 2}
+  - {fileID: 11400000, guid: 7c53e819a4d24e658b12f739c642b890, type: 2}
+  - {fileID: 11400000, guid: b8417c29e1354a9094c7e82b930d7722, type: 2}
+  - {fileID: 11400000, guid: 9f8b4d21e86a41f9a23d4c7810ea3541, type: 2}
+  - {fileID: 11400000, guid: e5a87123bf044d99a63e120893fc20a0, type: 2}
+  - {fileID: 11400000, guid: d8291470e28f41bc954a719c8360d521, type: 2}
+  - {fileID: 11400000, guid: f108429ab73145dc8d0e5129486ca922, type: 2}
+  - {fileID: 11400000, guid: a4921b7829dc481e9b27521c7d84a230, type: 2}
+  - {fileID: 11400000, guid: b5821c9734e048df9a162837190ca340, type: 2}
+  - {fileID: 11400000, guid: c8310e5429fa41bc9782103f7a089de1, type: 2}
+  - {fileID: 11400000, guid: a94017f8b2c443cb9e4758fa81155982, type: 2}
+  maximumDifficulty: 3

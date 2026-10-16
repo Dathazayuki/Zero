@@ -1,0 +1,24 @@
+{
+  "id": "01a13662-9d45-70db-ae57-2e9e268178c5",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 2053969824,
+  "prompt": "A single complete vintage jazz drum kit for an abandoned 1930s crimson cabaret stage. Burgundy wooden bass drum, two mounted toms, floor tom, snare, three brass cymbals on slender chrome stands, stool and pedals. Realistic detailed separate silhouettes, full freestanding kit, no room, no musicians, no text. Game environment prop.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791913796310,
+  "progress": 100,
+  "started_at": 1791913796318,
+  "finished_at": 1791913855317,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13662-9d45-70db-ae57-2e9e268178c5/output/model.glb?Expires=4945449600&Signature=lgWC3NjHzrDYv9PZI53GpccHHpUr4v21W6efwfwGeJCT~hcve1MQhMI5EwXtoGXecgslZVgOCDZTfP5dk~LNEwFZrmLHmQ9FxLmIKQkgxVmFxFjWHPC70sU-osSuxn8H61tCP3dNX2RYbXIH2lbH2xPCP2-WFT33tAC35EhLC8sgMaCJzUr6e-DJYbyhGdg5kbRZEZnwqI0RZJFqJYynx3dlUdYgCqnEzTr4x3y~fLppP4AyFIb8OT5YQki9-BZjV7jlSHsGyQVI9sO9nO7mjpGkvZRa4uriI2Z5KdEKnGib1K~MLja1TGV4QqLPk4Aeumu5vGh9onWYhvRQZbyVMA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13662-9d45-70db-ae57-2e9e268178c5/output/model.fbx?Expires=4945449600&Signature=R1oDiqerVP002f214gov9cy3nuaPHZP9AOnMyCi7XeOEx3i-We8~UrxPX1kLybQQv4bQSBy2w3IspqnAVXCXlYVk5norn-bkhpk-W3~1qL3UQtE3VCDDgaHz0jPuIC6Vx-~gA7m6QbdPofZwJz0mxLTL7CuMc4nM5cejFdQsr7MbUvhaD0ZJLNtL6nB9WosT8bkQOUKV9DEZjtV-XrlbDYkmCnkX~fxpZDHl5UrTPQn40cpkKq4ExNZoOcsBHoTmUE53qmrKko1It5ytn0IfDKdfwsM3i8W~UcXJ4g8EADKAvXXeByqsIeU-I8U90AVeVFWhj-DknsuHX6ECMHj~Pw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13662-9d45-70db-ae57-2e9e268178c5/output/preview.png?Expires=4945449600&Signature=TtFEdVWKbBQD2gb1KFzpjiUd7lsD~sHkQLajERNWKDHEl1Nqb1GPotfTDJ5Klh5DkmdINT3TNMq5OtwRlu82wfWRi~LtE~Yqc7LE9oeG37V8RlmMp-~grYOn3JkTNcCHoZtFHFfjaT1HZYQSbbnhvhYKN9x9TGRyr24DvLApLB6iU4CC83iz0Z5p61-lYZmy~DpJQBHQUDI-XhXtB9SEZz6zRsR-hNOycfyhqQMDBq7us1svbKIi5gaRhTUe8TDtuID2BDzNKQdxvWea6IlI9wAUiDx6UXQdF2U3bwASmYXBBalWpbV8Jn32RoC9Zs7QLB2K0pm0JEctsfsONyvtnA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 20
+}

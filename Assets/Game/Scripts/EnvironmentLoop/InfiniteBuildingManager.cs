@@ -22,7 +22,9 @@ namespace Zero.EnvironmentLoop
 
         private void Awake()
         {
-            InitializeEnvironment();
+            var campaign = Zero.AnomalyPrototype.Flow.GameFlowController.Instance?.Campaign;
+            if (campaign != null && campaign.IsActive) campaign.PrepareInitialRoom(this);
+            else InitializeEnvironment();
         }
 
         public void Configure(
@@ -42,6 +44,11 @@ namespace Zero.EnvironmentLoop
 
         public void InitializeEnvironment()
         {
+            InitializeEnvironment(FindFirstObjectByType<FirstPersonController>());
+        }
+
+        public void InitializeEnvironment(FirstPersonController player)
+        {
             if (stairLoopManager == null || floorProgressManager == null)
             {
                 Debug.LogError("InfiniteBuildingManager has incomplete environment manager references.", this);
@@ -49,20 +56,22 @@ namespace Zero.EnvironmentLoop
             }
 
             stairLoopManager.Initialize();
-            if (anomalyGameManager == null)
-            {
-                anomalyGameManager = GetComponent<DirectionalAnomalyGameManager>();
-            }
+            ResolveAnomalyManager();
 
-            if (anomalyGameManager == null)
+            if (player == null)
             {
-                anomalyGameManager = gameObject.AddComponent<DirectionalAnomalyGameManager>();
+                player = transform.root.GetComponentInChildren<FirstPersonController>(true);
             }
-
-            FirstPersonController player = transform.root.GetComponentInChildren<FirstPersonController>(true);
             stairLoopManager.SetAnomalyGameManager(anomalyGameManager);
             anomalyGameManager.Initialize(stairLoopManager, player);
             environmentDebugManager?.Configure(stairLoopManager, floorProgressManager);
+        }
+
+        public DirectionalAnomalyGameManager ResolveAnomalyManager()
+        {
+            if (anomalyGameManager == null) anomalyGameManager = GetComponent<DirectionalAnomalyGameManager>();
+            if (anomalyGameManager == null) anomalyGameManager = gameObject.AddComponent<DirectionalAnomalyGameManager>();
+            return anomalyGameManager;
         }
     }
 }

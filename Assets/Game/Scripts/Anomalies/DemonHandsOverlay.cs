@@ -1,3 +1,4 @@
+using Zero.AnomalyPrototype.Flow;
 using System;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 {
     public sealed class DemonHandsOverlay : MonoBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         public enum OverlayState
         {
             Hidden,
@@ -101,6 +103,8 @@ namespace Zero.AnomalyPrototype.Anomalies
                     audioSource.spatialBlend = 0f;
                 }
             }
+
+            handsCreepAudio = GameAudioBootstrap.ResolveDefaultClip(handsCreepAudio, "clip.creepyDemonHand");
         }
 
         public void BeginCreep(float duration = -1f, Action onFinished = null)
@@ -123,7 +127,7 @@ namespace Zero.AnomalyPrototype.Anomalies
             {
                 audioSource.clip = handsCreepAudio;
                 audioSource.loop = true;
-                audioSource.Play();
+                GameAudioBootstrap.BindSource(ref soundPlayback, audioSource, AudioBus.Sfx, false).Play(null, audioSource.clip, false);
             }
         }
 
@@ -160,7 +164,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 
             if (audioSource != null && handsRetractAudio != null)
             {
-                audioSource.PlayOneShot(handsRetractAudio);
+                GameAudioBootstrap.BindSource(ref soundPlayback, audioSource, AudioBus.Sfx, false).Play(null, handsRetractAudio);
             }
         }
 
@@ -184,7 +188,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 
             if (audioSource != null && handsSnapJumpscareAudio != null)
             {
-                audioSource.PlayOneShot(handsSnapJumpscareAudio);
+                GameAudioBootstrap.BindSource(ref soundPlayback, audioSource, AudioBus.Sfx, false).Play(null, handsSnapJumpscareAudio);
             }
         }
 

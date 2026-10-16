@@ -1,0 +1,31 @@
+{
+  "id": "01a13895-e93a-725d-8b45-d38aff9dd339",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 2450576902,
+  "prompt": "A neat stack of four old archival ledgers and hardback case-file books, uneven but stable pile with varied thickness, faded burgundy, dark forest green and brown cloth covers, cream page blocks, worn corners, subtle gold spine bands and tiny unreadable label plates. Single compact tabletop prop, realistic detailed book spines and page edges, no loose books, no background, no text or logos.",
+  "texture_prompt": "worn burgundy leather, dark green cloth and walnut-brown book covers, yellowed cream page blocks and subtle antique gold spine stamping",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791950713892,
+  "progress": 100,
+  "started_at": 1791950713897,
+  "finished_at": 1791950764181,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-e93a-725d-8b45-d38aff9dd339/output/model.glb?Expires=4945536000&Signature=Gk8PVmizzCRGgxWtzAf17ny-OPGdMtbGzkEBptLbQdkbYWKYajnKmNvGTLPn14jNgOANdghEnqHaxrmqKTYKyGGj5sr4q4cW0XPuRExeZ-eQSO~5BtgHtWn752hV1w3ABMTytOSNQnq~FfrrfRVDFAVNhPM3UQXACJ5QzV-2mLg8qzr5ss~Pzv9GgUsuoBSKBvAt2NfTnzV8l0pv0sSLRouJ2YRQkJ3lLsv3lx30rM4jkHidsWtYMeuBzpRRjPa6ElVlvtlgLL4-n1fs3kfbjZDtlqA7c0W7btavWj3mdGD~~E5-IWTzdMpaF4FhF30HbZVw9ZwtYPgII9QRptDvJg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-e93a-725d-8b45-d38aff9dd339/output/model.fbx?Expires=4945536000&Signature=EPi5ItVO-hFzOKhnNsEld1VJWfH9lMe1i8MrIt4WiHfuI1J55SKJhYH4DW~b4Cvw619Iv2BZTWcWSOpKUFTuVHT1b5RIiMJmrxHGA7Qh3AUQGh3k5YOkrhMyZ9m15grlhUHpuWbr~UpM6HXpMQEjD068KMf~23FmzV8Xk~0rlq3PlwwYj2-SJP~0cdCeO4tiEaLYBdAIOUERUKXJpZxqVsuMAAhHMLy3xpGx3wpC9MuctBJ1jZcIsmwI9ZsmombS-fSeWA4NGuXMNVWV7sIh5QHDgvN0IbkyB8PLCV2sB-fs~GcJ~yjLMjhTdjObtpOk3muFku2a2TnZG6NYNiPFyg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-e93a-725d-8b45-d38aff9dd339/output/preview.png?Expires=4945536000&Signature=DpfL~plPw6Wj-1tMqPOUYeiMAm7rlRdMRbQk7LWN-OplFcn29GqDdzCu07oGdPO1KxxZuIQMs1A3scLk2O8ZIyxLLRxTT~sL3zuY5ZfpcGyHR8m3svQlGO03AsFATunwDfBjy8dkKbqc6tsjJv0BDl7X6BPl6aWjFX1zw2fNMlWnX0E~f2174ZCj7UsZrbh3~o-bpewpMn~spsc4WY0KsbCvMOAb1HhoeEsu8SJ3pivtfltVgayNdw3tisRJgVvKrBC3xli-Sr1LpWULslyBcffKzWuI7tj5b58PZYRN-B9BqHgmQW9eW45Jz1pxwSZw5s2RNB2oI2ken09gDugW0g__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-e93a-725d-8b45-d38aff9dd339/output/texture_0.png?Expires=4945536000&Signature=lEk~4HjCpqzlGnPJsXXWgGltVFIaaLxBhQHZbTieFLXKd4TKRyhllfmn9L42biYVunvoi89pnoGJTutS1Lc4Q7in5bDhpIOmVbz24UZgL~bK6Pk~HY~0BnGsEfW~jWG5YQgloClcvWod5y1XNIc577RcfQEPI7eAJ9SWSDmg913WYKAu9ERTC22twxEpFURf~CE808lJqbKJVwqLlde9-10uIraMLrUSKP8OgSkY11PXVSk-zA7NH6Ij3M4jb6I5A5uZbCGELEnHKlZNp3yar93Q~Wd1S~8kAXXr2vZACHclqIukG4-N0YUEzJiGj5qFnTRyYLWcsqr6Zd8QdZgclQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-e93a-725d-8b45-d38aff9dd339/output/texture_0_metallic.png?Expires=4945536000&Signature=H1OZkhIuQa5JIWMg450zJOKGMKS8NqkbiX3YrxUXO0AN7RCTyoR3p99Rf6OZnYOwQfSTt067eU7jpFhhKOrlhqqbu4t11M-D8TGccF2dMfYHvCEcdIOuZFv-roat9dc9yuuGJt5I3jvenhDrUW5l72RH2P5J8GSs0SXMEVheSOve42JrzigNQ9yNxnjaVvQjcwMzWSLw1qRmjwKUBjIXUl~QNRPpqP3b8S9tzo~DAQnVGd0tQxBqSz3y07dIrTbxhxtHr7f7Kchb7KYVt6HeLqzvdhCsokGFOChaYEdvHmy4rniT0E9xfqFo5FenDgHROMnG3jT9xsrCNNHQgaAU8Q__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-e93a-725d-8b45-d38aff9dd339/output/texture_0_roughness.png?Expires=4945536000&Signature=M0LEmiV8jAnuVkKHi0U2tNFiqwsytfSc0xjHz23Up0HxDydTA7YIs-Ofv6s7cDpDxdWfDLeSFEO~1hbFM61pePmBsDI-yLTDj~913wksMQvUAXxHh5isd755~NdENhq3B65URDVbKxt5AN2WmXsQFu82U~cCaYQ65Y4Yhq3RDANPPzxlTimCEQiqZhs~~jDNyajnFAK1b93sWYjayLV7Bm0PgcUg6mAcGJimpQgjBW6RY6PLmCb5arqYcVvKB6Sj~Zxns6xx4uBsTdeuEVjo~~J00WOx9eebnWYJoi1X8q1jxiRS5w4zT7gZvxDTwTvjHceSVPtt2aS~9vNEybCmdQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-e93a-725d-8b45-d38aff9dd339/output/texture_0_normal.png?Expires=4945536000&Signature=oM9nCxFGLffha0FtGKnqlnyy8eKqXVdO8fPvqc5wN5-TfjRu2elUyIj3ykMYGaCxWvm~C4s9uggJ0IyN281WvUUqg6iBvrnXABFpsqpCb-nTExPnash5wosdoY6OMEu9gBc39-S~R7eKpnaqR80oSHIcxGCMmncWN5BIs3TqXYgqWB-rfPWxNqBkKVB4ljsvkln6wNuPQkHSYpV-d-ptqTQ~Hjixb~EfE~Prj6g33vLRqrdE8hCO2Eounf~3QxbU28H1Os~8VHpLtatOpNNxI7psBV6PRRhjmPI99~VwSO4kXwGLxDn5MyZoSy-j5ZHJ-go0c-0GYPBK7J2BK1bn~Q__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

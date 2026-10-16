@@ -1,0 +1,24 @@
+{
+  "id": "01a13965-4a6c-739e-8010-3206140abcc2",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 1720727394,
+  "prompt": "Single short tidy nested stack of three off white glazed ceramic hotel soup bowls. Top bowl visibly open and empty with a smooth concave interior, rounded lip, circular foot ring, realistic uniform wall thickness, gently worn rims, small chips and subtle discoloration. Realistic detailed hotel kitchen game prop, no food, no utensils, no table, no other objects.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964303765,
+  "progress": 100,
+  "started_at": 1791964303769,
+  "finished_at": 1791964410032,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-4a6c-739e-8010-3206140abcc2/output/model.fbx?Expires=4945536000&Signature=WZf2V4eX68SPcQdJFcQpqSrPQSzJWV8pMDIs2-5zdjJsRj3iGXNgpYw2YLp7szWUijBvLDs5k3Gc8jli1tBFSSRL5X66tskfqOMxDKWwDJWM0a0tZkldPES9b0yis2XiX-srsawvfyTex6b2ViZRzOE1x64z0NxxGPpIlFoTHXaRgC2aD678YclFyfpbqlpvo3loArUB8kbbCx9UAqb44A91o8BR~qqHTAPLNL7HQqpJVhsPYsTCwGzk9hrnqldRRrmTxm-cwsqf1-3r0Srr2qM6i747-rOTPK3XJ6YuY0qItsuv1bYQCRmFNpXij7EAPdKbCpuQG8gXs1fbGqU9qA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-4a6c-739e-8010-3206140abcc2/output/model.obj?Expires=4945536000&Signature=dxgV38rFdjWWFk~99nY1-iU~AcRl3P0fsvoJIPHi6~rMvKiU4ysprU4T12~ybfvfUJl~2EP2y7GVrjn060xzP9Ee1wv6v8UinLUB79djF3SkvXhfllJlvBaWd5wNr5tlsANlqetuLyxvUX7pJfy23DVO4GM~iEgXxS1XZdiYVylPAT2TJhrdwQJ4P0BcGlAQ9FReopm-bYOlNisZkN3xj8PjobD2~Tohy3Ier2cEGYqosqFWDziA5SaUeJP~Ikjbo8tpp3WFrbnSi1rSnAgkZyYubSYHrwWPX4XNSVhScLetv9bZvgQv72IyvHvOp00UIDmN6ewge0N48UDgQZo3kg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-4a6c-739e-8010-3206140abcc2/output/preview.png?Expires=4945536000&Signature=O48FaaGYycYUlQjP~HxBr4JnsZ3BbvxzATffGX9TH87ynaYp6lWFOQqwAxJl2tHISg-gLu1rQL1PaA6~FXztm~vr9myVHOGu0CqoBrHwBSY8d2ZKiR1Zdp~XzOZcmhkEnOlE4yUgNeATseYadCnt2hZQbaACO8e1n-yiXFJm5J4SvUhFG2kp63pHqTpX6LmG9HGYkoBNCOW~tO6ZJsP7WvBvI2YFEXiEoMVEtXin2KoKeUb-c--I-VmSbg8ey36pBG8zhFGC7SaWgzaOvdIhpJdQI-pGWgZLYaufnqiGSYwkUyUudui4Bgbn1Tq5tpjtI2hnRds1gNf6OtVmHZiUbw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

@@ -1,3 +1,4 @@
+using Zero.AnomalyPrototype.Flow;
 using System.Collections;
 using Zero.AnomalyPrototype.Anomalies;
 using Zero.EnvironmentLoop;
@@ -8,10 +9,12 @@ namespace Zero.AnomalyPrototype.Player
 {
     public sealed class PlayerDeathController : MonoBehaviour
     {
+        private SourceSoundPlayback deathPlayback;
         public enum DeathState
         {
             Alive,
             Jumpscare,
+            Frozen,
             Blackout,
             Respawning
         }
@@ -58,6 +61,10 @@ namespace Zero.AnomalyPrototype.Player
         [SerializeField, Range(0f, 1f)] private float bloodMaximumAlpha = 0.85f;
         [SerializeField, Min(0f)] private float bloodVerticalDrift = 12f;
 
+        [Header("Freeze death (Style 2)")]
+        [SerializeField, Min(0f)] private float defaultFreezeDuration = 2.5f;
+        [SerializeField] private AudioClip defaultCameraCutAudioClip;
+
         private readonly System.Random cosmeticRandom = new System.Random();
         private Coroutine deathRoutine;
         private Vector3 initialPlayerPosition;
@@ -73,6 +80,18 @@ namespace Zero.AnomalyPrototype.Player
 
         public DeathState State { get; private set; } = DeathState.Alive;
         public bool IsDeathInProgress => State != DeathState.Alive;
+        public void BindCampaignWorld(StairLoopManager loop, DirectionalAnomalyGameManager anomalies,
+            Transform checkpoint)
+        {
+            stairLoopManager = loop;
+            anomalyGameManager = anomalies;
+            if (checkpoint != null)
+            {
+                initialPlayerPosition = checkpoint.position;
+                initialPlayerRotation = checkpoint.rotation;
+            }
+            enabled = true;
+        }
         public bool IsScreenBlack => (State == DeathState.Blackout && blackoutCanvasGroup != null && blackoutCanvasGroup.alpha >= 0.99f) || State == DeathState.Respawning;
 
         private void Awake()
@@ -115,7 +134,9 @@ namespace Zero.AnomalyPrototype.Player
                 return Reject(source, "missing-player-or-camera");
             }
 
-            if (presentation == null || (presentation.MotionStyle != DeathMotionStyle.Suffocation && !presentation.HasCameraPose))
+            bool isFreeze = PlayerDeathReferenceBinder.IsFreeze(source, presentation);
+
+            if (presentation == null || (!isFreeze && presentation.MotionStyle != DeathMotionStyle.Suffocation && !presentation.HasCameraPose))
             {
                 Debug.LogWarning(
                     $"DEATH_CONFIGURATION_INVALID: anomaly={source.name}, " +
@@ -128,7 +149,7 @@ namespace Zero.AnomalyPrototype.Player
                 Debug.LogWarning("DEATH_CONFIGURATION_INVALID: blackout CanvasGroup is missing.", this);
             }
 
-            State = DeathState.Jumpscare;
+            State = isFreeze ? DeathState.Frozen : DeathState.Jumpscare;
             try
             {
                 source.OnPlayerDeathAccepted();
@@ -139,142 +160,257 @@ namespace Zero.AnomalyPrototype.Player
             }
 
             LockPlayer();
-            PrepareBlood();
-            presentation?.PlayJumpscareAnimation();
-            PlayJumpscareAudio(presentation?.JumpscareAudioClip);
-            Debug.Log($"DEATH_REQUEST_ACCEPTED: anomaly={source.name}", source);
-            Debug.Log($"DEATH_JUMPSCARE_STARTED: anomaly={source.name}", source);
+            if (!isFreeze)
+            {
+                PrepareBlood();
+                presentation?.PlayJumpscareAnimation();
+                PlayJumpscareAudio(presentation?.JumpscareAudioClip);
+                Debug.Log($"DEATH_REQUEST_ACCEPTED: anomaly={source.name}", source);
+                Debug.Log($"DEATH_JUMPSCARE_STARTED: anomaly={source.name}", source);
+            }
+            else
+            {
+                PlayJumpscareAudio(presentation?.JumpscareAudioClip);
+                Debug.Log($"DEATH_REQUEST_ACCEPTED: anomaly={source.name}", source);
+                Debug.Log($"DEATH_FREEZE_STARTED: anomaly={source.name}", source);
+            }
+
             deathRoutine = StartCoroutine(DeathSequence(presentation));
             return true;
         }
 
-        private IEnumerator DeathSequence(AnomalyDeathPresentation presentation)
+        public bool TryBeginFreezeDeath(
+            AnomalyBehaviour source,
+            float customFreezeDuration = -1f,
+            AudioClip freezeAudio = null,
+            AudioClip cameraCutAudio = null)
         {
-            Vector3 cameraStartPosition = playerCamera.transform.position;
-            Quaternion cameraStartRotation = playerCamera.transform.rotation;
-            float cameraStartFov = playerCamera.fieldOfView;
-            float bloodElapsed = 0f;
+            if (State != DeathState.Alive)
+            {
+                return Reject(source, "death-already-in-progress");
+            }
 
+            if (source != null)
+            {
+                if (!source.IsActive)
+                {
+                    return Reject(source, "anomaly-is-not-active");
+                }
+
+                if (source.Data == null || !source.Data.CanKillPlayer)
+                {
+                    return Reject(source, "can-kill-player-is-disabled");
+                }
+            }
+
+            ResolveReferences();
+            if (playerController == null || playerCamera == null)
+            {
+                Debug.LogError(
+                    $"DEATH_CONFIGURATION_INVALID: player={playerController != null}, camera={playerCamera != null}",
+                    this);
+                return Reject(source, "missing-player-or-camera");
+            }
+
+            if (blackoutCanvasGroup == null)
+            {
+                Debug.LogWarning("DEATH_CONFIGURATION_INVALID: blackout CanvasGroup is missing.", this);
+            }
+
+            State = DeathState.Frozen;
+            if (source != null)
+            {
+                try
+                {
+                    source.OnPlayerDeathAccepted();
+                }
+                catch (System.Exception exception)
+                {
+                    Debug.LogException(exception, source);
+                }
+            }
+
+            LockPlayer();
+            PlayJumpscareAudio(freezeAudio);
+            Debug.Log($"DEATH_REQUEST_ACCEPTED: anomaly={source?.name ?? "Custom"}", source != null ? source : this);
+            Debug.Log($"DEATH_FREEZE_STARTED: anomaly={source?.name ?? "Custom"}", source != null ? source : this);
+            deathRoutine = StartCoroutine(DeathSequence(null, customFreezeDuration, cameraCutAudio));
+            return true;
+        }
+
+        private IEnumerator DeathSequence(
+            AnomalyDeathPresentation presentation,
+            float customFreezeDuration = -1f,
+            AudioClip customCameraCutAudio = null)
+        {
+            float bloodElapsed = 0f;
             float elapsed = 0f;
             float duration;
-            if (presentation != null && presentation.MotionStyle == DeathMotionStyle.Suffocation)
+
+            if (State == DeathState.Frozen)
             {
-                Debug.Log("DEATH_SUFFOCATION_STARTED", this);
-                duration = Mathf.Max(0.01f, suffocationDuration);
-                while (elapsed < duration)
+                // =========================================================
+                // KIỂU DEATH THỨ 2: BẤT ĐỘNG & TẮT PHỤT CAMERA (Style 2)
+                // =========================================================
+                duration = customFreezeDuration >= 0f
+                    ? customFreezeDuration
+                    : (presentation != null && presentation.FreezeDuration > 0f ? presentation.FreezeDuration : defaultFreezeDuration);
+                duration = Mathf.Max(0f, duration);
+
+                // Giữ nguyên Player bất động trong vài giây, không rung lắc, không zoom FOV, không máu
+                if (duration > 0f)
                 {
-                    elapsed += Time.unscaledDeltaTime;
-                    bloodElapsed += Time.unscaledDeltaTime;
-                    float t = Mathf.Clamp01(elapsed / duration);
-                    float strength = t * t;
-                    float noise = (Mathf.PerlinNoise(elapsed * 18f, 0.37f) - 0.5f) * 2f;
-                    float noiseY = (Mathf.PerlinNoise(0.71f, elapsed * 21f) - 0.5f) * 2f;
-                    playerCamera.transform.SetPositionAndRotation(
-                        cameraStartPosition + Vector3.down * (suffocationSink * t) +
-                        cameraStartRotation * new Vector3(noise, noiseY, 0f) * (positionShake * strength),
-                        cameraStartRotation * Quaternion.Euler(noiseY * strength, noise * strength, noise * 3f * strength));
-                    playerCamera.fieldOfView = Mathf.Lerp(cameraStartFov, suffocationFieldOfView, t) +
-                        Mathf.Sin(elapsed * 24f) * 1.5f * Mathf.Sin(t * Mathf.PI);
-                    UpdateBloodReveal(bloodElapsed);
-                    yield return null;
+                    yield return new WaitForSecondsRealtime(duration);
                 }
+
+                // Tắt phụt camera ngay lập tức (Instant cut to black)
+                SetBlackoutAlpha(1f);
+                AudioClip cutClip = customCameraCutAudio != null
+                    ? customCameraCutAudio
+                    : (presentation != null && presentation.CameraCutAudioClip != null ? presentation.CameraCutAudioClip : defaultCameraCutAudioClip);
+                if (cutClip != null && jumpscareAudioSource != null)
+                {
+                    jumpscareAudioSource.Stop();
+                    jumpscareAudioSource.spatialBlend = 0f;
+                    GameAudioBootstrap.BindSource(ref deathPlayback, jumpscareAudioSource, AudioBus.Sfx, false).Play(null, cutClip);
+                }
+                else if (jumpscareAudioSource != null && jumpscareAudioSource.isPlaying)
+                {
+                    jumpscareAudioSource.Stop();
+                }
+                Debug.Log("DEATH_CAMERA_CUT_OFF", this);
             }
             else
             {
-                duration = Mathf.Max(0f, cameraApproachDuration);
-                while (elapsed < duration)
+                // =========================================================
+                // KIỂU DEATH THỨ 1: JUMPSCARE / ZOOM + SHAKE + BLOOD (Style 1)
+                // =========================================================
+                Vector3 cameraStartPosition = playerCamera.transform.position;
+                Quaternion cameraStartRotation = playerCamera.transform.rotation;
+                float cameraStartFov = playerCamera.fieldOfView;
+
+                if (presentation != null && presentation.MotionStyle == DeathMotionStyle.Suffocation)
                 {
-                    elapsed += Time.unscaledDeltaTime;
-                    bloodElapsed += Time.unscaledDeltaTime;
-                    float t = duration <= Mathf.Epsilon ? 1f : Mathf.Clamp01(elapsed / duration);
-                    float eased = t * t * (3f - 2f * t);
-                    if (presentation != null && presentation.TryGetCameraPose(out Vector3 targetPosition,
-                            out Quaternion targetRotation))
+                    Debug.Log("DEATH_SUFFOCATION_STARTED", this);
+                    duration = Mathf.Max(0.01f, suffocationDuration);
+                    while (elapsed < duration)
                     {
+                        elapsed += Time.unscaledDeltaTime;
+                        bloodElapsed += Time.unscaledDeltaTime;
+                        float t = Mathf.Clamp01(elapsed / duration);
+                        float strength = t * t;
+                        float noise = (Mathf.PerlinNoise(elapsed * 18f, 0.37f) - 0.5f) * 2f;
+                        float noiseY = (Mathf.PerlinNoise(0.71f, elapsed * 21f) - 0.5f) * 2f;
                         playerCamera.transform.SetPositionAndRotation(
-                            Vector3.Lerp(cameraStartPosition, targetPosition, eased),
-                            Quaternion.Slerp(cameraStartRotation, targetRotation, eased));
+                            cameraStartPosition + Vector3.down * (suffocationSink * t) +
+                            cameraStartRotation * new Vector3(noise, noiseY, 0f) * (positionShake * strength),
+                            cameraStartRotation * Quaternion.Euler(noiseY * strength, noise * strength, noise * 3f * strength));
+                        playerCamera.fieldOfView = Mathf.Lerp(cameraStartFov, suffocationFieldOfView, t) +
+                            Mathf.Sin(elapsed * 24f) * 1.5f * Mathf.Sin(t * Mathf.PI);
+                        UpdateBloodReveal(bloodElapsed);
+                        yield return null;
                     }
-
-                    playerCamera.fieldOfView = Mathf.Lerp(cameraStartFov, jumpscareFieldOfView, eased);
-                    UpdateBloodReveal(bloodElapsed);
-                    yield return null;
                 }
-
-                elapsed = 0f;
-                duration = Mathf.Max(0f, shakeHoldDuration);
-                while (elapsed < duration)
+                else
                 {
-                    elapsed += Time.unscaledDeltaTime;
-                    bloodElapsed += Time.unscaledDeltaTime;
-                    ApplyJumpscareCamera(
-                        presentation,
-                        elapsed,
-                        cameraStartPosition,
-                        cameraStartRotation);
-                    UpdateBloodReveal(bloodElapsed);
-                    yield return null;
-                }
-
-                if (presentation != null && presentation.TryGetDevourTarget(out _))
-                {
-                    Vector3 lungeStartPosition = playerCamera.transform.position;
-                    Quaternion lungeStartRotation = playerCamera.transform.rotation;
-                    float lungeStartFov = playerCamera.fieldOfView;
-                    elapsed = 0f;
-                    duration = Mathf.Max(0f, devourLungeDuration);
-                    Debug.Log("DEATH_DEVOUR_LUNGE_STARTED", this);
-
-                    if (duration <= Mathf.Epsilon)
+                    duration = Mathf.Max(0f, cameraApproachDuration);
+                    while (elapsed < duration)
                     {
-                        ApplyDevourCamera(
-                            presentation,
-                            lungeStartPosition,
-                            lungeStartRotation,
-                            lungeStartFov,
-                            1f);
-                    }
-                    else
-                    {
-                        while (elapsed < duration)
+                        elapsed += Time.unscaledDeltaTime;
+                        bloodElapsed += Time.unscaledDeltaTime;
+                        float t = duration <= Mathf.Epsilon ? 1f : Mathf.Clamp01(elapsed / duration);
+                        float eased = t * t * (3f - 2f * t);
+                        if (presentation != null && presentation.TryGetCameraPose(out Vector3 targetPosition,
+                                out Quaternion targetRotation))
                         {
-                            elapsed += Time.unscaledDeltaTime;
-                            bloodElapsed += Time.unscaledDeltaTime;
-                            float t = Mathf.Clamp01(elapsed / duration);
+                            playerCamera.transform.SetPositionAndRotation(
+                                Vector3.Lerp(cameraStartPosition, targetPosition, eased),
+                                Quaternion.Slerp(cameraStartRotation, targetRotation, eased));
+                        }
+
+                        playerCamera.fieldOfView = Mathf.Lerp(cameraStartFov, jumpscareFieldOfView, eased);
+                        UpdateBloodReveal(bloodElapsed);
+                        yield return null;
+                    }
+
+                    elapsed = 0f;
+                    duration = Mathf.Max(0f, shakeHoldDuration);
+                    while (elapsed < duration)
+                    {
+                        elapsed += Time.unscaledDeltaTime;
+                        bloodElapsed += Time.unscaledDeltaTime;
+                        ApplyJumpscareCamera(
+                            presentation,
+                            elapsed,
+                            cameraStartPosition,
+                            cameraStartRotation);
+                        UpdateBloodReveal(bloodElapsed);
+                        yield return null;
+                    }
+
+                    if (presentation != null && presentation.TryGetDevourTarget(out _))
+                    {
+                        Vector3 lungeStartPosition = playerCamera.transform.position;
+                        Quaternion lungeStartRotation = playerCamera.transform.rotation;
+                        float lungeStartFov = playerCamera.fieldOfView;
+                        elapsed = 0f;
+                        duration = Mathf.Max(0f, devourLungeDuration);
+                        Debug.Log("DEATH_DEVOUR_LUNGE_STARTED", this);
+
+                        if (duration <= Mathf.Epsilon)
+                        {
                             ApplyDevourCamera(
                                 presentation,
                                 lungeStartPosition,
                                 lungeStartRotation,
                                 lungeStartFov,
-                                t);
-                            UpdateBloodReveal(bloodElapsed);
-                            yield return null;
+                                1f);
                         }
+                        else
+                        {
+                            while (elapsed < duration)
+                            {
+                                elapsed += Time.unscaledDeltaTime;
+                                bloodElapsed += Time.unscaledDeltaTime;
+                                float t = Mathf.Clamp01(elapsed / duration);
+                                ApplyDevourCamera(
+                                    presentation,
+                                    lungeStartPosition,
+                                    lungeStartRotation,
+                                    lungeStartFov,
+                                    t);
+                                UpdateBloodReveal(bloodElapsed);
+                                yield return null;
+                            }
+                        }
+
+                        Debug.Log("DEATH_DEVOUR_LUNGE_COMPLETED", this);
                     }
-
-                    Debug.Log("DEATH_DEVOUR_LUNGE_COMPLETED", this);
+                    else
+                    {
+                        Debug.LogWarning("DEATH_DEVOUR_LUNGE_SKIPPED: FocusTarget is missing.", this);
+                    }
                 }
-                else
+
+                // Blackout fade cho Style 1
+                elapsed = 0f;
+                duration = Mathf.Max(0f, blackoutFadeDuration);
+                float startingBlackAlpha = blackoutCanvasGroup != null ? blackoutCanvasGroup.alpha : 0f;
+                while (elapsed < duration)
                 {
-                    Debug.LogWarning("DEATH_DEVOUR_LUNGE_SKIPPED: FocusTarget is missing.", this);
+                    elapsed += Time.unscaledDeltaTime;
+                    bloodElapsed += Time.unscaledDeltaTime;
+                    float t = duration <= Mathf.Epsilon ? 1f : Mathf.Clamp01(elapsed / duration);
+                    SetBlackoutAlpha(Mathf.Lerp(startingBlackAlpha, 1f, t));
+                    UpdateBloodReveal(bloodElapsed);
+                    yield return null;
                 }
-
             }
 
+            // =========================================================
+            // PHA DÙNG CHUNG CHO CẢ 2 KIỂU: BLACKOUT HOLD -> RESET TẦNG 0 -> HỒI SINH
+            // =========================================================
             State = DeathState.Blackout;
-            elapsed = 0f;
-            duration = Mathf.Max(0f, blackoutFadeDuration);
-            float startingBlackAlpha = blackoutCanvasGroup != null ? blackoutCanvasGroup.alpha : 0f;
-            while (elapsed < duration)
-            {
-                elapsed += Time.unscaledDeltaTime;
-                bloodElapsed += Time.unscaledDeltaTime;
-                float t = duration <= Mathf.Epsilon ? 1f : Mathf.Clamp01(elapsed / duration);
-                SetBlackoutAlpha(Mathf.Lerp(startingBlackAlpha, 1f, t));
-                UpdateBloodReveal(bloodElapsed);
-                yield return null;
-            }
-
             SetBlackoutAlpha(1f);
             ClearBlood();
             Debug.Log("DEATH_BLACKOUT", this);
@@ -333,14 +469,8 @@ namespace Zero.AnomalyPrototype.Player
             }
 
             float noiseTime = Time.unscaledTime * 31.7f + elapsed;
-            Vector3 positionNoise = new Vector3(
-                Mathf.PerlinNoise(noiseTime, 0.17f) - 0.5f,
-                Mathf.PerlinNoise(0.43f, noiseTime) - 0.5f,
-                Mathf.PerlinNoise(noiseTime, 0.79f) - 0.5f) * (positionShake * 2f);
-            Vector3 rotationNoise = new Vector3(
-                Mathf.PerlinNoise(noiseTime, 1.17f) - 0.5f,
-                Mathf.PerlinNoise(1.43f, noiseTime) - 0.5f,
-                Mathf.PerlinNoise(noiseTime, 1.79f) - 0.5f) * (rotationShake * 2f);
+            Vector3 positionNoise = DeathCameraNoise.Sample(noiseTime, 0f, positionShake * 2f);
+            Vector3 rotationNoise = DeathCameraNoise.Sample(noiseTime, 1f, rotationShake * 2f);
             playerCamera.transform.SetPositionAndRotation(
                 position + positionNoise,
                 rotation * Quaternion.Euler(rotationNoise));
@@ -376,16 +506,8 @@ namespace Zero.AnomalyPrototype.Player
 
             float noiseTime = Time.unscaledTime * 47.3f;
             float shakeStrength = devourShakeMultiplier * t;
-            Vector3 positionNoise = new Vector3(
-                Mathf.PerlinNoise(noiseTime, 2.17f) - 0.5f,
-                Mathf.PerlinNoise(2.43f, noiseTime) - 0.5f,
-                Mathf.PerlinNoise(noiseTime, 2.79f) - 0.5f) *
-                                    (positionShake * 2f * shakeStrength);
-            Vector3 rotationNoise = new Vector3(
-                Mathf.PerlinNoise(noiseTime, 3.17f) - 0.5f,
-                Mathf.PerlinNoise(3.43f, noiseTime) - 0.5f,
-                Mathf.PerlinNoise(noiseTime, 3.79f) - 0.5f) *
-                                    (rotationShake * 2f * shakeStrength);
+            Vector3 positionNoise = DeathCameraNoise.Sample(noiseTime, 2f, positionShake * 2f * shakeStrength);
+            Vector3 rotationNoise = DeathCameraNoise.Sample(noiseTime, 3f, rotationShake * 2f * shakeStrength);
 
             playerCamera.transform.SetPositionAndRotation(
                 position + positionNoise,
@@ -605,19 +727,10 @@ namespace Zero.AnomalyPrototype.Player
                     : FindAnyObjectByType<DirectionalAnomalyGameManager>();
             }
 
-            if (jumpscareAudioSource == null)
-            {
-                jumpscareAudioSource = GetComponent<AudioSource>();
-            }
+            jumpscareAudioSource = PlayerDeathReferenceBinder.ResolveAudio(gameObject, jumpscareAudioSource);
+            PlayerDeathReferenceBinder.BindBlackout(blackoutCanvasGroup);
 
-            if (blackoutCanvasGroup != null)
-            {
-                Canvas blackoutCanvas = blackoutCanvasGroup.GetComponentInParent<Canvas>();
-                if (blackoutCanvas != null)
-                {
-                    blackoutCanvas.sortingOrder = 1000;
-                }
-            }
+            defaultCameraCutAudioClip = GameAudioBootstrap.ResolveDefaultClip(defaultCameraCutAudioClip, "clip.LightGlitch");
         }
 
         private void CaptureInitialState()
@@ -687,7 +800,7 @@ namespace Zero.AnomalyPrototype.Player
 
             jumpscareAudioSource.Stop();
             jumpscareAudioSource.spatialBlend = 0f;
-            jumpscareAudioSource.PlayOneShot(clip);
+            GameAudioBootstrap.BindSource(ref deathPlayback, jumpscareAudioSource, AudioBus.Sfx, false).Play(null, clip);
         }
 
         private bool Reject(AnomalyBehaviour source, string reason)

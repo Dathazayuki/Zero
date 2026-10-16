@@ -1,3 +1,4 @@
+using Zero.AnomalyPrototype.Flow;
 using System.Collections;
 using UnityEngine;
 
@@ -10,11 +11,13 @@ namespace Zero.AnomalyPrototype.Interaction
     /// </summary>
     public class PushDoorController : MonoBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         [Header("Door Pivot & Angle")]
         [SerializeField] private Transform doorPivot;
         [SerializeField] private float openAngle = 70f;
         [SerializeField] private float openDuration = 0.8f;
         [SerializeField] private bool openAwayFromPlayer = true;
+        [SerializeField] private bool startOpen;
 
         [Header("Audio (Optional)")]
         [SerializeField] private AudioSource audioSource;
@@ -40,11 +43,22 @@ namespace Zero.AnomalyPrototype.Interaction
             {
                 audioSource = GetComponent<AudioSource>();
             }
+
+            openSound = GameAudioBootstrap.ResolveDefaultClip(openSound, "clip.Door_Open");
         }
 
         private void OnEnable()
         {
             ResetDoor();
+            if (startOpen) OpenImmediately();
+        }
+
+        public void OpenImmediately()
+        {
+            ResetDoor();
+            if (doorPivot == null) return;
+            doorPivot.localRotation = initialRotation * Quaternion.Euler(0f, openAngle, 0f);
+            isOpen = true;
         }
 
         private void OnDisable()
@@ -126,7 +140,7 @@ namespace Zero.AnomalyPrototype.Interaction
 
             if (audioSource != null && openSound != null)
             {
-                audioSource.PlayOneShot(openSound);
+                GameAudioBootstrap.BindSource(ref soundPlayback, audioSource).Play(null, openSound);
             }
         }
 

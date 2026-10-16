@@ -1,9 +1,11 @@
+using Zero.AnomalyPrototype.Flow;
 using UnityEngine;
 
 namespace Zero.AnomalyPrototype.Anomalies
 {
     public sealed class HorrorDollAnomaly : AnomalyBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         [Header("Doll & Bone References")]
         [Tooltip("Khúc xương đầu của búp bê (bone 16). Kéo trực tiếp bone 16 vào đây.")]
         [SerializeField] private Transform headBone;
@@ -159,7 +161,7 @@ namespace Zero.AnomalyPrototype.Anomalies
             {
                 if (Time.time - lastSoundTime >= soundInterval)
                 {
-                    audioSource.PlayOneShot(neckCreakAudio);
+                    GameAudioBootstrap.BindSource(ref soundPlayback, audioSource).Play(null, neckCreakAudio);
                     lastSoundTime = Time.time;
                 }
             }

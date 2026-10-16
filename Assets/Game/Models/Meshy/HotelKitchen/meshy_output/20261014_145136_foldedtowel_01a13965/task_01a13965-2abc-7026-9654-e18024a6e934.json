@@ -1,0 +1,24 @@
+{
+  "id": "01a13965-2abc-7026-9654-e18024a6e934",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 1784457470,
+  "prompt": "Single neatly folded rectangular hotel kitchen tea towel, soft cream cotton fabric with narrow dark muted green stripes, two overlapping folds, stitched hems, visible cloth thickness, gentle wrinkles, subtle staining and worn fibers. Resting flat on a counter. Realistic detailed game prop, no table, no other objects.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964295524,
+  "progress": 100,
+  "started_at": 1791964295529,
+  "finished_at": 1791964402928,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-2abc-7026-9654-e18024a6e934/output/model.fbx?Expires=4945536000&Signature=B~pNAHnd5vPJWXMtpUvAxWbgb1Cp2VbLLuZkY8WiGt32YAFzmUAGjAFaL0TZl5vBZQXjFrMBvhUCLkuSYycpvFAif9d-BY4tHUUyQuaLEMbklggoA6MHGJG8brUsuSErBEzfY9APM6tNPME2LdgeT9Gh9bBq5GBySISlymkgdBBn~DmbMde2M~~4cqLjPhVq1r9UhTGPP82SSo9iLcJBFUtUSHTn5LheP-c-jEe-67Df09yd8mCk0fq1TYLfCE0HWc3uv53qlyzXVRnEtMxiD1ofpA5KaD4ISp-CrQ7lYZ1ie64C5qt6VD5fkXxZi95QeiwNtAkSBhk~QlsLLamtjQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-2abc-7026-9654-e18024a6e934/output/model.obj?Expires=4945536000&Signature=W-3~JAzjJsbu5F55USBnz1FxscK4YL~Lj~oGC3kSa6LvlWTsGP-F9mFVLwFXnpN9uFXjk2nAIRAuY7ooWeM0eddoHsNSGR2fSe4PwGs83livD9XIM4ejewg1H6tzFlwOP-Ckt4YYZ1xBhhbY-fHKOtk6eaYKsve2XpQmfsVJbEU5QBfkv9Gi2NFYVwWemrAo02O0jDja0KALcbfP3YhAABgtN9CbsKZSEzoi~wgHTrv6CrUDBRAgkc8wAaATQ12huUcqIL3rjlhApHody6q63JP~kv2Alp9xfQ8EiQOxE~jrx9wOv7ElO0FSucEjrshMqdmmCJaz-3BaNiW2V0bIrQ__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-2abc-7026-9654-e18024a6e934/output/preview.png?Expires=4945536000&Signature=V1~tjuTtstVHfac2xjxX5OibQ1sJj0sbQ0HIq4ViB37OMOYXn3TLOevB4zu9MIjvTobhMs3GWA1QAtJ6BL-gWNez3lK4hPsjTC3KvsHuWtzO50CHPkMAxAjAV60IxYB1a8QJ3v0RuEIjYfHv8Dh7WOU7nVitdZSoEeeoJZEUJBVfcd--ihsIDTTkObg1ZKukw1iU5xDuskDMEkwlKc-bA0ONiq7zZ3bktHD9Nd3BWe5cu46rGLVrh4DRqPbrxHmy1yslroNffxNU0ay~p5VzkUxevBK-lPdyH4G94iyTD-kNaxSwgbfWLa7AycTp7ldHnhFXZWfuzq21o3y38KrFQA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

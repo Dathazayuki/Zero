@@ -42,10 +42,12 @@ namespace Zero.EnvironmentLoop
         public int InactiveSegmentCount => inactiveSegments.Count;
         public int PoolSize => pooledSegments.Count;
         public int RecycleCount { get; private set; }
+        public event System.Action<FloorSegment> CurrentFloorCommitted;
         public bool IsInitialized { get; private set; }
         public string LastOperationMessage { get; private set; } = "Not initialized";
         public string PoolOrder => BuildPoolOrder();
         public FloorProgressManager ProgressManager => progressManager;
+        public IReadOnlyList<FloorSegment> ConfiguredSegments => initialSegments ?? System.Array.Empty<FloorSegment>();
         public DirectionalAnomalyGameManager AnomalyGameManager => anomalyGameManager;
         public bool IsEndingRouteArmed => endingRouteArmed;
         public bool IsEndingFloorEntered => endingFloorEntered;
@@ -74,17 +76,12 @@ namespace Zero.EnvironmentLoop
 
         public void Initialize()
         {
-            if (IsInitialized)
-            {
-                return;
-            }
-
+            if (IsInitialized) return;
             if (progressManager == null)
             {
                 Debug.LogError("StairLoopManager requires FloorProgressManager.", this);
                 return;
             }
-
             if (initialSegments == null || initialSegments.Length < MinimumPoolSize)
             {
                 Debug.LogError($"Environment loop requires a pool of at least {MinimumPoolSize} FloorSegments.", this);
@@ -107,19 +104,14 @@ namespace Zero.EnvironmentLoop
 
                 segment.gameObject.SetActive(true);
                 if (!initialRootPoses.ContainsKey(segment))
-                {
                     initialRootPoses.Add(segment, new Pose(segment.transform.position, segment.transform.rotation));
-                }
 
                 segment.InitializeSegment();
                 segment.ConfigureNavigation(this);
                 int triggerCount = segment.ConfigureCommitTriggers(this);
                 if (triggerCount != 1)
                 {
-                    Debug.LogError(
-                        $"FLOOR_TRIGGER_CONFIGURATION_INVALID: {segment.SegmentId} requires exactly one " +
-                        $"SegmentCommitTrigger, found {triggerCount}.",
-                        segment);
+                    Debug.LogError($"FLOOR_TRIGGER_CONFIGURATION_INVALID: {segment.SegmentId} requires exactly one SegmentCommitTrigger, found {triggerCount}.", segment);
                     ClearRuntimeCollections();
                     return;
                 }
@@ -141,12 +133,8 @@ namespace Zero.EnvironmentLoop
             for (int i = 0; i < pooledSegments.Count; i++)
             {
                 FloorSegment segment = pooledSegments[i];
-                if (segment == below1 || segment == CurrentSegment || segment == above1)
-                {
-                    continue;
-                }
-
-                ReleaseToInactivePool(segment);
+                if (segment != below1 && segment != CurrentSegment && segment != above1)
+                    ReleaseToInactivePool(segment);
             }
 
             progressManager.Initialize();
@@ -157,10 +145,7 @@ namespace Zero.EnvironmentLoop
             Physics.SyncTransforms();
             IsInitialized = true;
             LastOperationMessage = "Ready: Below1 -> Current -> Above1";
-            Debug.Log(
-                $"ENV_LOOP_READY: current={CurrentSegment.SegmentId}, active={PoolOrder}, " +
-                $"pool={PoolSize}, inactive={InactiveSegmentCount}",
-                this);
+            Debug.Log($"ENV_LOOP_READY: current={CurrentSegment.SegmentId}, active={PoolOrder}, pool={PoolSize}, inactive={InactiveSegmentCount}", this);
         }
 
         public void ResetToInitialState()
@@ -227,69 +212,34 @@ namespace Zero.EnvironmentLoop
                 this);
         }
 
+        private bool TryResolveCommitDirection(FloorSegment targetSegment, out TravelDirection direction)
+        {
+            direction = default;
+            if (endingFloorEntered || !IsInitialized || targetSegment == null) return false;
+            LinkedListNode<FloorSegment> currentNode = activeSegments.Find(CurrentSegment);
+            if (currentNode == null) return false;
+
+            if (targetSegment == currentNode.Next?.Value) { direction = TravelDirection.Up; return true; }
+            if (targetSegment == currentNode.Previous?.Value) { direction = TravelDirection.Down; return true; }
+            return false;
+        }
+
         public bool TryCommit(FloorSegment targetSegment)
         {
             if (endingFloorEntered) return Reject("Terminal floor has locked commits");
-            if (!IsInitialized || endingFloorEntered)
-            {
-                return Reject("Loop manager is not initialized or ending floor already entered");
-            }
+            if (!TryResolveCommitDirection(targetSegment, out TravelDirection direction))
+                return Reject($"Commit invalid for {targetSegment?.SegmentId ?? "null"} on current {CurrentSegment?.SegmentId ?? "null"}");
 
-            if (targetSegment == null)
-            {
-                return Reject("Commit trigger has no FloorSegment owner");
-            }
-
-            LinkedListNode<FloorSegment> currentNode = activeSegments.Find(CurrentSegment);
-            if (currentNode == null)
-            {
-                return Reject("Current FloorSegment is not present in the active window");
-            }
-
-            TravelDirection direction;
-            if (targetSegment == currentNode.Next?.Value)
-            {
-                direction = TravelDirection.Up;
-            }
-            else if (targetSegment == currentNode.Previous?.Value)
-            {
-                direction = TravelDirection.Down;
-            }
-            else
-            {
-                return Reject(
-                    $"Commit owner {targetSegment.SegmentId} is not adjacent to current {CurrentSegment.SegmentId}");
-            }
-
-            if (endingRouteArmed)
-            {
-                Debug.Log($"ENDING_ROUTE_WRONG: direction={direction}, reset=0", this);
-                ClearEndingRoute(true);
-            }
-
-            if (activeSegments.Count != ActiveWindowSize)
-            {
-                return Reject($"Active window requires exactly {ActiveWindowSize} segments");
-            }
-
-            if (inactiveSegments.Count < 2)
-            {
-                return Reject("Three-segment active window requires two inactive reserves before every commit");
-            }
-
-            if (anomalyGameManager != null && !anomalyGameManager.RegisterPendingDecision(direction))
-            {
-                return Reject("Current segment has no valid locked gameplay round");
-            }
+            if (endingRouteArmed) { Debug.Log($"ENDING_ROUTE_WRONG: direction={direction}, reset=0", this); ClearEndingRoute(true); }
+            if (activeSegments.Count != ActiveWindowSize) return Reject($"Active window requires exactly {ActiveWindowSize} segments");
+            if (inactiveSegments.Count < 2) return Reject("Three-segment active window requires two inactive reserves before every commit");
+            if (anomalyGameManager != null && !anomalyGameManager.RegisterPendingDecision(direction)) return Reject("Current segment has no valid locked gameplay round");
 
             FloorSegment origin = CurrentSegment;
             FloorSegment[] oldWindow = GetOrderedSegments();
             FloorSegment newBelow1 = TakeRandomInactiveSegment();
             FloorSegment newAbove1 = TakeRandomInactiveSegment();
-            if (newBelow1 == null || newAbove1 == null)
-            {
-                return Reject("Dynamic pool transaction could not acquire two distinct reserve segments");
-            }
+            if (newBelow1 == null || newAbove1 == null) return Reject("Dynamic pool transaction could not acquire two distinct reserve segments");
 
             CurrentSegment = targetSegment;
             CurrentSegment.ConsumeCommitTriggers();
@@ -297,12 +247,7 @@ namespace Zero.EnvironmentLoop
             progressManager.Commit(direction);
 
             for (int i = 0; i < oldWindow.Length; i++)
-            {
-                if (oldWindow[i] != targetSegment)
-                {
-                    ReleaseToInactivePool(oldWindow[i]);
-                }
-            }
+                if (oldWindow[i] != targetSegment) ReleaseToInactivePool(oldWindow[i]);
 
             ActivateBelow(newBelow1, CurrentSegment);
             ActivateAbove(newAbove1, CurrentSegment);
@@ -320,13 +265,9 @@ namespace Zero.EnvironmentLoop
             anomalyGameManager?.CompletePendingDecision();
 
             FloorSegment replacementBehind = direction == TravelDirection.Up ? newBelow1 : newAbove1;
-            LastOperationMessage =
-                $"Committed {direction}; {replacementBehind.SegmentId} replaced {origin.SegmentId} behind the Player";
-            Debug.Log(
-                $"ENV_LOOP_DYNAMIC_COMMIT: direction={direction}, logicalFloor={progressManager.LogicalFloorIndex}, " +
-                $"current={CurrentSegment.SegmentId}, previous={origin.SegmentId}, " +
-                $"replacementBehind={replacementBehind.SegmentId}, active={PoolOrder}, inactive={InactiveSegmentCount}",
-                this);
+            LastOperationMessage = $"Committed {direction}; {replacementBehind.SegmentId} replaced {origin.SegmentId} behind the Player";
+            Debug.Log($"ENV_LOOP_DYNAMIC_COMMIT: direction={direction}, logicalFloor={progressManager.LogicalFloorIndex}, current={CurrentSegment.SegmentId}, previous={origin.SegmentId}, replacementBehind={replacementBehind.SegmentId}, active={PoolOrder}, inactive={InactiveSegmentCount}", this);
+            CurrentFloorCommitted?.Invoke(CurrentSegment);
             return true;
         }
 
@@ -376,8 +317,6 @@ namespace Zero.EnvironmentLoop
             }
             endingCleanup = null;
             Debug.Log("ENDING_FLOOR_CLEANUP_COMPLETE", this);
-            // Office load starts in ActivatePreloadedEndingScene after an opaque
-            // white frame. Async scene loading can still stall its first frame.
         }
 
         public FloorSegment GetAdjacentCurrent(TravelDirection direction)

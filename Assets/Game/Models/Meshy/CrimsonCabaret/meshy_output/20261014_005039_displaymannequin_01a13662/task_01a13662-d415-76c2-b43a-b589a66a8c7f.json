@@ -1,0 +1,24 @@
+{
+  "id": "01a13662-d415-76c2-b43a-b589a66a8c7f",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 893191893,
+  "prompt": "A single full body vintage shop display mannequin, standing upright, arms relaxed slightly away from body, elegant anatomically proportioned smooth ivory porcelain human form, blank faceless head, articulated joint seams, fingers clearly sculpted, on a small circular dark metal base. Unclothed nonsexual retail display, smooth featureless torso, no hair, no clothing, no props. Realistic game decoration.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791913810451,
+  "progress": 100,
+  "started_at": 1791913810456,
+  "finished_at": 1791913835358,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13662-d415-76c2-b43a-b589a66a8c7f/output/model.glb?Expires=4945449600&Signature=Vv2PUZQqLVdaEZSECvT7WrhTp~S5uJhVaG0ukGOj28C8J4qGM1BzTr-fcYIOX6LwLrko~mPaclND-TqHE-4htejZN3r6zBKbONc0YcI8znFATEXqXvX39XJrmfXExTf8p3Y-ymnC1uCjddukE0RFOFF0GnKnpyhP3MKKTtEswUGtvdyBqigUsXD-pi7hjaYijzik-YpGMt8JhCmGLbjmTwf3oHBbL2YTj3gddmYFUasapAO4vRmqi7QG7sDtEsEGx3jUdQWI-~HY-00vGvSfFCvujKxDCSKMgg1URntTxig5V4dBDSpL2UeR6ppb43UFtEGAIRhI~M2wKZ8splXriA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13662-d415-76c2-b43a-b589a66a8c7f/output/model.fbx?Expires=4945449600&Signature=FllcnefB9izYEwlAgQgzqCp98R90AkHhxpp346fZZTEo9fronkBMTU4ghzxKql4Ifwfq9~auPFvAoYiDimA1cJ19t4TVV-0FMQ9DvIL59qIbUzrJrLWJ4LJzVVUkm5U1xAYGRfIf~WCyKbUPGI73QdA4eUCozlD7rmmM4nkbJHEM63aFRFsEtulc7pwRR5fOrmzYZ6xl1z7s2j~nW6PgCpomPLiOXD4tq5GFHG4Q21Cx~x0-LWJd7vxuV6Cqagc3aqTvhiMhIft1NhDJa-rz1xMtBO5AlLQs6mMRha52t2Usdp--yptRxflXiTKN9VdZYqI41LYkDN6flt2HeHm-fA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13662-d415-76c2-b43a-b589a66a8c7f/output/preview.png?Expires=4945449600&Signature=bKz0gX7WlX9Pi1KEFrWNzZKFhKGD-aYK6qm4238gmnblR5vcbO9H4Zlun2Yg-b-Puf32Qhu0IU-jvRU3SaQfXtOIgHjiUoN0sgQCDg7cirtMYsJz96jYJ0ogA20vE97pLrC3YE-h4kCUsm3a~9pbIQSWuN9gfsTT9l6ShTeX7U1AkrwRyd1d-1x4FwDhIQgNAvUg59-wNV8rGatd9TDIuIVAt5WEnBlwfJktp8PDhW9WgXDEQlb20TmxXxoImwJNf-OAmZMBkx3FbVQftIqHLppslvwICOipBV62vWc6GcTsE~OGxlFEK-kyVhUgvTnh4~snLV~2Zh5XrO8xGZcm1A__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 20
+}

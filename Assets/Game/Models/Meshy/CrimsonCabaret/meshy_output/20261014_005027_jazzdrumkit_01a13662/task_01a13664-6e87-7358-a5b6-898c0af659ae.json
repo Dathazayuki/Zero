@@ -1,0 +1,31 @@
+{
+  "id": "01a13664-6e87-7358-a5b6-898c0af659ae",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "standard",
+  "seed": 2053969824,
+  "prompt": "A single complete vintage jazz drum kit for an abandoned 1930s crimson cabaret stage. Burgundy wooden bass drum, two mounted toms, floor tom, snare, three brass cymbals on slender chrome stands, stool and pedals. Realistic detailed separate silhouettes, full freestanding kit, no room, no musicians, no text. Game environment prop.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791913914000,
+  "progress": 100,
+  "started_at": 1791913914007,
+  "finished_at": 1791914032153,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-6e87-7358-a5b6-898c0af659ae/output/model.glb?Expires=4945449600&Signature=PQsmH2jr-k366ZBTJCVyGyrPzUY5YKnzuyOzgcxeEqmnZr6jGe9IIwV2X7FLRHRT7V8mbqe4zp3JqFfSLmUTkbD6Xmw~KVWb9N0fPg8jZrkrauAad2RMd2p9zJn11mIA8Samg4ejX74oDAxp2twBDHREAflrb8kU~c3ejF3iGvk2grW0f0ldXcMId~hXp0NUXkm3zF3GzrFPFQbtKoDMlf2L8-9YVHHNtC45bFjp-2pc20hxWj8xKEPS8Gy~3giocZzclJXgz9HiVwv9-1jTFpq1isaw5dwRaxtuCMcHM4xCKYLftp~S3l5ePMKRLXjwi1ltdPyLqbjcTNhHyJmmGQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-6e87-7358-a5b6-898c0af659ae/output/model.fbx?Expires=4945449600&Signature=WzKZQ1Oo3VjpKZ-WFgmQKy~8BN9S7o5b6dFZ7VKfgEAynUxO6ecftQeYp18eB5nVTKP-D-YwCDiK9yxOEkNhW5mAMXl8YiLgryTXswbypI9whVGGR5PVYFjP3Skw3BzN6WXxmv-lqE5Ax3schL2~itpIbE7ktY0S7~QU-njXElpF-WhnRXp47M8BXH79dWX5OmRU4p4aX9IunzgaS~l4VH~Gu0klHD8GpJ4-PbxL8EgdU~dH~36Nc06r11HSEyKKVbBXrGpdFkmmdct4eqIK4qjBtHLjeeqxyfATtQPAWzLK-iIxQdOouu68SyNotylW32kPB2Jkr4jYlTxKB6Y9Yg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-6e87-7358-a5b6-898c0af659ae/output/preview.png?Expires=4945449600&Signature=hdAwcd9h~Qf5A4RxZM52OLG1l1Ho-eqoeRQj22clhGhhnto7hywk4Z7Sq7uivCloU4QKXTp6QbI19irrSpLN~h-kqhRwSQoa~E1KZcNboTfvRuywPtTEy7wAoWR-r08qsnB0NiJzLeTB0WGQPsSgsI8QZtJbCYDakZP6ewC7~RX6N7RFRyKRPYSWUzAVHB3XdUXG417cF-AFaPTMEPKUnqo4TPnqvEAThTx6YuFOiZfwK9AVK3LcEM70zriGVj9E18jSIFqhcLGftOV3O0YPf9TbD4oJuRK5RxG1wPZdcAncqxdFyHbfuQf9-sNH~ZvM7~TlPo~qnYEDKaZQo83b8g__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-6e87-7358-a5b6-898c0af659ae/output/texture_0.png?Expires=4945449600&Signature=FRtVKrt-c0cppPhmuGyzSiHNL1YibWr12j6a10sS56Jyc6wTIYYvsKeHvv9bVL52-iP6cpzFqaQR8Lc3-YhI7dnDj9m-L4avShGFbPkOdpZ3PxYTVIY-ded4ZmuOFirWcMUcSqo0o89fB75sfPALAVDZ5lT6tP326xInKDgZ5zoE1v8hOAQa7~KvOcg3~xcp37cTlEVMejKYRhk~NLvPl2ojqKc5wdCWzhWddx1oLvc44E5WOu1ricz9dNc-~pjP5BwDFps8Hw7yK9vmObFD0~ja6k-fXn~zKt5a3ihKSZHI526Fq3Rq1OS5h-HvpBlViwpR-X1O04bCvxgad3Ul1g__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-6e87-7358-a5b6-898c0af659ae/output/texture_0_metallic.png?Expires=4945449600&Signature=bSya90VIEXYHyoKkFJTTzdIvFAHg94PG940C5SnmZmAe63~7R8b-FE5ciJf0D22Tf1X1-mrp3w4fqweRGX36Kmpw12TcAuLKxONE0TO9F6d4HnBz~~M-jfGSDqSH7yl2NFRzh3W74JXkpI-7WjIyCpoJuzgUZZWGCiqi~rYGjX6z9nQpi~HAim6~2MGeojOxToyXxLjiFOJbjmRAGFgOtTeYmNl7KKD7W2zudN3GUcac1YmXAK5kETwSvZOPL0e-XLWVPVB8raXyhMDLTRM2gZXKpAzxZ9srd7fSsEJfs6t4AtvBO6wzP54JMGoluJdJ5TPONEUaXaA-CTu5ClXMsQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-6e87-7358-a5b6-898c0af659ae/output/texture_0_roughness.png?Expires=4945449600&Signature=W0mLhfqP9GL2kl-3UIZa6wAN6-OkoJ6tEZm1OJsTq5b~5879TCrJmNPyvmpz~-lqVNJo37pZSHAs0UuZKp1Fzk1NgRhRxq1Nkv8Y2ZMnHsk5yQPpGmn9uSC5OfOFoT1HaRy14gn7sKaFFGgkaaYhL9h8qCiLAheXOylvKRANdRvFvk4tLdOTDT3brwJ89z2Tsmf50~SlXIHSQmPT73~y0VTNL6yvLUZGuVZHHCz-TAqaZbqAkGALVWhDORgMWtbbtTvNb7lK4Ybsv5Jl23tunT-X-Wpp-7JyDtZtsEGqNYkqYxSGXQrQs~Yxmhl6hrKJvtNDs4th3eCL-B0-~pzqfA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-6e87-7358-a5b6-898c0af659ae/output/texture_0_normal.png?Expires=4945449600&Signature=DoAz7rT--yrpgQ1z5HiORcGzwF5cCHs-vEH6273LhV55vzvQ~C3z3VepEkxi05xgXWTq82p4y0bVVxZc6zT1Iuy0CkIhxSCAMrgWHZNnmAJzbfeVv8-H2VyCMDJFJgLz1TBo6SKbtond8tcKzibxKJbMlYD0KeyRm1Rd2dxUql8ryuScGq9IxidS4QAbrir6vz3mBrYNcU7vJ2qtFAip1CY0pP7Mea0klHNdUPpuN-j2lW87eb6TMv3bn5S01YWQNIzWfA7O97RE9iZCso79LnCh9syuuvAvEXxlN3iut6WRD35zYvKk8vOf-5d5ITdstOQWwRzw2xwNaG~4t71y-Q__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

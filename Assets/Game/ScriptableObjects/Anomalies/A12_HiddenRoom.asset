@@ -19,5 +19,6 @@ MonoBehaviour:
   difficulty: 1
   spawnWeight: 1
   canKillPlayer: 1
+  deathStyle: 1
   description: The entrance door has become a blank wall, and a hidden passage has
     opened on the side wall revealing a secret room.

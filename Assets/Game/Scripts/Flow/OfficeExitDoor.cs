@@ -16,6 +16,7 @@ namespace Zero.AnomalyPrototype.Flow
 
         private Quaternion closedRotation;
         private bool isOpen;
+        private SourceSoundPlayback soundPlayback;
 
         public string InteractionPrompt => isOpen ? string.Empty : "MỞ CỬA CẦU THANG";
 
@@ -35,6 +36,7 @@ namespace Zero.AnomalyPrototype.Flow
             }
 
             closedRotation = doorPivot.localRotation;
+            openClip = GameAudioBootstrap.ResolveDefaultClip(openClip, "clip.Door_Open");
         }
 
         public void Interact(PlayerInteraction interactor)
@@ -50,7 +52,7 @@ namespace Zero.AnomalyPrototype.Flow
             isOpen = true;
             if (audioSource != null && openClip != null)
             {
-                audioSource.PlayOneShot(openClip);
+                GameAudioBootstrap.BindSource(ref soundPlayback, audioSource).Play(null, openClip);
             }
             Quaternion target = closedRotation * Quaternion.Euler(0f, openAngle, 0f);
             float elapsed = 0f;

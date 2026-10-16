@@ -1,0 +1,24 @@
+{
+  "id": "01a13965-5a95-7284-8467-1b5203c66af7",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 2733744447,
+  "prompt": "Single practical commercial kitchen liquid soap dispenser, translucent amber rounded plastic bottle with a black screw cap and clearly formed pump nozzle projecting forward, small integrated faded cream rectangular label bonded to bottle surface. Modest wear, realistic proportions, upright on its bottom, no floating label, no text required, no table or other objects.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964308119,
+  "progress": 100,
+  "started_at": 1791964308125,
+  "finished_at": 1791964396111,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-5a95-7284-8467-1b5203c66af7/output/model.fbx?Expires=4945536000&Signature=KiCEsF6RyTs9Ly0-3M6X3c9HRpHNCneLwYeTKU8O4YUwsDK3UkGEBHVi4~mm1OHE0RhM7Wq08bPlgyWFIg0AIRVGnDr4ooV5WY6~598u6CNB~WE5qHVODS68b19BZxDRdOnLQeuL-Mj6LvRA57y7ZmQZkaRP1Sn4lcJcODU625zWOGplOOf9MFlm8OHh9kh5fl7D7Q~oaVgMnU5HeTlCvl9Q2MDatHQ0zMfj0lPgf6z5dNN5i8QNXZc02dHnpmfKLir0DgSIq9i99bqcu9XxIIVfJBn1HpZ~orXutLMVawOMsFHnGtv9aFQ6w4A-dzAr3fadTX9uff-fyemDk1Bv3A__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-5a95-7284-8467-1b5203c66af7/output/model.obj?Expires=4945536000&Signature=Ozj99Pvil8FzwAgmItn3QE7DhvnA06IwOswFjpTeeYY7BzD1EsHjXtmczWt1H~l1~fbxjT9UrdQDD52hBDBBBo8TUKqoGsGtspi7wH4FGs6mXxP4CBRBSomxsrEEttX7dOFC7nwypOdGnGno2pJ9EZEHyObxHiS4-nntybMRs8Z-Rj6f5lqokQ0Kt2~VG2YCEdDZdRu5JfiUWKYGOzPX6eCJEgO2WuTomJ5UnQNpF-7eYs4YciaJ9orCqf48EMsPS7LjEQ9~8f6TfNnExsG02MnzklJmQ5JAZcg6XISfVwhmWcwfsmrS7-sU4sLMJIJWovLM89muWCTA7Ao3z8Mqew__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-5a95-7284-8467-1b5203c66af7/output/preview.png?Expires=4945536000&Signature=ewymARj-hOXHZ2rR9JdO2vRYuUW-f72d9frcnLg6xDXCa1ZLP0qeEU1nU02s7yc1iFU~5l2ZThxceF4jvWrwYYCQWRZw62ntVrjyXRiC6Qft8nhLhHgAfQV~gAhXrryvqXRsf-d453bkfO0qUuDw9-Fd0DBbATq3CgKvalNPeLKap-IVrxfV43y8T4KMnyQKH7f0wL1mZ3dabCw8oEFGSgddKv1Fs4Tpq~XiAVY6oZ-vJPYlx5WN18WJhgGpuEhjQihK9P33eYyFpc9tU3uqy1dlKJ7qsdyjt0XgPYyIwrFC6VBEc51yx3J6IDfmTfvh4W~FCAUNXeKwkT2IFJLz5w__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

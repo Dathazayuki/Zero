@@ -62,6 +62,35 @@ namespace Zero.AnomalyPrototype.Flow
             SetColor(to);
         }
 
+        public IEnumerator FadeFromBlackGradual(float duration)
+        {
+            EnsureOverlay();
+            SetColor(Color.black);
+            SetImmediate(1f);
+            duration = Mathf.Max(0f, duration);
+
+            if (duration <= 0f)
+            {
+                SetImmediate(0f);
+                yield break;
+            }
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                float smoothT = Mathf.SmoothStep(0f, 1f, t);
+                // Perceptual brightness curve: transmitted light increases quadratically
+                // with smoothT, so perceived brightness increases linearly/gradually.
+                float transmittedLight = smoothT * smoothT;
+                SetImmediate(1f - transmittedLight);
+                yield return null;
+            }
+
+            SetImmediate(0f);
+        }
+
         public IEnumerator FadeTo(float targetAlpha, float duration)
         {
             EnsureOverlay();

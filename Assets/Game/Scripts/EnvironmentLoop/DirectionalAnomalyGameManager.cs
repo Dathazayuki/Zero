@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Zero.AnomalyPrototype.Anomalies;
 using Zero.AnomalyPrototype.Flow;
 using Zero.AnomalyPrototype.Player;
@@ -20,6 +21,8 @@ namespace Zero.EnvironmentLoop
         [SerializeField, Min(1)] private int recentHistorySize = 2;
 
         private readonly AnomalyPacingDirector pacingDirector = new AnomalyPacingDirector();
+        private AnomalyRosterSelector rosterSelector;
+        private EncounterDiversityHistory diversityHistory;
         private StairLoopManager loopManager;
         private FirstPersonController player;
         private RoomAnomalyController currentRoom;
@@ -38,15 +41,9 @@ namespace Zero.EnvironmentLoop
         private const int MaximumFloorNumber = 8;
 
         public bool CurrentRoomHasAnomaly => currentRoom != null && currentRoom.HasActiveAnomaly;
-        public TravelDirection CurrentArrowDirection => currentRoom != null
-            ? currentRoom.ArrowDirection
-            : TravelDirection.Up;
-        public TravelDirection CurrentExpectedDirection => currentRoom != null
-            ? currentRoom.ExpectedDirection
-            : TravelDirection.Up;
-        public string ActiveAnomalyName => currentRoom?.ActiveAnomaly?.Data != null
-            ? currentRoom.ActiveAnomaly.Data.DisplayName
-            : "None";
+        public TravelDirection CurrentArrowDirection => currentRoom != null ? currentRoom.ArrowDirection : TravelDirection.Up;
+        public TravelDirection CurrentExpectedDirection => currentRoom != null ? currentRoom.ExpectedDirection : TravelDirection.Up;
+        public string ActiveAnomalyName => currentRoom?.ActiveAnomaly?.Data != null ? currentRoom.ActiveAnomaly.Data.DisplayName : "None";
         public int RoundNumber { get; private set; }
         public int CorrectDecisions { get; private set; }
         public int IncorrectDecisions { get; private set; }
@@ -78,11 +75,28 @@ namespace Zero.EnvironmentLoop
         public event Action RoundPrepared;
         public event Action<bool, TravelDirection> DecisionResolved;
         public event Action RunCompleted;
+        public EndingRoute? SelectedEndingRoute { get; private set; }
+
+        public bool TrySelectEndingRoute(EndingRoute route)
+        {
+            if (FinalState != FinalRunState.EndingFloorEntered || HasCompletedRun ||
+                DisplayedFloorNumber != MaximumFloorNumber) return false;
+            if (SelectedEndingRoute.HasValue) return SelectedEndingRoute.Value == route;
+            SelectedEndingRoute = route;
+            Debug.Log($"ENDING_ROUTE_SELECTED: {route}", this);
+            return true;
+        }
+
+        public void ReleaseEndingRoute(EndingRoute route)
+        {
+            if (!HasCompletedRun && SelectedEndingRoute == route) SelectedEndingRoute = null;
+        }
         public event Action<TravelDirection> FinalFloorReady;
 
         public void Initialize(StairLoopManager manager, FirstPersonController playerController)
         {
             loopManager = manager;
+            if (playerController == null) playerController = FindFirstObjectByType<FirstPersonController>();
             player = playerController;
             RoundNumber = 1;
             CorrectDecisions = 0;
@@ -92,36 +106,14 @@ namespace Zero.EnvironmentLoop
             completionGate.Reset();
             FinalState = FinalRunState.Normal;
 
-            RoomAnomalyController[] rooms = loopManager != null
-                ? loopManager.transform.root.GetComponentsInChildren<RoomAnomalyController>(true)
-                : Array.Empty<RoomAnomalyController>();
+            RoomAnomalyController[] rooms = loopManager != null ? loopManager.transform.root.GetComponentsInChildren<RoomAnomalyController>(true) : Array.Empty<RoomAnomalyController>();
             Camera playerCamera = player != null ? player.PlayerCamera : null;
             for (int i = 0; i < rooms.Length; i++)
             {
                 rooms[i].InitializeRoom(player != null ? player.transform : null, playerCamera);
             }
 
-            ResetArrowStreakTracking();
-
-            FloorSegment[] activeSegments = loopManager?.GetOrderedSegments() ?? Array.Empty<FloorSegment>();
-            FloorSegment current = loopManager?.CurrentSegment;
-            ResetPacing(current);
-            if (current != null)
-            {
-                PrepareSegment(current, false, lastRecordedArrowDirection);
-            }
-            for (int i = 0; i < activeSegments.Length; i++)
-            {
-                FloorSegment seg = activeSegments[i];
-                if (seg != current)
-                {
-                    PreparePacedSegment(seg, nextPlannedArrowDirection);
-                }
-            }
-
-            RefreshCurrentRoom();
-            ApplyFloorNumberToCurrentSegment(true);
-            RoundPrepared?.Invoke();
+            PrepareInitialRound();
         }
 
         public void PrepareSegment(FloorSegment segment)
@@ -132,11 +124,9 @@ namespace Zero.EnvironmentLoop
 
         public void ResetRun()
         {
+            SelectedEndingRoute = null;
             GameFlowController.Instance?.ResetEndingForRun();
-            if (loopManager != null && (loopManager.IsEndingFloorEntered || loopManager.IsEndingRouteArmed))
-            {
-                loopManager.ResetToInitialState();
-            }
+            if (loopManager != null && (loopManager.IsEndingFloorEntered || loopManager.IsEndingRouteArmed)) loopManager.ResetToInitialState();
             RoundNumber = 1;
             CorrectDecisions = 0;
             IncorrectDecisions = 0;
@@ -156,35 +146,46 @@ namespace Zero.EnvironmentLoop
             FloorSegment[] segments = loopManager?.GetAllPooledSegments() ?? Array.Empty<FloorSegment>();
             for (int i = 0; i < segments.Length; i++)
             {
-                segments[i]?.GetComponentInChildren<RoomAnomalyController>(true)?.ResetRoom();
+                segments[i]?.RoomAnomalies?.ResetRoom();
                 segments[i]?.HideFloorNumber();
             }
 
-            ResetArrowStreakTracking();
+            PrepareInitialRound();
+            Debug.Log($"ANOMALY_RUN_RESET: round={RoundNumber}, floor={DisplayedFloorNumber}, current={loopManager?.CurrentSegment?.SegmentId ?? "None"}, arrow={lastRecordedArrowDirection}", this);
+        }
 
-            FloorSegment[] activeSegments = loopManager?.GetOrderedSegments() ?? Array.Empty<FloorSegment>();
-            FloorSegment current = loopManager?.CurrentSegment;
-            ResetPacing(current);
-            if (current != null)
-            {
-                PrepareSegment(current, false, lastRecordedArrowDirection);
-            }
-            for (int i = 0; i < activeSegments.Length; i++)
-            {
-                FloorSegment seg = activeSegments[i];
-                if (seg != current)
-                {
-                    PreparePacedSegment(seg, nextPlannedArrowDirection);
-                }
-            }
+        public bool RestoreCheckpointProgress(int displayedNumber)
+        {
+            if (displayedNumber < MinimumFloorNumber || displayedNumber > MaximumFloorNumber ||
+                loopManager == null || !loopManager.IsInitialized || loopManager.IsEndingFloorEntered)
+                return false;
 
+            ResetRun();
+            DisplayedFloorNumber = displayedNumber;
+            FloorSegment current = loopManager.CurrentSegment;
+            pacingDirector.Reset(recentHistorySize, false);
+            lastRecordedEncounterSegment = null;
+            TravelDirection arrow = UnityEngine.Random.value < 0.5f
+                ? TravelDirection.Up : TravelDirection.Down;
+            PreparePacedSegment(current, arrow);
+            lastRecordedFloorSegment = null;
+            UpdateArrowStreakForCurrentSegment();
+            RecordCurrentEncounter();
             RefreshCurrentRoom();
-            ApplyFloorNumberToCurrentSegment(true);
+            ApplyFloorNumberToCurrentSegment();
+            FloorSegment[] active = loopManager.GetOrderedSegments();
+            for (int i = 0; i < active.Length; i++)
+                if (active[i] != current) PrepareSegment(active[i]);
+            if (displayedNumber == MaximumFloorNumber)
+            {
+                FinalState = FinalRunState.FinalFloorArmed;
+                FinalFloorReady?.Invoke(CurrentExpectedDirection);
+            }
+
             RoundPrepared?.Invoke();
-            Debug.Log(
-                $"ANOMALY_RUN_RESET: round={RoundNumber}, floor={DisplayedFloorNumber}, " +
-                $"current={loopManager?.CurrentSegment?.SegmentId ?? "None"}, arrow={lastRecordedArrowDirection}",
-                this);
+            Debug.Log($"CHECKPOINT_FLOOR_RESTORED: logical={loopManager.ProgressManager.LogicalFloorIndex}, " +
+                      $"number={displayedNumber}", this);
+            return true;
         }
 
         public void PrepareSegment(
@@ -246,10 +247,10 @@ namespace Zero.EnvironmentLoop
                 ? SelectWeightedAnomaly(room, projectedProgress, allowHistoryRelaxation)
                 : null;
             bool hasAnomaly = selected != null;
-            bool flipsArrow = selected is ArrowFlipOnSightAnomaly;
+            bool keepsPreparedArrow = selected != null && selected.KeepsPreparedArrowAsExpected;
             if (constrainDirections)
             {
-                arrowDirection = ChoosePreparedArrow(hasAnomaly, flipsArrow, arrowDirection);
+                arrowDirection = ChoosePreparedArrow(hasAnomaly, keepsPreparedArrow, arrowDirection);
             }
             room.PrepareRound(arrowDirection);
             if (selected != null) room.Activate(selected.Data.Id);
@@ -376,10 +377,27 @@ namespace Zero.EnvironmentLoop
 
         public bool CompleteRunFromEndingDoor()
         {
+            if (GameFlowController.Instance?.Campaign?.IsActive == true) return false;
+            return CompleteRun(EndingRoute.OfficeDoor);
+        }
+
+        public bool CompleteRunFromBackroomExit() => CompleteRun(EndingRoute.BackroomElevator);
+
+        public bool CompleteRun(EndingRoute route)
+        {
             if (FinalState != FinalRunState.EndingFloorEntered || HasCompletedRun ||
                 DisplayedFloorNumber != MaximumFloorNumber || GameFlowController.Instance == null ||
-                !GameFlowController.Instance.BeginEndingFromEndDoor())
+                !TrySelectEndingRoute(route))
             {
+                return false;
+            }
+
+            bool accepted = route == EndingRoute.OfficeDoor
+                ? GameFlowController.Instance.BeginEndingFromEndDoor()
+                : GameFlowController.Instance.IsBackroomReady;
+            if (!accepted)
+            {
+                ReleaseEndingRoute(route);
                 return false;
             }
 
@@ -535,54 +553,31 @@ namespace Zero.EnvironmentLoop
                 this);
         }
 
-        private enum RecentFilter
+        public void ConfigureCampaign(InfinityRoomDefinition definition, EncounterDiversityHistory history)
         {
-            AllRecent,
-            ImmediateOnly
+            diversityHistory = history;
+            rosterSelector = new AnomalyRosterSelector(pacingDirector);
+            rosterSelector.Configure(definition, history);
         }
 
-        private AnomalyBehaviour SelectWeightedAnomaly(
-            RoomAnomalyController room,
-            int projectedProgress,
-            bool allowHistoryRelaxation)
+        private AnomalyBehaviour SelectWeightedAnomaly(RoomAnomalyController room,
+            int projectedProgress, bool allowHistoryRelaxation)
         {
-            AnomalyBehaviour[] pool = room.GetEligibleAnomalies(maximumDifficulty);
-            AnomalyBehaviour selected = WeightedPick(
-                pool,
-                projectedProgress,
-                RecentFilter.AllRecent,
-                true);
-            if (selected == null)
-            {
-                selected = WeightedPick(
-                    pool,
-                    projectedProgress,
-                    RecentFilter.AllRecent,
-                    false);
-            }
-
-            if (selected == null && allowHistoryRelaxation)
-            {
-                selected = WeightedPick(
-                    pool,
-                    projectedProgress,
-                    RecentFilter.ImmediateOnly,
-                    false);
-            }
-
-            return selected;
+            if (rosterSelector == null) rosterSelector = new AnomalyRosterSelector(pacingDirector);
+            return rosterSelector.Select(room.AnomalySlots ?? Array.Empty<AnomalyBehaviour>(),
+                projectedProgress, maximumDifficulty);
         }
 
         private TravelDirection ChoosePreparedArrow(
             bool hasAnomaly,
-            bool flipsArrow,
+            bool keepsPreparedArrow,
             TravelDirection preferredArrow)
         {
             // Pure preview: preparing either reserve never advances history.
             if (consecutiveExpectedCount >= 2)
             {
                 TravelDirection expected = Reverse(lastExpectedDirection);
-                return hasAnomaly && !flipsArrow ? Reverse(expected) : expected;
+                return hasAnomaly && !keepsPreparedArrow ? Reverse(expected) : expected;
             }
             return consecutiveArrowDirectionCount >= maximumConsecutiveArrowDirection
                 ? Reverse(lastRecordedArrowDirection) : preferredArrow;
@@ -590,9 +585,9 @@ namespace Zero.EnvironmentLoop
 
         private static TravelDirection GetEffectiveExpectedDirection(RoomAnomalyController room)
         {
-            if (room?.ActiveAnomaly is ArrowFlipOnSightAnomaly arrowFlip)
+            if (room?.ActiveAnomaly != null && room.ActiveAnomaly.KeepsPreparedArrowAsExpected)
             {
-                return arrowFlip.InitialDirection;
+                return room.PreparedArrowDirection;
             }
 
             return room != null ? room.ExpectedDirection : TravelDirection.Up;
@@ -630,6 +625,7 @@ namespace Zero.EnvironmentLoop
             // preserves the explicit history-relaxation fallback for small pools).
 
             pacingDirector.RecordAnomaly(data.Id, data.Type, data.PacingTier);
+            diversityHistory?.Record(data.Id);
             Debug.Log(
                 $"PACING_ENCOUNTER_RECORDED: beat=Anomaly, tier={data.PacingTier}, id={data.Id}, " +
                 $"normalStreak={pacingDirector.NormalStreak}, anomalyStreak={pacingDirector.AnomalyStreak}, " +
@@ -641,137 +637,6 @@ namespace Zero.EnvironmentLoop
         public void RecordCurrentAnomalyEncounter()
         {
             RecordCurrentEncounter();
-        }
-
-        private AnomalyBehaviour WeightedPick(
-            AnomalyBehaviour[] pool,
-            int projectedProgress,
-            RecentFilter recentFilter,
-            bool excludeLastType)
-        {
-            float uneasyWeight = HasCandidate(
-                    pool,
-                    AnomalyPacingTier.UneasyNormal,
-                    projectedProgress,
-                    recentFilter,
-                    excludeLastType)
-                ? AnomalyPacingDirector.GetTierWeight(AnomalyPacingTier.UneasyNormal, projectedProgress)
-                : 0f;
-            float minorWeight = HasCandidate(
-                    pool,
-                    AnomalyPacingTier.MinorAnomaly,
-                    projectedProgress,
-                    recentFilter,
-                    excludeLastType)
-                ? AnomalyPacingDirector.GetTierWeight(AnomalyPacingTier.MinorAnomaly, projectedProgress)
-                : 0f;
-            float majorWeight = HasCandidate(
-                    pool,
-                    AnomalyPacingTier.MajorAnomaly,
-                    projectedProgress,
-                    recentFilter,
-                    excludeLastType)
-                ? AnomalyPacingDirector.GetTierWeight(AnomalyPacingTier.MajorAnomaly, projectedProgress)
-                : 0f;
-
-            float tierTotal = uneasyWeight + minorWeight + majorWeight;
-            if (tierTotal <= 0f)
-            {
-                return null;
-            }
-
-            float tierRoll = UnityEngine.Random.value * tierTotal;
-            AnomalyPacingTier selectedTier;
-            if (tierRoll < uneasyWeight)
-            {
-                selectedTier = AnomalyPacingTier.UneasyNormal;
-            }
-            else if (tierRoll < uneasyWeight + minorWeight)
-            {
-                selectedTier = AnomalyPacingTier.MinorAnomaly;
-            }
-            else
-            {
-                selectedTier = AnomalyPacingTier.MajorAnomaly;
-            }
-
-            float anomalyTotal = 0f;
-            for (int i = 0; i < pool.Length; i++)
-            {
-                if (IsCandidate(
-                        pool[i],
-                        selectedTier,
-                        projectedProgress,
-                        recentFilter,
-                        excludeLastType))
-                {
-                    anomalyTotal += Mathf.Max(0.01f, pool[i].Data.SpawnWeight);
-                }
-            }
-
-            float anomalyRoll = UnityEngine.Random.value * anomalyTotal;
-            for (int i = 0; i < pool.Length; i++)
-            {
-                AnomalyBehaviour anomaly = pool[i];
-                if (!IsCandidate(
-                        anomaly,
-                        selectedTier,
-                        projectedProgress,
-                        recentFilter,
-                        excludeLastType))
-                {
-                    continue;
-                }
-
-                anomalyRoll -= Mathf.Max(0.01f, anomaly.Data.SpawnWeight);
-                if (anomalyRoll <= 0f)
-                {
-                    return anomaly;
-                }
-            }
-
-            return null;
-        }
-
-        private bool HasCandidate(
-            AnomalyBehaviour[] pool,
-            AnomalyPacingTier tier,
-            int projectedProgress,
-            RecentFilter recentFilter,
-            bool excludeLastType)
-        {
-            for (int i = 0; i < pool.Length; i++)
-            {
-                if (IsCandidate(pool[i], tier, projectedProgress, recentFilter, excludeLastType))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private bool IsCandidate(
-            AnomalyBehaviour anomaly,
-            AnomalyPacingTier tier,
-            int projectedProgress,
-            RecentFilter recentFilter,
-            bool excludeLastType)
-        {
-            if (anomaly == null || anomaly.Data == null || anomaly.Data.PacingTier != tier ||
-                !pacingDirector.IsTierAllowed(tier, projectedProgress))
-            {
-                return false;
-            }
-
-            if (excludeLastType && pacingDirector.MatchesLastAnomalyType(anomaly.Data.Type))
-            {
-                return false;
-            }
-
-            return recentFilter == RecentFilter.AllRecent
-                ? !pacingDirector.IsRecentAnomaly(anomaly.Data.Id)
-                : !pacingDirector.IsImmediateRepeat(anomaly.Data.Id);
         }
 
         private int GetProjectedPacingProgress(FloorSegment segment)
@@ -826,6 +691,30 @@ namespace Zero.EnvironmentLoop
             Debug.Log("PACING_RESET: initialNormal=true", this);
         }
 
+        private void PrepareInitialRound()
+        {
+            ResetArrowStreakTracking();
+            FloorSegment current = loopManager?.CurrentSegment;
+            ResetPacing(current);
+            if (current != null)
+            {
+                PrepareSegment(current, false, lastRecordedArrowDirection);
+            }
+
+            FloorSegment[] activeSegments = loopManager?.GetOrderedSegments() ?? Array.Empty<FloorSegment>();
+            for (int i = 0; i < activeSegments.Length; i++)
+            {
+                if (activeSegments[i] != current)
+                {
+                    PreparePacedSegment(activeSegments[i], nextPlannedArrowDirection);
+                }
+            }
+
+            RefreshCurrentRoom();
+            ApplyFloorNumberToCurrentSegment(true);
+            RoundPrepared?.Invoke();
+        }
+
         private void RefreshCurrentRoom()
         {
             currentRoom = GetRoom(loopManager?.CurrentSegment);
@@ -833,9 +722,7 @@ namespace Zero.EnvironmentLoop
 
         private static RoomAnomalyController GetRoom(FloorSegment segment)
         {
-            return segment != null
-                ? segment.GetComponentInChildren<RoomAnomalyController>(true)
-                : null;
+            return segment != null ? segment.RoomAnomalies : null;
         }
 
         private void ApplyFloorNumberToCurrentSegment(bool reportConfigurationErrors = false)

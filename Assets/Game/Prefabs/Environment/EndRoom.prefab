@@ -2345,6 +2345,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d3dc181a482974bae3c88cf6f2e71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathStyle: 0
+  motionStyle: 0
+  freezeDuration: 1
+  cameraCutAudioClip: {fileID: 0}
   focusTarget: {fileID: 2697503038291734950}
   jumpscareCameraAnchor: {fileID: 7633442545123611735}
   animator: {fileID: 8733299553275137316}
@@ -2988,6 +2992,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d3dc181a482974bae3c88cf6f2e71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathStyle: 0
+  motionStyle: 0
+  freezeDuration: 1
+  cameraCutAudioClip: {fileID: 0}
   focusTarget: {fileID: 6520619990721856730}
   jumpscareCameraAnchor: {fileID: 2830524664929657928}
   animator: {fileID: 0}
@@ -6129,6 +6137,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   textureWidth: 768
   textureHeight: 768
+  matchSourceResolution: 1
   clipPlaneOffset: 0.03
   useHdr: 1
   renderOnlyWhenVisible: 1
@@ -7103,6 +7112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d3dc181a482974bae3c88cf6f2e71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathStyle: 0
+  motionStyle: 0
+  freezeDuration: 1
+  cameraCutAudioClip: {fileID: 0}
   focusTarget: {fileID: 7973551079998990135}
   jumpscareCameraAnchor: {fileID: 7194565063963530950}
   animator: {fileID: 0}
@@ -13156,6 +13169,13 @@ MonoBehaviour:
   doorwayHidden: {fileID: 3709377417878817817}
   doorwayRevealed: {fileID: 9006375730828261574}
   hiddenRoomRoot: {fileID: 1404481696697163896}
+  eyeDevilMaterial: {fileID: 0}
+  roomEntryTrigger: {fileID: 0}
+  blinkCloseDuration: 0.2
+  blinkHoldDuration: 0.2
+  blinkOpenDuration: 0.25
+  delayBeforeDeath: 0.15
+  blinkAudioClip: {fileID: 0}
   arrowController: {fileID: 0}
   arrowTarget: {fileID: 0}
   playerCamera: {fileID: 0}
@@ -13165,6 +13185,9 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  deathPresentation: {fileID: 0}
+  deathController: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &7843148740894409164
 GameObject:
   m_ObjectHideFlags: 0
@@ -17457,8 +17480,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -7146521406498821007, guid: ef2c7dff32a2a6b459493424f0d3a60b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4684951591362724986}
   m_SourcePrefab: {fileID: 100100000, guid: ef2c7dff32a2a6b459493424f0d3a60b, type: 3}
+--- !u!1 &5127717431664416442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7146521406498821007, guid: ef2c7dff32a2a6b459493424f0d3a60b, type: 3}
+  m_PrefabInstance: {fileID: 6627956642233596619}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &4684951591362724986
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5127717431664416442}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.019999996, y: 0.04953156, z: 0.0008352701}
+  m_Center: {x: 0, y: -0.00000010151415, z: -0.0000000018626451}
 --- !u!4 &6661248322138496288 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ef2c7dff32a2a6b459493424f0d3a60b, type: 3}

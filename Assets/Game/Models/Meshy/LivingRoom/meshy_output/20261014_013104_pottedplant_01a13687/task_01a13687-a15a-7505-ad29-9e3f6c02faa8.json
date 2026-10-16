@@ -1,0 +1,24 @@
+{
+  "id": "01a13687-a15a-7505-ad29-9e3f6c02faa8",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 3760374392,
+  "prompt": "Detailed realistic vintage hotel lounge indoor potted rubber plant. One ceramic terracotta pot with soil, several branching woody stems, many individual broad oval green leaves with veins and naturally curved edges, varied heights. Complete freestanding plant with pot. No background, no floor, no furniture. Game prop, believable botanical silhouette, not a solid foliage blob.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791916222207,
+  "progress": 100,
+  "started_at": 1791916222215,
+  "finished_at": 1791916238338,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13687-a15a-7505-ad29-9e3f6c02faa8/output/model.glb?Expires=4945449600&Signature=ntzxhYay~30cP48qa6~nQgfVzqp0-lSQVn78tCcCRd4Ma3PKmkjFJ0~q7mCKR6kHejHdS4N9ywVxMUnX9rtfd9DqEeZ5aAApKRrlXYqrtvr4L74wy6BMLOMVfu889m9~1g7lSCcjq-YzbwEiWXSUQmELYRDzP7Hk07cjDKih~BiVj4lP8d5Xjsy7wNMEhnSTKaLEzn0zoCb7s9OwLlg2YZXn25JlRF1-Tu6DvBuFOJ0786mj7tSwUOjDBR9cwZ2eFNo14jctPcCX50GZl~T2DPP4x-2w9iPK2FpFYMuMfL84xFA8syuVLjLIhgWk9gNcCW1a8V3TJYStJJgxZsstIQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13687-a15a-7505-ad29-9e3f6c02faa8/output/model.fbx?Expires=4945449600&Signature=OgEqA51-GPrOGnTk0WC20Q9MtTt-GdDoMb91W4LF4VYE71YnU-Rk3nsdU0z8ZemIyzt76ORcQg8j9mEeGooWJbyo-YF9CCgXdjGiNF0kjC15mdsrpjmRP8yDgjVMKd5TJDui5eiAy5Eoa5S6FQiNCRNuuVTIcZN~Vo4TkTg2JvP0HADgka~ksonLk1j6rEpcCm44fD0rBsI04nSSWmLDajOE4cpay-xC8r9pBqnUts3iJq8sEDZ8v0iRtuY4hnlIQ1yn1~q1dIlbIEAgBG~oSOTb2BxWASd0EFx2vjtvHtbD~-Cc3TVxw7~svZHNAxnoixOiWluhRV4mgWBg849zZA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13687-a15a-7505-ad29-9e3f6c02faa8/output/preview.png?Expires=4945449600&Signature=FlLrCK-kyW-mH8olYeM8pi0s3y4S2Ny4Gb~SROWoV-L85jQ575WAbMZnF31ynzfEKTSm2GHm7ZYyqTY3NGokyv137WxS9U09CQ3RhyG~Sdd1PdNbl~izXT8bDSHbSxbMIIzd5r7Xl9IC2u4azCFhUCB6qn1iz2bbEzveBQ7TutRTaXztuM6UAMVjvTHPAwpbZ0XihRTRR675Jr2AyKr2SYdt67b7fayQYkwkQe3jKHOhYWtIhIrz3KbxI20vEyiagNj7rYjsDczyvDGvE25aJ8uNLFXqrtNO49jpoan5xCU7AVYFJEUqsnGhFmQxrV-R3cKaN1OfR7PjR8SllEOWVw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

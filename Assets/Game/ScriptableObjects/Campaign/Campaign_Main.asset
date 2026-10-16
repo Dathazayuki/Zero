@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f596c434fd2c349993b97d7ae39b36, type: 3}
+  m_Name: Campaign_Main
+  m_EditorClassIdentifier: 
+  campaignId: zero-main
+  stages:
+  - stageId: stage-1
+    infinityRoom: {fileID: 11400000, guid: f2ee800ac4bbed142ad453e3d5bd72a7, type: 2}
+    minigame: {fileID: 11400000, guid: ef7bc80ae80587746844e341bac8cb1f, type: 2}
+  - stageId: stage-2
+    infinityRoom: {fileID: 11400000, guid: d5ef384e26404c841bc24ba8c398b17d, type: 2}
+    minigame: {fileID: 11400000, guid: a72c55ae6cfe0024ea75ae1fb23b30d0, type: 2}
+  - stageId: stage-3
+    infinityRoom: {fileID: 11400000, guid: cf164f1adcdb1cd4fbcaf91806d31091, type: 2}
+    minigame: {fileID: 11400000, guid: 205caec6034197747b67a0d6f8e49cf7, type: 2}
+  - stageId: stage-4
+    infinityRoom: {fileID: 11400000, guid: 84675e0b2106db74b842a90f4d665045, type: 2}
+    minigame: {fileID: 11400000, guid: 5c93c057ce12d8d4c86811720b0e78a8, type: 2}
+  - stageId: stage-5
+    infinityRoom: {fileID: 11400000, guid: 4372e1a26d879d74cbea4844ae4babe6, type: 2}
+    minigame: {fileID: 11400000, guid: a95e342cbcaa5074a8297d59e85832d4, type: 2}

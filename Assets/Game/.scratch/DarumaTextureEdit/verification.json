@@ -1,0 +1,9 @@
+{
+  "size": [
+    4096,
+    4096
+  ],
+  "masked_pixels": 4988627,
+  "outside_mask_unchanged_png": true,
+  "original_sha256": "fba6caa0c3f7c1549bab0e054f118cf20cc33034ee6b3c6a7c53e39a2aef76fe"
+}

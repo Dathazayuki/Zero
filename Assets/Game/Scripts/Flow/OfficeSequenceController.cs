@@ -2,7 +2,6 @@ using System.Collections;
 using Zero.AnomalyPrototype.Player;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.UI;
 
@@ -38,7 +37,6 @@ namespace Zero.AnomalyPrototype.Flow
         private GameFlowController flow;
         private PlayerInteraction playerInteraction;
         private OfficeAudioController officeAudio;
-        private bool endingFinished;
         private Coroutine messageRoutine;
 
         private void Awake()
@@ -117,7 +115,7 @@ namespace Zero.AnomalyPrototype.Flow
 
         private void Update()
         {
-            if (!endingFinished && messageRoutine == null && flow != null &&
+            if (messageRoutine == null && flow != null &&
                 flow.Phase == GameFlowPhase.Opening && playerInteraction != null)
             {
                 string prompt = playerInteraction.CurrentPrompt;
@@ -129,26 +127,6 @@ namespace Zero.AnomalyPrototype.Flow
                 SetGroup(messageGroup, !string.IsNullOrEmpty(prompt));
             }
 
-            if (!endingFinished || flow == null)
-            {
-                return;
-            }
-
-            Keyboard keyboard = Keyboard.current;
-            if (keyboard == null)
-            {
-                return;
-            }
-
-            if (keyboard.rKey.wasPressedThisFrame)
-            {
-                endingFinished = false;
-                flow.RestartLoop();
-            }
-            else if (keyboard.escapeKey.wasPressedThisFrame)
-            {
-                flow.ExitApplication();
-            }
         }
 
         public void ShowTemporaryMessage(string content, float duration = 2.2f)
@@ -415,9 +393,7 @@ namespace Zero.AnomalyPrototype.Flow
             endingDirector?.Stop();
             timelineCamerasRoot?.SetActive(false);
             SetGroup(messageGroup, false);
-            SetGroup(endGroup, true);
-            endingFinished = true;
-            flow?.FinishEnding();
+            flow?.FinishEnding(EndingIdentity.AnotherShift);
             Debug.Log("OFFICE_ENDING_COMPLETE", this);
         }
 

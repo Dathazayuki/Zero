@@ -1,0 +1,24 @@
+{
+  "id": "01a13687-c02a-77b6-b629-9ad2b8687e2b",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 3913449332,
+  "prompt": "One realistic 1980s vintage CRT television for an old hotel lounge. Walnut woodgrain cabinet, curved dark glass screen, two rotary tuning knobs and speaker grille on right, small feet, detailed back vents. Compact tabletop television only, no stand cabinet, no background, no text on screen. Aged but intact realistic game prop.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791916230307,
+  "progress": 100,
+  "started_at": 1791916230314,
+  "finished_at": 1791916243677,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13687-c02a-77b6-b629-9ad2b8687e2b/output/model.glb?Expires=4945449600&Signature=o~mpN7poYfDyxzcz6~w2uis9rfvgEM925LS1ylzu4KoPyzDmb4lBrLYiGlU-9ByAuFUjQEvgAOVbEXN6s5zn~2Qsx1~dL0SV54r9h1X-UfAwhICag5Zg~pf9pfzpYYB4IIYXEXtSghYvunMLY6vbtxhd18YErMbJu5LOgEyTMfM-UHgAKIj9Hnon9ejnN6IuYLQnaKbdK2uM6Ud9~JQUE-VQD9TAw54-wiMCR1a~M1EX71hHbYmW0sFUzz7B8koF8olKlzitBGZeSR0PJ~M0I-kKbJBmHedqVfBZOO89LVnVsgVSpNOA82haHoUvgFFMlCrQp6KkihzKkOWFdY7qjA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13687-c02a-77b6-b629-9ad2b8687e2b/output/model.fbx?Expires=4945449600&Signature=WCd8cwpy0bm3l1QlXFTIfIXE-uf01ylgkaHRXKiV0mbMhf-3THsF9tsyxGtx3Fo9A6oIeuYjbvzGBNeP7R8ATvOc~oxxgKLMRBwIGENYubPveCsMX3a8Vcu61tRUqNWXYcwYi1Yu7~FroDQLVErDsCRQC1AJoIofEEiYI5SvdJb6FmtP2AeWERPSDHHWA0DWTXYmflh1lgAi5kU--tOtUCzZzv~aIX4hKAG5XX9thxD24pdDxHUSUYHr-4StSwdTtTqNg5ihiARMi3gN5Sjp-JW4870hj5l1-BdovlWSq9y4pu73J8lPjUr2wKcDhygpHnQEnoPVqKVapabf4mcq6Q__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13687-c02a-77b6-b629-9ad2b8687e2b/output/preview.png?Expires=4945449600&Signature=PuRKi8E64rIvdG4oyNrPwRUxt6qB5FeZmyKyCcFDLsLWpHK7-wyaDm3VqH0oACq9m9miLQM-qMeJ5UgazfhzMLUrFHoC4EwqwrcmIyyATIjwKv4JLsC~8tnJy4anyGVFkWdZy7u4d8snqivURCR73sHyZqskh87VguvGo2T05YCX2TeqWTRJ5fqI7prmT0hxvEWiXGFPCaB1cqz6VAfKMBVNRNfDV7ZTwDGfdMzavBv~mKOM4FFGgfjtT5C0h6P8MKeV5DV2EOEryKpMaMe6Cz-9XQM6vdJgYmVoOC5sUj3xYRtsHxadNqCZ5UuMYTFp1YZyAEiEdMFcVJW24hX2jQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

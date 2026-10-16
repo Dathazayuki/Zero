@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "folder": "20261014_110254_object-object_01a13893",
+      "prompt": "[object Object]",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13893-4940-7470-8915-c9bdb0f3be09",
+      "created_at": "2026-10-14T04:02:54.182Z",
+      "updated_at": "2026-10-14T04:07:22.936Z",
+      "task_count": 3
+    },
+    {
+      "folder": "20261014_110308_object-object_01a13893",
+      "prompt": "[object Object]",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13893-6966-7334-bac2-b844b25189a6",
+      "created_at": "2026-10-14T04:03:08.416Z",
+      "updated_at": "2026-10-14T04:07:47.016Z",
+      "task_count": 3
+    },
+    {
+      "folder": "20261014_110319_object-object_01a13893",
+      "prompt": "[object Object]",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13893-8700-731f-bc1b-723678a6904b",
+      "created_at": "2026-10-14T04:03:19.963Z",
+      "updated_at": "2026-10-14T04:08:08.831Z",
+      "task_count": 3
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "folder": "20261014_013104_pottedplant_01a13687",
+      "prompt": "PottedPlant",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13687-a15a-7505-ad29-9e3f6c02faa8",
+      "created_at": "2026-10-13T18:31:04.977Z",
+      "updated_at": "2026-10-13T18:38:07.625Z",
+      "task_count": 3
+    },
+    {
+      "folder": "20261014_013117_vintagetv_01a13687",
+      "prompt": "VintageTV",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13687-c02a-77b6-b629-9ad2b8687e2b",
+      "created_at": "2026-10-13T18:31:17.313Z",
+      "updated_at": "2026-10-13T18:38:31.718Z",
+      "task_count": 3
+    },
+    {
+      "folder": "20261014_013128_porcelainvase_01a13687",
+      "prompt": "PorcelainVase",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13687-debc-7040-bc28-18d6cd89cb9c",
+      "created_at": "2026-10-13T18:31:28.656Z",
+      "updated_at": "2026-10-13T18:38:53.466Z",
+      "task_count": 3
+    },
+    {
+      "folder": "20261014_013149_desktelephone_01a13688",
+      "prompt": "DeskTelephone",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13688-057a-764f-a912-61c515db09a9",
+      "created_at": "2026-10-13T18:31:49.278Z",
+      "updated_at": "2026-10-13T18:39:46.187Z",
+      "task_count": 3
+    }
+  ]
+}

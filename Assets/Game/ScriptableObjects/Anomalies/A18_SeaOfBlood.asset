@@ -19,5 +19,6 @@ MonoBehaviour:
   difficulty: 3
   spawnWeight: 0.75
   canKillPlayer: 1
+  deathStyle: 1
   description: Blood rises on current-room entry. Commit to another floor within
     12 seconds or suffocate.

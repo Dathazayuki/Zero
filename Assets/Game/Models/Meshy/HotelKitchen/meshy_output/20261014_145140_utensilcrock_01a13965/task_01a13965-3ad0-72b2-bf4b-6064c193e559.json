@@ -1,0 +1,24 @@
+{
+  "id": "01a13965-3ad0-72b2-bf4b-6064c193e559",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 2039461156,
+  "prompt": "Single open cream ceramic kitchen utensil crock holding a modest spaced assortment: two stainless serving spoons with smooth oval concave bowls, one rounded soup ladle, one perforated spatula and two slender wooden chopsticks. Utensils upright with different heights, distinct handles, realistic usable silhouettes, no sharp spear shapes, no clutter. Worn late twentieth century hotel kitchen prop, detailed ceramic glaze and brushed metal.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964299807,
+  "progress": 100,
+  "started_at": 1791964299811,
+  "finished_at": 1791964410139,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-3ad0-72b2-bf4b-6064c193e559/output/model.fbx?Expires=4945536000&Signature=YWpfkbWKNWffR9P261HZJ1IrDoQyHv9PbrzTxfl58PwMM95oN3qa9LCsgglDsrF8ZrQVYlmAMkjjTygfzrKbzC33~1~DI3Bj2Q3RYe78D73sXn3ybpQPKp7xWOR-LRhMtwHM~OX6GLZUTkPJMS8JTz3kf-E7UlgXwtMPZ1Bjg-P8ebryGcGCya2oVsdv-SYdfkxals~BX9RVMABmAuXjANGSzTKbiERLyz8yhFDFoFo16DehX8gljG6vpcuZjCtYaBFEbH3yt3CjUeuuEsxzhmAZCvq3BZFz~xqkAX5vFiLiljcJhvKiYvZPFXZEmVZBZXcanZI6M8~QF6jJoG1AeQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-3ad0-72b2-bf4b-6064c193e559/output/model.obj?Expires=4945536000&Signature=Vu-wO7WcvVd8yV5lJFpFSZQ9QH-cJcAUQ7cafWOL7g5qifzuQIEgQX8xQB3I3bc7ggfUTfwof7ezLILksgfnVDqVL4HLdgxJuVitmW2nOX76gumZi1zQeOHoL3VvsBwGB3aaomr8KKwjaZdlZIcZ~FifQpWcOs2hckCek0wyZmrUhFrD9ulJek7d4z0beh0LooCdp8yll3AdnRcy9XRzcJJa7QQhChx~0Rn0~ZqcWWBeva6HqGXOZu8Me3mQNXKtxw4BiZHuJNKdA9cKW9qUD5Dgryk6brUwWlvUwNRhuOLLzgQW3Uu3OPsZmwriMv~bJuO-SpwRe7hiReoL76GKrw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-3ad0-72b2-bf4b-6064c193e559/output/preview.png?Expires=4945536000&Signature=pAxJwskgDRZQoVk2yB-dK57fPOxe48-DJ979GNOkr8VQ8IWQBiCFqu8dfP8wUSBLMdGVPGSEzt1PpgJ1LYpx1DCO01z24MpB1CD1AWJuBv6MCQY6IW-~YQpgPVUphiarYIxEVVJG5eSa6QMWdNnctepW2qGQTyV4TsxDWP6GuFPAFFNVYrOGbAjzMlXJzxLjl439cTLPNdYntep7f2c8YLt43TaK1WKGeEWNCDtqSpgWOXBNwjF4TPCM09de0vlNhuBHGH-bVqfcTGZaL6dBhY22BB2VgTlYmrh6ld5-RGsaSlk10QmZHcKnkcSwQoUKH6JUSaTHs0sOzIUcXHs~fw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

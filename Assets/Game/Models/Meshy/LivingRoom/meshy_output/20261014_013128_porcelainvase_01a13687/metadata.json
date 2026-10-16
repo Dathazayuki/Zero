@@ -1,0 +1,56 @@
+{
+  "schema_version": 2,
+  "project_name": "PorcelainVase",
+  "folder": "20261014_013128_porcelainvase_01a13687",
+  "root_task_id": "01a13687-debc-7040-bc28-18d6cd89cb9c",
+  "created_at": "2026-10-13T18:31:28.656Z",
+  "updated_at": "2026-10-13T18:38:53.466Z",
+  "tasks": [
+    {
+      "task_id": "01a13687-debc-7040-bc28-18d6cd89cb9c",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.png"
+      ],
+      "task_json": "task_01a13687-debc-7040-bc28-18d6cd89cb9c.json",
+      "operation_id": null,
+      "created_at": "2026-10-13T18:31:40.408Z",
+      "updated_at": "2026-10-13T18:32:48.981Z"
+    },
+    {
+      "task_id": "01a1368a-9cdb-759b-8551-d34dbbf14251",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "refine",
+      "parent_task_id": "01a13687-debc-7040-bc28-18d6cd89cb9c",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a1368a-9cdb-759b-8551-d34dbbf14251.json",
+      "operation_id": "fef86abf-efb8-4b5a-8705-901953d6e19a",
+      "created_at": "2026-10-13T18:33:36.280Z",
+      "updated_at": "2026-10-13T18:36:58.113Z"
+    },
+    {
+      "task_id": "01a1368a-9cdb-759b-8551-d34dbbf14251",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "delivered",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "textured.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T18:38:39.748Z",
+      "updated_at": "2026-10-13T18:38:53.466Z"
+    }
+  ]
+}

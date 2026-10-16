@@ -46,6 +46,11 @@ namespace Zero.EnvironmentLoop
         private NavMeshSurface[] navMeshSurfaces;
         private ObserverStatueAnomaly[] observerStatues;
         private CeilingCreatureAnomaly[] ceilingCreatures;
+        private AudioSource[] audioSources;
+        private ParticleSystem[] particles;
+        private Animator[] animators;
+        private Rigidbody[] rigidbodies;
+        private RoomAnomalyController roomAnomalies;
         private bool baselineCaptured;
         private SegmentCommitTrigger[] cachedCommitTriggers;
         private Transform cachedNumberRoot;
@@ -78,6 +83,8 @@ namespace Zero.EnvironmentLoop
         public Transform DownAnchor => downAnchor;
         public string SegmentId => name;
         public bool HasFloorNumberDisplay => NumberRoot != null;
+        public RoomAnomalyController RoomAnomalies => roomAnomalies ??=
+            GetComponentInChildren<RoomAnomalyController>(true);
 
         public void Configure(
             Transform geometryRoot,
@@ -139,38 +146,26 @@ namespace Zero.EnvironmentLoop
             for (int i = 0; i < baselines.Length; i++)
             {
                 TransformBaseline baseline = baselines[i];
-                if (baseline.Transform == null)
-                {
-                    continue;
-                }
-
-                baseline.Transform.localPosition = baseline.LocalPosition;
-                baseline.Transform.localRotation = baseline.LocalRotation;
-                baseline.Transform.localScale = baseline.LocalScale;
-                baseline.Transform.gameObject.SetActive(baseline.ActiveSelf);
+                RestoreBaseline(baseline);
             }
 
-            AudioSource[] audioSources = GetComponentsInChildren<AudioSource>(true);
             for (int i = 0; i < audioSources.Length; i++)
             {
                 audioSources[i].Stop();
                 audioSources[i].time = 0f;
             }
 
-            ParticleSystem[] particles = GetComponentsInChildren<ParticleSystem>(true);
             for (int i = 0; i < particles.Length; i++)
             {
                 particles[i].Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             }
 
-            Animator[] animators = GetComponentsInChildren<Animator>(true);
             for (int i = 0; i < animators.Length; i++)
             {
                 animators[i].Rebind();
                 animators[i].Update(0f);
             }
 
-            Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>(true);
             for (int i = 0; i < rigidbodies.Length; i++)
             {
                 rigidbodies[i].linearVelocity = Vector3.zero;
@@ -183,10 +178,23 @@ namespace Zero.EnvironmentLoop
                 commitTriggers[i].ResetTrigger();
             }
 
-            RoomAnomalyController roomAnomalies = GetComponentInChildren<RoomAnomalyController>(true);
             roomAnomalies?.ResetRoom(true);
             HideFloorNumber();
 
+        }
+
+        private static void RestoreBaseline(TransformBaseline baseline)
+        {
+            Transform child = baseline.Transform;
+            if (child == null) return;
+            if (child.localPosition != baseline.LocalPosition)
+                child.localPosition = baseline.LocalPosition;
+            if (child.localRotation != baseline.LocalRotation)
+                child.localRotation = baseline.LocalRotation;
+            if (child.localScale != baseline.LocalScale)
+                child.localScale = baseline.LocalScale;
+            if (child.gameObject.activeSelf != baseline.ActiveSelf)
+                child.gameObject.SetActive(baseline.ActiveSelf);
         }
 
         public int ConfigureCommitTriggers(StairLoopManager manager)
@@ -234,7 +242,7 @@ namespace Zero.EnvironmentLoop
             for (int i = 0; i < navMeshSurfaces.Length; i++)
             {
                 NavMeshSurface surface = navMeshSurfaces[i];
-                if (surface != null)
+                if (surface != null && surface.enabled != active)
                 {
                     surface.enabled = active;
                 }
@@ -428,6 +436,11 @@ namespace Zero.EnvironmentLoop
             navMeshSurfaces = GetComponentsInChildren<NavMeshSurface>(true);
             observerStatues = GetComponentsInChildren<ObserverStatueAnomaly>(true);
             ceilingCreatures = GetComponentsInChildren<CeilingCreatureAnomaly>(true);
+            audioSources = GetComponentsInChildren<AudioSource>(true);
+            particles = GetComponentsInChildren<ParticleSystem>(true);
+            animators = GetComponentsInChildren<Animator>(true);
+            rigidbodies = GetComponentsInChildren<Rigidbody>(true);
+            roomAnomalies = GetComponentInChildren<RoomAnomalyController>(true);
 
             baselineCaptured = true;
         }

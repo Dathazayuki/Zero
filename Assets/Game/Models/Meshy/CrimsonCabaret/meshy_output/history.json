@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "folder": "20261014_005027_jazzdrumkit_01a13662",
+      "prompt": "JazzDrumKit",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13662-9d45-70db-ae57-2e9e268178c5",
+      "created_at": "2026-10-13T17:50:27.843Z",
+      "updated_at": "2026-10-13T18:07:56.035Z",
+      "task_count": 8
+    },
+    {
+      "folder": "20261014_005034_doublebass_01a13662",
+      "prompt": "DoubleBass",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13662-b771-754e-92dd-289554ba7daf",
+      "created_at": "2026-10-13T17:50:34.579Z",
+      "updated_at": "2026-10-13T18:08:06.749Z",
+      "task_count": 8
+    },
+    {
+      "folder": "20261014_005039_displaymannequin_01a13662",
+      "prompt": "DisplayMannequin",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13662-d415-76c2-b43a-b589a66a8c7f",
+      "created_at": "2026-10-13T17:50:39.522Z",
+      "updated_at": "2026-10-13T18:08:16.894Z",
+      "task_count": 8
+    }
+  ]
+}

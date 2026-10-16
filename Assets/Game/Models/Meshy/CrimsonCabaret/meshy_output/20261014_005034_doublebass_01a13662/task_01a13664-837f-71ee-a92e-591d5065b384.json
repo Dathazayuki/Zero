@@ -1,0 +1,31 @@
+{
+  "id": "01a13664-837f-71ee-a92e-591d5065b384",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "standard",
+  "seed": 4280491187,
+  "prompt": "A single full size upright double bass on a small black stand, vintage jazz cabaret instrument. Warm dark amber varnished wood, elegant carved scroll, four strings, bridge, tailpiece, two F holes, slender metal endpin. Realistic detailed freestanding instrument with clear silhouette. No people, no room, no text. Game environment prop.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791913919369,
+  "progress": 100,
+  "started_at": 1791913919376,
+  "finished_at": 1791913997149,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-837f-71ee-a92e-591d5065b384/output/model.glb?Expires=4945449600&Signature=aNxqMuoivS~mczplttToZWH~5UL0v7hjR9mDODmvDXlTHZaU0ssJ-cJvUY0I22cn~ImMuiAURsPYMOczQ4kZrv6klVsTqrrURiSvgpiYU8P6REqThYdEIry7668hnUnqxwGTEYEQ91RPbNNC3IkwDqsvW6prUalc-GJhwSnBlEwBcnPR8ztKLXXH7ohcdPfFaA0G4I9ir8~usPYTdaQjB2lZQarIgVGy~SqzoHhQrgTXjqEorwTKiDGws1JTEuevUdhW-~nSqHG-CeFJjT5Hs0UsSGjCvxwKnVoJQTl32tQLStY5whjd1lEw~fe~TXHKo0Y8J0PqZ4WdxsNoOh9BGA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-837f-71ee-a92e-591d5065b384/output/model.fbx?Expires=4945449600&Signature=FE0R9m34GTba3gTdsA1vBNpmWjuwC1UzRsaotw3sMgbZKlw~3IHNYD38JOCaHru9cSeh9WG2eUBXiv2OSmkxyeO7IFWI8GPMrLwN5Ov0R9S-zt900DeZKgT11oYncBe4nKsVFtu92qjk0aqLyJ490miouL6Z3qQTHJW7IGkIso3RElYeNhTAxaYMBDd9KAN8TqZ~Gy9csbidFdCFu0uf8jRmNESudptctvv24e1RtOPKH-z-jHBy~nJbONF5meVJmJGkaEh42EM9INEJmT9pYmIrm-SALdczvczPXWOZfzCj~uiwYDxTdgnn-9TcZEYb8XU2PkX0gd9ZDADIgg-Qiw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-837f-71ee-a92e-591d5065b384/output/preview.png?Expires=4945449600&Signature=BrZyzTCsTaYZFPU8apFjRRYge18aGh~YBXPowBLPlDIsZb7zwbCD3b0B9vFEAUhsxNX9z-jBze6psVLHVzaYfAdApxIpPSiJl0x9vMDBS9B5YKaCTDWl0D4RGcRi5ArayM4BX1SIPkYJJwSFfYCBHbKR1R48o0qb2GHRkyBJQRBfceYqwTgZt0SQQzClugxkLB6cJPxfTCa6gOONHbkB2uKzHoqdKFlbgsXw0dMLQ9ZuSw1YQheT~JvIzePKKLp4lDVnP8H0x50Kx04wICJXbUcSFahqCTNmhkBDy~zy2kUKhkHxx6WMwsev-YeCBH9CMhneNAAEwM8-tZDWtK6LRw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-837f-71ee-a92e-591d5065b384/output/texture_0.png?Expires=4945449600&Signature=oypaM5hLqay4ivOue3Ige0Nodf8aG0MAfESD~TqIWky0d2Uo9ciuwZtAL4sWSHlA-cf50XrfT8tRHiyAQcWVL16~BczADtJ3UoM4OJcMeKHRp3f3~dAN2p2cZXJkjKg~Q98uDyxFgUnnwUTwwDoGDVqln761P-QVC~8048IB~7VALdmjVTkOpOOhAjmPmSXY4ofK4ZR~R8xYy8J5pC3qAlsU5a0-Wygr73tWInHsUAgAV6m9nQDaEvGbr5blq1vlGTqyRa2tg8d~fuWiw7FIiahXiPcgOjD8QkeWO6n~-9TaYOS1juruMD46rl1TOTL7cgsGBSdO0rHm7RyurAV5dQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-837f-71ee-a92e-591d5065b384/output/texture_0_metallic.png?Expires=4945449600&Signature=CRBBK8NgZD0tYZssRlhJBsDN71GRHE5x08mq7GFp4Wcw0DEWuX7PXVVLESDXbrc7uQxQnS5yergrd3BWEK2RyEMle13SjwjrZXOhOC11KO5lMDScTPrh3jg~-6ustdFMn6FaXa5k60OQfKMum59~5vOH8JMmKW4NmSly09VIp~lnk15XFkZMHE~tTpEcD2NMQlkAo1JAK6ZxNO-XjBMQ-xlaJn0QT2PcEnQFDpjcZQUnvlW~5JLIe2me4FvmfKeIdzyUBZE2EuLtnZtYUQvfynr8nDYp7XAfsWIz1F~yznA~Rprbs0Iws6x-CzJScpELPHjvSiVysPy6nwLlfGD1mQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-837f-71ee-a92e-591d5065b384/output/texture_0_roughness.png?Expires=4945449600&Signature=CCzsrbSFuyfYdCawCk-u4tpdjGJ0mgCeUwH0TvPTHytc2WYOjzh6PYaOlds5PNshjS3LTmubI4SabEa08DpFdQZD88~A-o4jftfa~eSZNaeDxIyu6OO~LNPvO6zA3rj-DtCgPMJE9O~j6XVPF9XC3X2SorlziZQYNILr38gZCSmCaunFAfejJdXqLlOaZlKxzTf-dtEhXxcglV3BbPbVMDhTOxjpx~oRbz8uXy1zMdIgy8KSx6tzaRQygoql-WsXIY5G9c3t8z1LYxORYVZ2~yNSkgPRAX9B~4tSH3Z5bgZNO4xrpbteVIpqasTKn~r8ZbEOvCMweVqLOH7fs0aE6Q__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13664-837f-71ee-a92e-591d5065b384/output/texture_0_normal.png?Expires=4945449600&Signature=SOn0KuLH6ewB7mmyKW1-LwEDIHMsU0Lo98MyVPAa3D47WTodkX~~cGl4u39WSlugRsJVnkfVXAJ-VtGe4kq33gmgis7-z8yCPOC-fNlL5VpvCBw8HTjqSksVkFjjjkii2JOjcxK~KI0p5KAh3pW9qzIoH9Et9aeDFih52UE3dlyuETRmIrsAu6y5x07lqhGebwUPprx1uCi-PPFzfxmr8OLBx5E8-PcIytkiVMjRiMj79wZ81QZK5miVZSYKRedfjICdeolQmoGgouAKn0F~EVkNswWhewQHFGxu6VwtPD2VuvImVyilxS6h1VR8XAw6Ec8JX93vLV~cnfFYDFFkpQ__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

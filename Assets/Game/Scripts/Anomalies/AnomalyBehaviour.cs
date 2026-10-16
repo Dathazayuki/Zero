@@ -8,6 +8,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 
         public AnomalyData Data => data;
         public bool IsActive { get; private set; }
+        public virtual bool KeepsPreparedArrowAsExpected => false;
 
         public void Initialize(AnomalyData anomalyData)
         {

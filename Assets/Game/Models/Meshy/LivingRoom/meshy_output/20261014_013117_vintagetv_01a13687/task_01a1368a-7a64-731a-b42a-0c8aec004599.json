@@ -1,0 +1,31 @@
+{
+  "id": "01a1368a-7a64-731a-b42a-0c8aec004599",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 3913449332,
+  "prompt": "One realistic 1980s vintage CRT television for an old hotel lounge. Walnut woodgrain cabinet, curved dark glass screen, two rotary tuning knobs and speaker grille on right, small feet, detailed back vents. Compact tabletop television only, no stand cabinet, no background, no text on screen. Aged but intact realistic game prop.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791916407410,
+  "progress": 100,
+  "started_at": 1791916407417,
+  "finished_at": 1791916614729,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-7a64-731a-b42a-0c8aec004599/output/model.glb?Expires=4945449600&Signature=PMFUjhLAo0vSEw6qmXsOpVXFYZNd47FjriXJKJkEeBhErgFXpG6Zr~Ch5vFM-i2atv0LRiUvzdDXoEP9Cf1o1UZkR3DitfXnBlD-82v88mPMpVuX2Lz0qgXRiRW9ovIYW45LcdJOkGPYhj~Sp1DM7bPvyxcUp6WFcUm~vrLQAx~CRwaSABHnPePAb4Gi8SW8v6X-aRLJCnXpY76Y1eTzLOuUwqa13AJXAGAuBhPiX0dyRj9A7ugnMNt1e-y9~ZFuGcp80KRomlhaU0aJ7rKH3ls9Hkfo0woZDv2rV9j33xskleMwzGGyvByCAyEB4kxoaaQsbrQ0LEVruIGk7AM4Hg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-7a64-731a-b42a-0c8aec004599/output/model.fbx?Expires=4945449600&Signature=RxUddaJ68tckVtv-5-Q1k9LO0FPLtGgsvo1Ez1f0nJtIQH2v6VjeFs1RB4J62hI1dflaB5jVSQBP-oT6QXMm6Qr4CUT9I~j1oP7FaZLlJuVaI7qz-b-nXwixA3TWZuQzhFOPBxquAwsYr2~rolUIAjsQv0qcUjNxrVz9xdSAtFWjCwcZ-JYbNI6tqPcW19ycRPoVV2eVdG26~rtk-qOhFueI88jREUFfjJ~hig7dBP3TJ26tyK7Dns~jcJSjMIHrS8iKWYBYmXEE0Omr2rmoPyAAu31hOAQ~IEI4wA5GPn2OmDRrgqo7eomiGUvo8fLK5KIKp1p5qFDH48-5NFxgKA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-7a64-731a-b42a-0c8aec004599/output/preview.png?Expires=4945449600&Signature=ddbmn0iN~rcf0OT5hDhFu~W7U-y8fX1sfhTiCXGdeZlILNeaEBbaWQCdrOny5KqeMqbLhC66yybsmCfQV7SHLEIGfuHa7SyVKm26vtaKcyB~sFXj-G9V3KlsQ~nUSnV3DVpZmChycCjHutZlZf26jKbXeme7trujntxKC0BHUz3Z3V~yrDp~2oiYPJHNkjdx6K~BgFo-6YBJxxr2heOPJcs8CP-o-wkt932NSA6SqQxjfCdujf941GkEmdEhYe21q99qU0ZHTi~3lEvX~ylonVaYX-PDNcNETDmvbVoQ0l7j2HcKy3h2YAkRgTGBeX7Ls~krWCMwgvbr~eoG8VKwdg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-7a64-731a-b42a-0c8aec004599/output/texture_0.png?Expires=4945449600&Signature=dyTI81HaQATKV3hDE0jWcAPe2MG5rMuvGZ1NfliWCvnXFoyI1ESVIkFDJpUGGE9gQIcPrw8lpWMJ-mS3DBV81i2p~S0wEFpNxzQp6xmk6uTrgAjyplILY1fus3FLriKVrGx3XM3sNb2EmtNpEi1WJYCmSSWmWk4PFoEqPSCs~ORe0rkR-Iy~2njP-7gB~Szf17NzqslpJOZiAxu2-cEW22Fl65nJRpQBU-IFZeNq1x7wckMdQbHEnxqB967EvLP2j9qZqS4CjTw-5fmXq2JSBDewQpljFkXfYnsYk2cCRw8dZtps~trXr-Air-neIfNTBMsz7sOoAyWoYJVKw2SUfA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-7a64-731a-b42a-0c8aec004599/output/texture_0_metallic.png?Expires=4945449600&Signature=HLy56z73AV11WULKhCHJV4A0IwYjj3L2rQ3dAm6tII3F-SF~07VAefJ0-P-FHAtVfKIVKmd7~BoFSySkLiAYX6erlo2Z0sauYOrRt5SHWcUl0tJn8X8514GmX58efDzkrq9-voLtiVgzb5M5XYVajwjbjkL7G8irxOCDCA4CdaOWJ2EGOV5zKItKUKAiRJhsn~zsAAc~uXsUL93z7esHCKSuxsCJwv-4~hJP-uUeA~WjoVz7g5P~3jwgom51HMyLzfjxs~BqjenjX7mwFjdn2n4QTYt6DpZOFM8H4SrhhtDZu82xcQO6y3PIghOQlfDM2GXgck~DjfNqIz7p-Lsjsw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-7a64-731a-b42a-0c8aec004599/output/texture_0_roughness.png?Expires=4945449600&Signature=mFR080haDqBd6M1AXND~UE6u5~O1ufZF~8TvgcsCRgZnXatWzQ-WA073USrtcKuQv7eROZMInxB-Igb5StXxA9hysgRLidxYIPSdOOAAs2icdSRfXnYKANoY4gsgacQlGoEG22yWl5jM4YiDlrJ36gvOpk6P63C50gl~V2Vn9Qh25dw1LCaoA13JU0YIA17tAwjj4vmSf3GiKudXJb40-qoDu6ezJeLbBM7jKpaB0aAiPp7dKgXYJfAv7a4k7oeOeJ7Wfln~ibBJzVRmF2a2jo7PQJ-Kgi3gDShVig9tEaBy~LF7sdY6OJ1YQaHb8iyzYzlgOw2xJ2ndDBHohDpUzg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-7a64-731a-b42a-0c8aec004599/output/texture_0_normal.png?Expires=4945449600&Signature=R5DyJd1KgGD~vzWLxaxicUhkRn6cZU8J93XWtqr1A9eqjmTaflC-ZqXKP4H3mdgKZ2FIc~e5XnxHJ9lirC0FChmB4OfSEyYdXnjUIMX3LTGPDrG8gTh~ILwZrUR9HSnSmGnfZOURlsbODImmKsnZgjqr0H6pvvwouMXMAlQygM-yAxJQJfonYw8Na1xJ6AsFnHdlFwIa8Eph0h9EpkwaRQZR5L~8AUJ0FvaMRvSsApaCO9fNimSua3AxZNUKAIppxglXzWBBXFWqngXFcER9fy~lbtExCsqju6-dVgQse3-p~fImArCLg0NHalXZbYjF0h-8J52eKRSBGXGOP3gIxA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

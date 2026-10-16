@@ -49,3 +49,11 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
+
+# Editor QA Screenshots and Temp
+Assets/Screenshots/
+Assets/Screenshots.meta
+Assets/screenshot.png
+Assets/screenshot.png.meta
+Assets/Temp/
+Assets/Temp.meta

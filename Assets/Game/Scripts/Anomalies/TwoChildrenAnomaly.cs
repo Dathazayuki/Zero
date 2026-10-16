@@ -1,3 +1,4 @@
+using Zero.AnomalyPrototype.Flow;
 using Zero.EnvironmentLoop;
 using Zero.AnomalyPrototype.Player;
 using Zero.AnomalyPrototype.Utilities;
@@ -7,6 +8,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 {
     public sealed class TwoChildrenAnomaly : AnomalyBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         private enum AnomalyPhase
         {
             WaitingForGaze,
@@ -230,7 +232,7 @@ namespace Zero.AnomalyPrototype.Anomalies
                             delayTimer = 0f;
                             if (delayTensionAudio != null && audioSource != null)
                             {
-                                audioSource.PlayOneShot(delayTensionAudio);
+                                GameAudioBootstrap.BindSource(ref soundPlayback, audioSource).Play(null, delayTensionAudio);
                             }
                             Debug.Log($"TWO_CHILDREN_GAZE_TRIGGERED: Player looked at children. Delaying {disappearDelay:F1}s before disappearing.", this);
                         }
@@ -336,7 +338,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 
             if (flyWhooshAudio != null && audioSource != null)
             {
-                audioSource.PlayOneShot(flyWhooshAudio);
+                GameAudioBootstrap.BindSource(ref soundPlayback, audioSource).Play(null, flyWhooshAudio);
             }
 
             Debug.Log($"TWO_CHILDREN_FLY_TRIGGERED: Player looked at children. Launching upward.", this);

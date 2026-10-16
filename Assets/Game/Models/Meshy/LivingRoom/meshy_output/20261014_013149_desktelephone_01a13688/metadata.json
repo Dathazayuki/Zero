@@ -1,0 +1,56 @@
+{
+  "schema_version": 2,
+  "project_name": "DeskTelephone",
+  "folder": "20261014_013149_desktelephone_01a13688",
+  "root_task_id": "01a13688-057a-764f-a912-61c515db09a9",
+  "created_at": "2026-10-13T18:31:49.278Z",
+  "updated_at": "2026-10-13T18:39:46.187Z",
+  "tasks": [
+    {
+      "task_id": "01a13688-057a-764f-a912-61c515db09a9",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.png"
+      ],
+      "task_json": "task_01a13688-057a-764f-a912-61c515db09a9.json",
+      "operation_id": null,
+      "created_at": "2026-10-13T18:31:56.586Z",
+      "updated_at": "2026-10-13T18:32:57.819Z"
+    },
+    {
+      "task_id": "01a1368a-b9a0-7585-b5a6-ec6dcba6b9cf",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "refine",
+      "parent_task_id": "01a13688-057a-764f-a912-61c515db09a9",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a1368a-b9a0-7585-b5a6-ec6dcba6b9cf.json",
+      "operation_id": "1ec005ad-44f2-4fab-b259-cf56faa1af40",
+      "created_at": "2026-10-13T18:33:43.636Z",
+      "updated_at": "2026-10-13T18:37:32.403Z"
+    },
+    {
+      "task_id": "01a1368a-b9a0-7585-b5a6-ec6dcba6b9cf",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "delivered",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "textured.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T18:39:31.861Z",
+      "updated_at": "2026-10-13T18:39:46.187Z"
+    }
+  ]
+}

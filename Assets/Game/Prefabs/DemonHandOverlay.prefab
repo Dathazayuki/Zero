@@ -60,7 +60,7 @@ MonoBehaviour:
   handWobbleAmount: 14
   wobbleSpeed: 8
   audioSource: {fileID: 7894950806433526252}
-  handsCreepAudio: {fileID: 0}
+  handsCreepAudio: {fileID: 8300000, guid: 3eacfec306d62e04d9c6b0c4c26e3e57, type: 3}
   handsSnapJumpscareAudio: {fileID: 0}
 --- !u!225 &520713174988941517
 CanvasGroup:

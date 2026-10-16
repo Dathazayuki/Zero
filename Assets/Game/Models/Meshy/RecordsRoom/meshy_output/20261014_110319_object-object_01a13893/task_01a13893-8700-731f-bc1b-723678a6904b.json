@@ -1,0 +1,24 @@
+{
+  "id": "01a13893-8700-731f-bc1b-723678a6904b",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 2450576902,
+  "prompt": "A neat stack of four old archival ledgers and hardback case-file books, uneven but stable pile with varied thickness, faded burgundy, dark forest green and brown cloth covers, cream page blocks, worn corners, subtle gold spine bands and tiny unreadable label plates. Single compact tabletop prop, realistic detailed book spines and page edges, no loose books, no background, no text or logos.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791950556641,
+  "progress": 100,
+  "started_at": 1791950556646,
+  "finished_at": 1791950568542,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13893-8700-731f-bc1b-723678a6904b/output/model.glb?Expires=4945536000&Signature=TE0ZGEHwWtJmWlXgYLrX8Latp78FqlgHOenJtqVFDZ9QZ1mMFHfXtDfVaeD3EWQcfQXuNA~ZxmPP2Zc7KHwi0nWkaak2WGnhvd2~vJE1-YY1FGTD5CfacC4F1FOvpHlYOGlVgFcNh8f2bKb-P4wT-f6gg~fTde0ee9nxfrojeZ9oE-8MzlKh~iTvzTI8RVHhiw~sN4eUfLgogHEoWHj4fjvli-V2OpP-9hurEhJil0dCiYpDf9HBo6TvVVEjAXkBBCoOc~abWq1n8SDmp0w6dxJD5OxtFijT6AZEQLZ6KwpHT9fsx~9DqUZnCtnDpwnDTnuAgAOKgUGss38O0hoang__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13893-8700-731f-bc1b-723678a6904b/output/model.fbx?Expires=4945536000&Signature=Qy-QpoGDi6tr0EcwtoIr0i3QBQ77hcRMWr6RocQcEhye87iWjdn4Et2P3EpFsO1Kaf7kmjru6Uf5D0Pu1uFt5humRObKJ7bM~XO7dZ7WaluC9u-7kMA-GcDVcxwkSp763uR8pFsdz7HF3bbgi5hJ~5x5UAkx3zFas6WRXVyWezUZL-8iIOTh4psPSXAbGANFfX7tKiSILo~xlZlzU9W6XeP~YzgMrEFCZxHsOvzhv~7TIC7zQykFlGgrV~fIV~kRy~52dOT5McGZpuSfvhslZBjudh~O-WGqX5tIXwwNKGa~uFxDEPwVVcPzsPBYWZzWO~5odGk6UM0dW86L7xdeYg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13893-8700-731f-bc1b-723678a6904b/output/preview.png?Expires=4945536000&Signature=XhDPYIT3ZwdYbHeftUhDwC-9UN2YykbhCrg2ZRm8oJodWvmcX3T9yjA3MPyLig7dFL2Qz94Kh66UWRpWhZjeIXxpw0F~mFC~BFkXoNaGA9A8y8ir1PyxL0SX88XU21Phu9oSpH42Y2tg-xEmKuN8K9JyVn5Crr-fORwg2QhTYySYxipVOF2uoCshLn8T0MqRNRM-02Ro~VgPQN~qhC1hklO9nqAH1R9j45bOnFAmaxRsyAc1HlrXuz15vPC7wGkNXt1MdOmzKYNV1VMylRjSqYeH~KaGNFQBMbfXfVdq9pfvuV0eOexX1OEkocz3LPhWEWZM3ER3vuhMr6nwrGx4qQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

@@ -1,0 +1,32 @@
+{
+  "id": "01a1396a-b2bb-7487-849c-34630e5341f6",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "standard",
+  "seed": 1784457470,
+  "prompt": "Single neatly folded rectangular hotel kitchen tea towel, soft cream cotton fabric with narrow dark muted green stripes, two overlapping folds, stitched hems, visible cloth thickness, gentle wrinkles, subtle staining and worn fibers. Resting flat on a counter. Realistic detailed game prop, no table, no other objects.",
+  "texture_prompt": "Cream cotton cloth with narrow muted green stripes, stitched hems, subtle aged kitchen staining, woven fibers.",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964658067,
+  "progress": 100,
+  "started_at": 1791964658072,
+  "finished_at": 1791964714165,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-b2bb-7487-849c-34630e5341f6/output/model.fbx?Expires=4945536000&Signature=JOttlR9BMh7Kls1bWVn-HEn9miMZvh~qTxzRUPJ~sTuME-ceZFxyfP7RZg4h7~-LkGpMHuGwooI3i2tXCsIGadeiKavdu2Qs81ig9hAMlkTSgSbBOJqNwS~GdMQjDQp9xzoSmh8~PhPZDSMAmRb-qHbQWFvTOock85J-5vu53NIoT9i3qsaFtLjsy4qupzfmPXTFEWdq3QRZdVeiUhgv5X19Brrv2opkeedjtHGOgEuLKcdf3k-0yuH3ONVM6ZANpXz2dLU888GY-VEIlWIjl7VBCTFVjoHwUk9VLf5gN-7TQAO0K2xLR6~i3GV8-mKEWkKgW-NAzDOQZxMIKJzNUw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-b2bb-7487-849c-34630e5341f6/output/model.obj?Expires=4945536000&Signature=f8fa1B3la3mowKcizMo1X~YM29-tYYO213sAlMDdhcF3ba8KlIqQLceEu3s64AHWIq-HhjBsJ2cxAehuE8tA1aejrsFEtiAFa9PzyUm9R0bfqCBgyaeAEKbGl0bX1XsWR-1h1WKxKu3qJIob20tTqXRIBrTWERF3QB0m4v0op6XTo-5KCDv8O0WswvsyDwomROQ1D6Dit48ecsy3jaU88tj~henv5rao6F8Y-pA5jTJLnQiNuW0CadA7tWSoCUXra-a-ZVxWlgFrwIflxRA91uYyXsmO1dJKyB9YsEt0PqoULEoBlJOP3R78zXNFrcAO1ivL3sxn4G2Hx~hnG~Bgrg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "mtl": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-b2bb-7487-849c-34630e5341f6/output/model.mtl?Expires=4945536000&Signature=MdrgWGIlyUcyWaRpxQMTeaR4JaCd~BhSdYXUjODnCHYk2LWYgO8GcYnMbQeUuKn6U-JN4KEXeqGhUJAW17lQarO8-c~sj0kNjmZ3on1zzlKuayOHBOMSVjiLsiVSlByX4NYSIw5~6eYUPzF2~e0aswXDN4bU8KHfQlss8veKDuYzzSP3l3ud2Xqb5ZaojXiBA-6~SkDxlzUh5PGJvzjak0lWbB3~6TXSFhQUpvWAeo9BtXtkU~mEAlGCHYhQnK1UmuMmpXiL82APsPrLWrbH3JwkhtXcXaTRwLjC6cUtonshUsf6mn8YG3iTFU1e4cwKe3a0zlkHZA5GVovT~NG14Q__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-b2bb-7487-849c-34630e5341f6/output/preview.png?Expires=4945536000&Signature=Jn0hT0odrExkeffxCk9btv0z1PkC97us7JiqPcOqMS4fevrGstmZ4FdQrpwdp~T1m8ijxoGpeEAnouFfPI2TDjeUu7Hej6OXymwy-CZZ0TVlDFT0wO2B0LpZz3IfNRpm4RIu-eQucdyvnTX-lMGcsXl74J6q9c6x9sII5elQoWcdwt130hhTGjf~NXVt4tDe5V9b5920Cx5Q-rOrC7Y3HNQQslfASlWOmkxX0z0cwKx0J5cGOFUQD7tUGHjVgsP-8lz68q46Yfh7nM1jaepIYaAYlNRwW3CDIv4QtPALoPEttBj5jMoVWdOFFYWiCDW4wouQwN4HRUyYBIAeXLtuVQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-b2bb-7487-849c-34630e5341f6/output/texture_0.png?Expires=4945536000&Signature=UOiFl~kqG11X0HzkL5BLvCY2Pz9nDI4DwKvONYmbw1lzAyJmHcokJtvRwEbmMYu5bE0Jp8qnjx1R4Qy0beOylyOuZ0Evy9OGh4q6KVJAW~u4GR02UX7iWcGaN-oDbdlVpd~klGoQlVFR~b8AiyXtmxHlEBQOTXAafB9292hpI91qYho~KeFfO1M-~-nqYn9HBkwZJ1qfzkPK1CSE0soVcgwmctmxju39ddECKxBgxELYBC7uVY5dtGVxLZO1B-KlbziVUR88-wE2-UO4oMhYOMo0xfbYaWXC-5ULN5VKGYTaHqetjqXO8o-kWhQVLn0eA0CJ~x7-9ScAINrR~BrRgw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-b2bb-7487-849c-34630e5341f6/output/texture_0_metallic.png?Expires=4945536000&Signature=I5BG3z4yDFaYHxxJHSJQuybxKm7G3yqmZpo6AFEheHL1y3fgrk4uI-ILCclEBAYfPEP1X~rD0oHaJsfqCJtQYXBXfFiBMdTbvKmJCahuzqSfYTnml9T0uH53AeHjJQUEsrwtbUSs4JzUZmVH0fo59RnVpioa0vd8UIv6p-xOIm~J39tPu6LN2O5pZPEEHuSlahjW5ELbtr7TG~rHkgr6H0fHDVtABRPtLDFPbdR3T2rpSnWDlI-xbV175SPyG0B7cf0VrGhcDCxVVc9qGiz49KdY~80gZ2WeTCtjg7G-onAmHhmMenBoVG013zOBjQEPVCapbjwTQNLh9pD-uuTTKw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-b2bb-7487-849c-34630e5341f6/output/texture_0_roughness.png?Expires=4945536000&Signature=c9sexPJh33t9zwtMQgcZGpxN6H~-3khG5g80bWv23Uh1grjxO4oIIq~~rujF0897-ZuxysSqT1U4e5Liqe2yAsVAVpFaxkuccM4aSVKwCEr1maB-v0dRaQMAbx3rMb5-JhnHystsD6ClkEyHKFo5a1SH8e2e8DFRR6D9Z3dyNAqn7firNq~Qg5U4jmjysTZtvyB6us898rRrShqezcl-YpXse2Y~SPilEsQtvyyzGL8J86tUarw-LI5dZ7q-IxH0COkSk0V96KAr-cirXSQU1M-F7QP9fBN2rHfh-G7n-A9wzMSXD4U73I2SvwuLNNe1SuVZVsDuu~16a7SVe1FMxQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-b2bb-7487-849c-34630e5341f6/output/texture_0_normal.png?Expires=4945536000&Signature=jl-~UrBD49L5Pjkdmkmey7W-HxXQdExQMd7DVy75Qh0Ns3YCC6k3H48DThsKvWdLdV5JmlebMYdbZDPqrdDO~1lghflgvJbHNXIMQvk1KEGnPaWB-ZvRgI8aJb-8s4C3ATlDmbdSR6~cV90wd87~n9FSZlmUhFFf2XTALBLfAsgBZAGccoIHR1qP09mFYLyX~F6HEwT976Qdi9TOy39s~2Sbo1q4fulcTMOBV7E5NiZ1PTlpx3MzIJ2wSbDwqd9Qqd~QS6Fe82V0Pq7iuYheS-KgUPWCF38GleBH1ANxhri9gVLGX0ONZKnxL-muUctU-43k34Q5xwm8BQxHXumyJw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

@@ -1,0 +1,24 @@
+{
+  "id": "01a13893-4940-7470-8915-c9bdb0f3be09",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 4108003908,
+  "prompt": "One realistic vintage archival desk lamp, mid-century library office task lamp. Aged warm brass articulated arm and round weighted base, classic deep forest-green enamel metal shade with warm interior, visible small pull chain switch and neat power cord. Complete compact tabletop lamp, restrained use wear, premium old records room prop. Isolated single object, no background, no desk, no text, no logos.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791950541708,
+  "progress": 100,
+  "started_at": 1791950541716,
+  "finished_at": 1791950550567,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13893-4940-7470-8915-c9bdb0f3be09/output/model.glb?Expires=4945536000&Signature=LawKruryJ-JnCPHFQNcbAsV~11XLEK0lXi~sILYZZqPvGcEqdL61yQvToDGjFG4Bclfi-hJpMcSTUH2k7GnWLLlpGYM~DKZhS8yqt-FugTnSU8GEejGGxUeO8a6Sc2J7wWmDOsGZVq558Kom-Egsptk71bvJ23rnQYz2S~v6L3VUvS-mVMyO-~f7NlkfCdprKmA9DMPwtgyQF7RASIclltjeN~d4RI~ih5MueQIVsgyiE5zCyyisSeOGjvgWOG9ysP8G~4BuIb-TeFZ2fIWz-fkC3hhnxIHRbKjGufsqetNzEM7LDingpwobjifn5gO3eQ3lt2mBVeocWsbdTUZECg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13893-4940-7470-8915-c9bdb0f3be09/output/model.fbx?Expires=4945536000&Signature=bi1V~CcM~~za2qUjzFfRZ-kdYC0eXdtyy3m5CDaEPHhwEDX2RY~ONABeGEFJDbwjMhnXg545t2dx8I-B-TQ~UPP0DSJRIh4ARqXIn0N3C74i-~ULjCTNfrR3UQTx-FRBJQJc8HtJ5VW9N0~yjyafY2bWt-LF2lQmr8u1tFFUBrpi9RRTIEvZCdbj0V1QxTVOgN1tdAgjGA~lJhZXV~MX8CKnAGtOaA27x1PjDjGpv-hBq4maeOXbdc6Fxn-gOXspsI~2NBwXGZCIw1GeSCdzCqO5XNoqEZFRx5SzzByfdlrGiL1QnImORHFtaZNEHnmARJCys9qyc6a-0Xq7RTFncg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13893-4940-7470-8915-c9bdb0f3be09/output/preview.png?Expires=4945536000&Signature=Ey9JFh3KlbLUi~gOoGQnz3m1OOqjAmQuZNTJN6eiMWshvsgVoDVn4qxSHQsO75dPsRCY75AttxvN24cw13zJKOUvz2TDYgKnt8ERhERBOqdjAosWoGq4euHwF2qODreKne4PxcTqxj1AZoRWoWAd3OVij-2l2i3CrFR2QsZwkfOaX-4bIUuUyN3mQWzo6pkrsxAJBIlC2RO1~21dTX~iSjaqJwXW2-N2XlECg4C5gdqkuouGoS6N1BlM99I479L~~kf2fp3HeQkZIL8X3GHq7uxsTTPh0mM3CvVizrfR~5G9L1Lk-NRWvhB5~y3EwZa~-s8n4NuAIhLTiFdZQu2zcA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

@@ -1,0 +1,31 @@
+{
+  "id": "01a13895-cad2-76b7-85a0-27e3bafdcca0",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 1965950258,
+  "prompt": "One realistic compact late-1990s beige-gray office laser printer for an old records archive. Distinct rectangular printer body, dark paper output slot with one blank sheet partly emerging, lower paper tray, small simple control buttons and a tiny status display, subtle age and scuffs. Freestanding complete desktop printer, believable proportions, isolated single object, no background, no desk, no brand, no readable text.",
+  "texture_prompt": "warm cream-gray ABS casing, dark graphite paper opening and bottom tray, simple subdued buttons and tiny muted green LCD",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791950705046,
+  "progress": 100,
+  "started_at": 1791950705053,
+  "finished_at": 1791950758201,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-cad2-76b7-85a0-27e3bafdcca0/output/model.glb?Expires=4945536000&Signature=X9XO147saaDejJLtd~~~frA9Hr5rd23XVRTrcLoiwGC6N6LOzhAISo~7nlkRdaSvx6VnFbyj2mxVr3xNlpewBOGBNAYHfFpOdbT1f7yi5l12zqmuslVxDOmNKVWoWpT0EaHeOYtapSX~7Y-5cx5RqwSp8MvYUD2XjpOb94nTS5dg5CC4bwVV0klm1VCOIgLCodVC3p4HAsI5ouzEh7UY9YWaduBKgm3EotQIXm~J4oDVrj0LATrQKBrfnbpyhYJLQpKfoWyDFPh8iBqKbg9Ngc3Kg1rDjy1lztJU8nrF1FLkTKsZaC7FQ~qnLUohAWrJtuewqfnYH0NE00ovTKOHzg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-cad2-76b7-85a0-27e3bafdcca0/output/model.fbx?Expires=4945536000&Signature=U543RyO3ISfZ-k7b9s877MsgnBXh5KkRQAIfZejlAjsU4T2lLFda5rz~zoesCQQkHLeYrmSy6kkgfCzn1sNNiaRK3wWAQ-6l9B4INRLw4~bhKxMC-qk2QCzjqs5EIVhLwcQFNfOp-4ESRVRu2Y3qPVPGZGjjijqLkeZ1P~ZFhWt4m4-xReXf4TUgMfjtDuWvoy1yTy429xmntOv7IJAcj7dc8QraXeNT-Q2dqkS5O36vk6QJImghi24WXafmJ2sHuppw4C~lvaojWn5EQLtIr~2t-lPqUCrZFgwHqla1o77g-yPbcej68fht506mobt5S-2T2tUdHkd2vRU2rjB4Gw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-cad2-76b7-85a0-27e3bafdcca0/output/preview.png?Expires=4945536000&Signature=jT5IyReZ6Rtg-tG52SG5L1jTRNmHYd4wJlAzuKfwHOlPo0-s4P4cFMUHn4FFZLYDYe1cciAVCZH-8WC5cJaG3ZLhD5iMo-uE-mw4Vb2mOmdUYmh7NIxvJdVoY9if-LTBoDTbd0jhu~2vAqpjUEARc9ZEAvbR4iLskHJqvdZRFJhItmrtSfVUBjdikf50shj2oSq2std2gHtTyOmowTHkr~WaoJughuiTpXd4EQ3qtQnwlMGe6RlFM2FNBqxuny6aZwVdA1aIuBFHa1KlmTYVaXQu7UIhAldh-UVc5XOpiXvDORPoq6Ri9kyfPeP9c2zDsz3NYjmMwjRes4csfsZNeQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-cad2-76b7-85a0-27e3bafdcca0/output/texture_0.png?Expires=4945536000&Signature=VeYPHJZBUnTcwlR1CJZXh5mXLDoGIS5M4PSBmrLLR7ndCZ-bbWIU51sfJLTbVzpJFJDNlEMwefL~o0yVCIZARi7AFVUX4qxRoXy8GS5FDZAMvalGgG48bzogYR-ZD5xI9qHslTkTc489quFAutcOxF0-adV9p1lfwyzp9vBohfdjIULkY9X1CBSaXr3ZY1DlXI2Ed9K6w3oX8ObhiohYfW12u2vB~hM8vQsdrz~Zo-g4jreqdzz8tvYv8VOImQf5TpgCYNfEZCfXP185pNxvO40jS8dXD7DJEyO~X-bHCAeF6mRIEHmaFcm2bLLdvxM~u~m5KV9p8qypNqj9JTXgAw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-cad2-76b7-85a0-27e3bafdcca0/output/texture_0_metallic.png?Expires=4945536000&Signature=iXFTegjs3Zq9sWMjSQhHmyAN1qIqznSjjCa8fmBR6W6HTokwutlAttUcoI-OhU5vc7-6rywAwz9p4Bt8gVMn~bH-IA5e1OIMlZkSsAYmYnODqDkVfvhc4PLAYr61U-jGXZzEVUBktalg61IPt0NmdXKCyDCw2Z9JjQioAMYsv06BahQ7cs3ILgB~pgJfRkkNVgpuxw6db~tJ9jZUXXgiUyLTHv5~rha0affxZGsx6UmTf7JRvYQTCeeRxp4vtSFXbx-d~LPxmPmcD6ulyt9SfliTB9UiHAk3Vq9qS0IM1mzcV-Uz8GLV0weSEI29GiPa3~bwM54hNpg4zWfZztwMZQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-cad2-76b7-85a0-27e3bafdcca0/output/texture_0_roughness.png?Expires=4945536000&Signature=ZyqlMCWz3LxMlyqRm7vQnXiroXPqI2Uw-OebpT9mVY639jk1nSHLwSI7VWa48C9Lt1MZrFOrhb0YshJpjcEXMjToqmAC-OJ3O~yHC~OBixDJ~A1AKBGyeJMoOlfx8~T7H~ENUVC~R6Nz7uSOdLZT2uID~xsvFLWoI37C--yW03efxwwE0KHYfONJA5Ourl0fB7eQdGHxGz2jAbjH2olUsufeoNBh1P1jwL9CMDgWC0-vNkvcy03KHdsKI3tK3bw9oGLwA1YvvOPeh-xZrz8pQiIXT11RIupx5C~YTno6VJ~~pw0WQp8HM0D1jAJgkI2HgZ3eMO2rDAqxduDQ8jS0OQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13895-cad2-76b7-85a0-27e3bafdcca0/output/texture_0_normal.png?Expires=4945536000&Signature=ZlCcOJCNJNzme2x1PddVFzoz8sMsnWWU1gHp58m47k1BOGnMb7FcNmQwrYSsNMAqExh~Cr0cZLPtBVlp7TKafFMLDGoBtXuuoO~4JbHD9KewPxt29JbwUfh0QpzpHGNxvv8Lr6zLFgWxXq5R2xBh5owiis5yNenX6DMyYqGxz5vSUc183yp7NR2mIzv88uMKQw3MCp~hgCT-RF20I5WCulp4NUYR3oLeKRAw9rbKTKgZsHtedWRzFK~VfP4heFk7C9ZOuQikkDgCyJehxgShm~FnCQZsGsExNSGxHCK9AtIL5-5ioc7mX5WG33BRHAHkRnJIA47xfGD9fFcqhabCWw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

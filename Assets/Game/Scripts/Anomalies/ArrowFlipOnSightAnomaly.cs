@@ -20,17 +20,20 @@ namespace Zero.AnomalyPrototype.Anomalies
         private bool flipCompleted;
         private TravelDirection initialDirection;
         private TravelDirection flippedDirection;
+        private Renderer arrowRenderer;
 
         public bool HasFlipStarted => flipStarted;
         public bool HasFlipCompleted => flipCompleted;
         public TravelDirection InitialDirection => initialDirection;
         public TravelDirection FlippedDirection => flippedDirection;
+        public override bool KeepsPreparedArrowAsExpected => true;
 
         public void BindRoomContext(Camera camera, RoomAnomalyController room)
         {
             playerCamera = camera;
             roomController = room;
             arrowController = room != null ? room.CorrectArrow : null;
+            CacheArrowRenderer();
         }
 
         private void Update()
@@ -58,6 +61,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 
         protected override void OnActivate()
         {
+            CacheArrowRenderer();
             StopFlipRoutine();
             visibleTimer = 0f;
             flipStarted = false;
@@ -134,37 +138,8 @@ namespace Zero.AnomalyPrototype.Anomalies
 
         private bool IsArrowVisible()
         {
-            Transform arrow = arrowController.ArrowTransform;
-            Renderer renderer = arrow.GetComponentInChildren<Renderer>();
-            Vector3 targetPoint = renderer != null ? renderer.bounds.center : arrow.position;
-            Vector3 viewportPoint = playerCamera.WorldToViewportPoint(targetPoint);
-            if (viewportPoint.z <= 0f || viewportPoint.x < 0f || viewportPoint.x > 1f ||
-                viewportPoint.y < 0f || viewportPoint.y > 1f)
-            {
-                return false;
-            }
-
-            Vector3 origin = playerCamera.transform.position;
-            Vector3 toTarget = targetPoint - origin;
-            float distance = toTarget.magnitude;
-            if (distance <= Mathf.Epsilon)
-            {
-                return true;
-            }
-
-            float rayDistance = Mathf.Max(0f, distance - targetClearance);
-            if (rayDistance <= Mathf.Epsilon || !Physics.Raycast(
-                    origin,
-                    toTarget / distance,
-                    out RaycastHit hit,
-                    rayDistance,
-                    obstructionMask,
-                    QueryTriggerInteraction.Ignore))
-            {
-                return true;
-            }
-
-            return hit.transform == arrow || hit.transform.IsChildOf(arrow);
+            return AnomalyGazeVisibility.IsVisible(playerCamera, arrowController.ArrowTransform,
+                arrowRenderer, obstructionMask, targetClearance);
         }
 
         private void StopFlipRoutine()
@@ -176,6 +151,13 @@ namespace Zero.AnomalyPrototype.Anomalies
 
             StopCoroutine(flipRoutine);
             flipRoutine = null;
+        }
+
+        private void CacheArrowRenderer()
+        {
+            arrowRenderer = arrowController != null && arrowController.ArrowTransform != null
+                ? arrowController.ArrowTransform.GetComponentInChildren<Renderer>()
+                : null;
         }
 
         private static TravelDirection Reverse(TravelDirection direction)

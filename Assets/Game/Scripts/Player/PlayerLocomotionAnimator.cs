@@ -35,6 +35,24 @@ namespace Zero.AnomalyPrototype.Player
         private bool hasMoveSpeedParameter;
         private bool hasIsRunningParameter;
         private LocomotionState activeState;
+        private bool presentationOverride;
+        public Animator CharacterAnimator => characterAnimator;
+
+        public bool TryPlayPresentationState(string stateName, float blendDuration)
+        {
+            if (characterAnimator == null || !characterAnimator.isActiveAndEnabled) return false;
+            int hash = Animator.StringToHash($"{baseLayerName}.{stateName}");
+            if (!characterAnimator.HasState(0, hash)) return false;
+            presentationOverride = true;
+            characterAnimator.CrossFadeInFixedTime(hash, Mathf.Max(0f, blendDuration), 0, 0f);
+            return true;
+        }
+
+        public void ClearPresentationOverride()
+        {
+            presentationOverride = false;
+            activeState = LocomotionState.Unknown;
+        }
 
         private void Awake()
         {
@@ -58,6 +76,7 @@ namespace Zero.AnomalyPrototype.Player
 
         private void LateUpdate()
         {
+            if (presentationOverride) return;
             if (movementController == null || characterAnimator == null || !characterAnimator.isActiveAndEnabled)
             {
                 return;

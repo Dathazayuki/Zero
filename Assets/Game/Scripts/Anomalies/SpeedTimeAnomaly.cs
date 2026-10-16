@@ -1,3 +1,4 @@
+using Zero.AnomalyPrototype.Flow;
 using UnityEngine;
 using Zero.EnvironmentLoop;
 
@@ -5,6 +6,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 {
     public sealed class SpeedTimeAnomaly : AnomalyBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         [Header("Clock Hand References")]
         [Tooltip("Transform kim giờ của đồng hồ.")]
         [SerializeField] private Transform hourHand;
@@ -115,7 +117,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 
             if (fastTickAudio != null)
             {
-                fastTickAudio.Play();
+                GameAudioBootstrap.BindSource(ref soundPlayback, fastTickAudio).Play(null, fastTickAudio.clip, false);
             }
 
             Debug.Log($"SPEED_TIME_ACTIVATED: anomaly={name}, hourSpeed={hourHandSpeed}, secondSpeed={secondHandSpeed}", this);

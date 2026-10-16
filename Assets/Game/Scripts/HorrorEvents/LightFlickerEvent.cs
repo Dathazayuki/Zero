@@ -1,3 +1,4 @@
+using Zero.AnomalyPrototype.Flow;
 using System.Collections;
 using UnityEngine;
 
@@ -5,11 +6,19 @@ namespace Zero.AnomalyPrototype.HorrorEvents
 {
     public sealed class LightFlickerEvent : HorrorEventBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         [SerializeField] private Light[] lights;
         [SerializeField, Min(1)] private int flickerCount = 4;
         [SerializeField, Min(0.02f)] private float interval = 0.11f;
+        [SerializeField] private AudioClip flickerClip;
+        private AudioSource audioSource;
         private bool[] normalStates;
         private Coroutine routine;
+
+        private void Awake()
+        {
+            flickerClip = GameAudioBootstrap.ResolveDefaultClip(flickerClip, "clip.LightFlicker");
+        }
 
         public void Configure(Light[] controlledLights, int count = 4, float flickerInterval = 0.11f)
         {
@@ -31,6 +40,22 @@ namespace Zero.AnomalyPrototype.HorrorEvents
                 StopCoroutine(routine);
             }
 
+            if (audioSource == null)
+            {
+                audioSource = GetComponent<AudioSource>();
+                if (audioSource == null)
+                {
+                    audioSource = gameObject.AddComponent<AudioSource>();
+                    audioSource.playOnAwake = false;
+                    audioSource.spatialBlend = 1f;
+                }
+            }
+
+            if (audioSource != null && flickerClip != null)
+            {
+                GameAudioBootstrap.BindSource(ref soundPlayback, audioSource).Play(null, flickerClip);
+            }
+
             routine = StartCoroutine(FlickerRoutine());
         }
 
@@ -40,6 +65,11 @@ namespace Zero.AnomalyPrototype.HorrorEvents
             {
                 StopCoroutine(routine);
                 routine = null;
+            }
+
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
             }
 
             RestoreStates();

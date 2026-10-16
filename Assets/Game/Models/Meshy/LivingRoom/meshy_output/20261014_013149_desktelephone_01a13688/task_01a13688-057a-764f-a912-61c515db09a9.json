@@ -1,0 +1,24 @@
+{
+  "id": "01a13688-057a-764f-a912-61c515db09a9",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 2293824479,
+  "prompt": "One detailed realistic vintage black rotary desk telephone, 1970s hotel lounge prop. Handset resting correctly on cradle, circular rotary dial with finger holes, coiled cord attached to handset curling beside base, Bakelite body with subtle wear. Complete telephone alone, no furniture, no background. Realistic proportions.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791916247897,
+  "progress": 100,
+  "started_at": 1791916247902,
+  "finished_at": 1791916258383,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13688-057a-764f-a912-61c515db09a9/output/model.glb?Expires=4945449600&Signature=aSJaQ4sO1neX1O6v48jdcBkCK~NUArQUlLBdmqO0s2xYgb83dNm7vl6MjG6O5W4d09xvB7dJbbfkIZS4KYKGtr0htSu-PXj30lzkHUV6vlSMks2MiqiaG4Ze5b6btUz29FW7A1d7DdTayEKjgN~JAv~ltwhnq3IwBQai9aMWZ4r1JDXB26IBMlsgAjnk0LA61PbE0R42~QanZnJwOiUKQltPa-FgPpZ85gRJTIpK51MnlUZ4A7cba9agiZdlsEs9fUam6M5TWsWPViAYBGINzwC0WPu6uFN06QbNl-Nh5KE6Uo6npi4O-yl44HN9uPvyTRTPyW1jE6YlRwaZMJCDtw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13688-057a-764f-a912-61c515db09a9/output/model.fbx?Expires=4945449600&Signature=qTuANmBZldUeDk7Wr-vEY0GGFCaIClAl64qYRjGzDGPOgJyFhbhSAQgM8PsoU-2vopbaun5uRV0C5S0kdKok7c8qRwQYse3wawF0QlNBAdP6WTJmkQ6XV2INVQ0LIDrI5Vutd3A42hp5bsEUfIK35QPZ3E5UIMFawQLTz0f5umRCGK7at0jlxiv3uR0K-gRQqKcjZFzaTWcB5q-AMdHxk5pRcF0uy01aaa-n1X2Oram7kGrMud6OytlAEPp9~NbwGgxx~FnNMgFVCkEEGo57662vlL8KV1Kd3xQ4-FDov8VFlV6~6WEwK2VIhK1G7t~8zIuP1unvn3yutlS25RwZLQ__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13688-057a-764f-a912-61c515db09a9/output/preview.png?Expires=4945449600&Signature=jyiq5LsP-da1ldq2h9sVJd6mEE~FQLda8UdiiJjNxQRuquGvd8N-YBuERatDIf-ZkPLh85CJDH5CGqgpJH12gjQNiIt2c9u-OnuvR6FgryV620Yj3KuZJievp4xlOzaolrjpz7Ae7oMgnbKzAU0S3OSXzAx3JzAoFlRBcH~o11mpAO9Pfg5pQdozR2X~47XHFvzXA7gQUheTNs6eNDqil0ZY4mgu5YI04lmE0tV6xqHFU1gGdhRJ9k5sXA1eDSHGauoyO7AQ5k3QC1emfb6g0TsUgjZMOQBEDURGTQFVn8L6P6MF7BX0q6iOMNT1x7sllS2fnTWDuNqJXdFgiw~3Fg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

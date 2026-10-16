@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "project_name": "DoubleBass",
+  "folder": "20261014_005034_doublebass_01a13662",
+  "root_task_id": "01a13662-b771-754e-92dd-289554ba7daf",
+  "created_at": "2026-10-13T17:50:34.579Z",
+  "updated_at": "2026-10-13T18:08:06.749Z",
+  "tasks": [
+    {
+      "task_id": "01a13662-b771-754e-92dd-289554ba7daf",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a13662-b771-754e-92dd-289554ba7daf.json",
+      "operation_id": null,
+      "created_at": "2026-10-13T17:51:05.615Z",
+      "updated_at": "2026-10-13T17:51:05.615Z"
+    },
+    {
+      "task_id": "01a13664-837f-71ee-a92e-591d5065b384",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "refine",
+      "parent_task_id": "01a13662-b771-754e-92dd-289554ba7daf",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a13664-837f-71ee-a92e-591d5065b384.json",
+      "operation_id": "eee4ad5c-a7f2-445b-a421-0d4fb5f5a0ee",
+      "created_at": "2026-10-13T17:51:59.404Z",
+      "updated_at": "2026-10-13T17:53:20.423Z"
+    },
+    {
+      "task_id": "01a13662-b771-754e-92dd-289554ba7daf",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview-image",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T17:52:17.279Z",
+      "updated_at": "2026-10-13T17:52:17.279Z"
+    },
+    {
+      "task_id": "01a13664-837f-71ee-a92e-591d5065b384",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "delivered",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T17:54:59.577Z",
+      "updated_at": "2026-10-13T17:54:59.577Z"
+    },
+    {
+      "task_id": "01a13664-837f-71ee-a92e-591d5065b384",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "textured-preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "textured_preview.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T17:55:07.469Z",
+      "updated_at": "2026-10-13T17:55:07.469Z"
+    },
+    {
+      "task_id": "01a1366b-5e96-73f6-9065-b0ad08c9610a",
+      "task_type": "remesh",
+      "resource": "remesh",
+      "endpoint": "/openapi/v1/remesh",
+      "stage": "remesh",
+      "parent_task_id": "01a13664-837f-71ee-a92e-591d5065b384",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a1366b-5e96-73f6-9065-b0ad08c9610a.json",
+      "operation_id": "ad71b7c7-d12b-486f-b2e2-8303d129b812",
+      "created_at": "2026-10-13T17:59:28.744Z",
+      "updated_at": "2026-10-13T18:01:34.534Z"
+    },
+    {
+      "task_id": "01a1366b-5e96-73f6-9065-b0ad08c9610a",
+      "task_type": "remesh",
+      "resource": "remesh",
+      "endpoint": "/openapi/v1/remesh",
+      "stage": "game-fbx",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T18:02:07.900Z",
+      "updated_at": "2026-10-13T18:02:07.900Z"
+    },
+    {
+      "task_id": "01a1366b-5e96-73f6-9065-b0ad08c9610a",
+      "task_type": "remesh",
+      "resource": "remesh",
+      "endpoint": "/openapi/v1/remesh",
+      "stage": "textures",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T18:08:06.749Z",
+      "updated_at": "2026-10-13T18:08:06.749Z"
+    }
+  ]
+}

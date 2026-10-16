@@ -1,0 +1,32 @@
+{
+  "id": "01a1396a-a865-74d1-92cb-903b91a45f6b",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "standard",
+  "seed": 1391068553,
+  "prompt": "Single realistic hotel kitchen chef knife, 30 cm total length, broad stainless steel blade with tapered sharp edge and pointed tip, full tang black handle with three rivets, lying flat horizontally. Clean recognizable proportions, worn brushed metal and small scratches, no blood, no cutting board, no other objects. Detailed game prop.",
+  "texture_prompt": "Brushed worn stainless steel blade, black full tang handle, small silver rivets, realistic subtle scratches.",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964654933,
+  "progress": 100,
+  "started_at": 1791964654937,
+  "finished_at": 1791964696458,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-a865-74d1-92cb-903b91a45f6b/output/model.fbx?Expires=4945536000&Signature=XSF5SDaSdOjl5H6Db8wE0EXDkScCH9uid35VLF7LA50WxHpvYctLLO2iymbUaaWZzieDi6YE2ngFUE5Bx-NCutRFuGCo~qCKANdSLgoXvLQ-3S4ehyveIiAO~2MdU3UV8jXnepZ6uuCHSfp7ofrhFj7MNuOW6J~gTLl6eWiSnOND21xdNmDq-JLmsZlB2UPnJXStwIlnDUTlM6Xqx252QMJOR~l2ZBRQ-VOyvYNzjnIpSlyRWmnGFC9oWc0MN8xI4YRv~2-Uyt0NV75AnFQesd5GMqgE8sL2rb5ei-WugO9yhUjHuCVIHMW8zou32ZHsI~2C0ZbkKNGktgBXDvYQaw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-a865-74d1-92cb-903b91a45f6b/output/model.obj?Expires=4945536000&Signature=gN3Y6xRTa~hDC31Pyeqgt99Z~8u4~qP33mZgHMquVTaVQcmtWpqUD7rtkoMcpVMnbTocgd~ATcX55vm3XB8oCfiZ3rtVtdRNHd02iX8oo8fxLLWil5hcL7X7bHqQJGtTV7QmJSQCcnnXUGoQ3UnU7ECHqGJrgBaqSLFbm~UEEoPBjB4-kRPLq4JyuIf7K-Oud-Ysr7DYMcsoao1LqRp28PnpdHstqcow4go4nfTcWrWOP7M1o-BT7uiHKSrdaCQMBrpEyO8BaTnVrJQzNEoadlt6gHfBvQpyYhuyez6o4a0gDyRDAzFM8097Ol9VBLPsHrZwL~jENB2Yk3pYolFg-A__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "mtl": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-a865-74d1-92cb-903b91a45f6b/output/model.mtl?Expires=4945536000&Signature=TmmrKE2TnNTjhokZ-858sY9kPVpxMNdF3tasaI47yeV6VCIm~J5XqKZ-b-Dw0YkfqOWYbB7GPpKJlMMllInxyZlahFbLej7qltm9Ke1aEPLHudVv7DW~FYbDweZuqqJvbq3DONEgwwRR4-6CXVPkrCXCKsWQ~JIN5dZ7bagGbkAr8qDNQ-lPSU-7rTuha~g21732IEjm-pOHJGT-osPqSseOoP4bW9t5xubef5qqulDLKVJJSggEcZ9Z0oRaZ3ThsIPHgqtgAj-neNTY~z6FersCmcCKGtYk8dmy7yYsvD1a9bI5PrkepElK2FH2XjpzRWRIslMbl6txavjwW1quqw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-a865-74d1-92cb-903b91a45f6b/output/preview.png?Expires=4945536000&Signature=j5zsdlEimY0fCd~yF1erS55FNjv-fljl2xep~7lrNXhZL2ijKgbuKwPqECHVi2sEflsJDShgM9mi-Ax~tGX2ti0t-hpLv970ve1leTiV6lI3HtItiHcC2lwdR1NrfTUnReyK9yXyrfa7hkpyps3IqMHhdoCA-XameLmC6INDNVDkgtmvqbqWuXwjq6L1TeuG1p~WWv7ki8cvffF34zY9Jm~v5j653B4dQ3ISiTi59wgtOaH9GowwA8D5Ru3Klo7lhYCD-HVi5Tdy3wSpOTDLQuafVpW51WIgOR5ozn6ht9OT9kY5zuF-eXHYY14iclYgdbANBGog45Wuv1gFzTXWMQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-a865-74d1-92cb-903b91a45f6b/output/texture_0.png?Expires=4945536000&Signature=hkiwATiKf2gHfPPu~8sjWlvt5ytkgdbjm~sSa7peXjGajKXdQVRuj6VFzfhSaPtNTMjyC3B61gSzgOUxLMAYd3lPRz6AslnZ-E-r~4lABZAM6n5KDI8HgzrTsHiBkgW3mgRVrC0EmC686itBs8HlQNY6tgFGECoIDtr0FwP4vNRh~5AckUJxs~BBRPRUiacso7LHiGSo6kyaZ1xUk5ZOzxI38fYHepuwMFyRYd8xUjmi4jnfREhCWTpoM1y2ga~EDR-GIh~ivqGbQrW0UVxgEbD2S2HHToshX4I0WEOwuEDjD4OPWGghtv5TNUj4iFbEM2i1yWXktbTBJQ1SUIoNUQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-a865-74d1-92cb-903b91a45f6b/output/texture_0_metallic.png?Expires=4945536000&Signature=knu0rLxewtiCwufcdJtW9OM8rSYMJniJ-w7OqnlAzwze8wAQ56S7BT8Yq1Axpqc7wfejCk~0wDILda5NolBHBzJHwKHmSL~pzvx7u72YRodPRYYqdy4sk-7PPmMQ~oJgSoiho2ZxfBOoC94uaNJbn7FQAzE-g7wrWmVyilrVhJ-U51vjdtAQF6LWde6I5WkE6R9Lx8Bh0Pd4lq8vYy2oUupsz~TqasjBJTXju~91BuN9E5HRN1UhNrJgI8NKnMm8c6xDfPafqNuXnH1yAhuDjzvTL4-IaeEMO994fEi46kY6mbE3~kTYn~7~zIHVLHq-fnVa7xAYZXzc2f0wcIAoMg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-a865-74d1-92cb-903b91a45f6b/output/texture_0_roughness.png?Expires=4945536000&Signature=kmugscxx7ch~zGfB18AjSLleK-DBWX6O36DUvBXgm3xmNLdjdOFzFavA40LokajdjM8lWY4Z4TqLzbR8iWn~a4VsaVyFOfhKJZNR9vdJyN~iIjvQ-cNrlvD7FcdohAqEtOt5dWgKwTaemAXRQjtYGEW9er06dNQ7NPzMG~CLSHzHiyzuymUtTMV27RKxS3h45iWVZ2mdnVdYqA5OZLhPm47q5EtPXq3F-1XyF99ZSlg7zMnTkPnW5XRaX98A86usFI7XFdNuFddYGjXlg2CjG1-vgnNyzz1-qc4ca0QipftHTZQuQh1J9BAbtQ0ypYsTQ7rfHASxNMEZEAg5CO2YfA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-a865-74d1-92cb-903b91a45f6b/output/texture_0_normal.png?Expires=4945536000&Signature=ZPYsatRDIO9Busnt7bV87r1~yY3C-grcx9PIckqfzgyM1SP~lqNZiCkTig9c9AhOPSosgMvPSBF~F2CTn8Ios5AqHdbFOSRxr1bvfVMAj1ARNNbOKhkNKGesGs3WEoRgX4FXYdRrafaNsVV7XCxUZysbz-lnTDWzwHlLiprcKszi7MdzPNWtUj8mGWQwGav4qIc3n-flXQYq3yHqhDGLxWj6nClrIc-3KFmvrjAdUlbxUxv3lUhpfbmaFLTJFLg5mOH1-aPsLbysOZhrR6uSFC6NvDUDo~LSiZC3YNYbM9NP5YPwaAYDXtjtl0He~yaMEj-Wx7zRaSec3RfAIkNiXg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

@@ -1,3 +1,4 @@
+using Zero.AnomalyPrototype.Flow;
 using System.Collections;
 using Zero.AnomalyPrototype.Utilities;
 using Zero.EnvironmentLoop;
@@ -7,6 +8,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 {
     public sealed class ArrowLightFlickerAnomaly : AnomalyBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         [SerializeField] private Light[] controlledLights;
         [SerializeField] private ArrowLightFlickerTrigger roomEntryTrigger;
         [SerializeField] private Transform arrowTarget;
@@ -18,6 +20,10 @@ namespace Zero.AnomalyPrototype.Anomalies
         [SerializeField, Min(0.02f)] private float lightsOffDuration = 0.09f;
         [SerializeField, Range(0.02f, 0.5f)] private float focusViewportRadius = 0.18f;
         [SerializeField, Min(0f)] private float requiredLookDuration = 0.2f;
+
+        [Header("Audio")]
+        [SerializeField] private AudioClip flickerAudioClip;
+        private AudioSource flickerAudioSource;
 
         private bool[] normalEnabledStates;
         private Coroutine flickerRoutine;
@@ -59,6 +65,34 @@ namespace Zero.AnomalyPrototype.Anomalies
             flickerVisibleObject = visibleWhenLightsOff;
             roomEntryTrigger?.Configure(this);
             CaptureNormalState();
+        }
+
+        private void Awake()
+        {
+            flickerAudioClip = GameAudioBootstrap.ResolveDefaultClip(flickerAudioClip, "clip.LightFlicker");
+            SetupAudio();
+        }
+
+        private void SetupAudio()
+        {
+            if (flickerAudioSource == null)
+            {
+                flickerAudioSource = GetComponent<AudioSource>();
+                if (flickerAudioSource == null)
+                {
+                    flickerAudioSource = gameObject.AddComponent<AudioSource>();
+                    flickerAudioSource.playOnAwake = false;
+                    flickerAudioSource.loop = true;
+                    flickerAudioSource.spatialBlend = 1f;
+                    flickerAudioSource.minDistance = 2f;
+                    flickerAudioSource.maxDistance = 20f;
+                }
+            }
+
+            if (flickerAudioSource != null && flickerAudioClip != null)
+            {
+                flickerAudioSource.clip = flickerAudioClip;
+            }
         }
 
         public void BindRoomContext(Camera camera, CorrectArrowController arrowController)
@@ -144,6 +178,14 @@ namespace Zero.AnomalyPrototype.Anomalies
             }
 
             playerEnteredRoom = true;
+            if (flickerAudioSource != null && flickerAudioClip != null)
+            {
+                flickerAudioSource.clip = flickerAudioClip;
+                if (!flickerAudioSource.isPlaying)
+                {
+                    GameAudioBootstrap.BindSource(ref soundPlayback, flickerAudioSource).Play(null, flickerAudioSource.clip, false);
+                }
+            }
             flickerRoutine = StartCoroutine(FlickerUntilArrowObserved());
             Debug.Log($"ARROW_LIGHT_FLICKER_STARTED: anomaly={name}, lights={controlledLights.Length}", this);
             return true;
@@ -176,6 +218,10 @@ namespace Zero.AnomalyPrototype.Anomalies
             resolvedByArrow = false;
             arrowLookTimer = 0f;
             roomEntryTrigger?.SetArmed(false);
+            if (flickerAudioSource != null && flickerAudioSource.isPlaying)
+            {
+                flickerAudioSource.Stop();
+            }
             StopFlickerAndRestore();
         }
 
@@ -202,6 +248,11 @@ namespace Zero.AnomalyPrototype.Anomalies
                 flickerRoutine = null;
             }
 
+            if (flickerAudioSource != null && flickerAudioSource.isPlaying)
+            {
+                flickerAudioSource.Stop();
+            }
+
             RestoreLights();
             RestoreFlickerObject();
         }
@@ -212,6 +263,11 @@ namespace Zero.AnomalyPrototype.Anomalies
             {
                 StopCoroutine(flickerRoutine);
                 flickerRoutine = null;
+            }
+
+            if (flickerAudioSource != null && flickerAudioSource.isPlaying)
+            {
+                flickerAudioSource.Stop();
             }
 
             SetLightsEnabled(false);

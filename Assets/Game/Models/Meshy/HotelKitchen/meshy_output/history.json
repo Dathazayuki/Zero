@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "folder": "20261014_145132_chefknife_01a13964",
+      "prompt": "ChefKnife",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13964-2b4c-7484-a1fb-162fca8e7f4f",
+      "created_at": "2026-10-14T07:51:32.379Z",
+      "updated_at": "2026-10-14T08:06:09.121Z",
+      "task_count": 4
+    },
+    {
+      "folder": "20261014_145136_foldedtowel_01a13965",
+      "prompt": "FoldedTowel",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13965-2abc-7026-9654-e18024a6e934",
+      "created_at": "2026-10-14T07:51:36.474Z",
+      "updated_at": "2026-10-14T08:06:10.838Z",
+      "task_count": 4
+    },
+    {
+      "folder": "20261014_145140_utensilcrock_01a13965",
+      "prompt": "UtensilCrock",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13965-3ad0-72b2-bf4b-6064c193e559",
+      "created_at": "2026-10-14T07:51:40.543Z",
+      "updated_at": "2026-10-14T08:06:12.383Z",
+      "task_count": 4
+    },
+    {
+      "folder": "20261014_145144_bowlstack_01a13965",
+      "prompt": "BowlStack",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13965-4a6c-739e-8010-3206140abcc2",
+      "created_at": "2026-10-14T07:51:44.586Z",
+      "updated_at": "2026-10-14T08:06:13.652Z",
+      "task_count": 4
+    },
+    {
+      "folder": "20261014_145148_soapdispenser_01a13965",
+      "prompt": "SoapDispenser",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13965-5a95-7284-8467-1b5203c66af7",
+      "created_at": "2026-10-14T07:51:48.882Z",
+      "updated_at": "2026-10-14T08:06:14.984Z",
+      "task_count": 4
+    },
+    {
+      "folder": "20261014_145152_pantryjar_01a13965",
+      "prompt": "PantryJar",
+      "task_type": "text-to-3d-preview",
+      "root_task_id": "01a13965-6b41-7608-8125-5f970ed2a8e1",
+      "created_at": "2026-10-14T07:51:52.866Z",
+      "updated_at": "2026-10-14T08:06:16.508Z",
+      "task_count": 4
+    }
+  ]
+}

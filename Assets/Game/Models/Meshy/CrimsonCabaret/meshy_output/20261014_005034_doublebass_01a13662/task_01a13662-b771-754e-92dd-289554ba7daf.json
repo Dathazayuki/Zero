@@ -1,0 +1,24 @@
+{
+  "id": "01a13662-b771-754e-92dd-289554ba7daf",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 4280491187,
+  "prompt": "A single full size upright double bass on a small black stand, vintage jazz cabaret instrument. Warm dark amber varnished wood, elegant carved scroll, four strings, bridge, tailpiece, two F holes, slender metal endpin. Realistic detailed freestanding instrument with clear silhouette. No people, no room, no text. Game environment prop.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791913803607,
+  "progress": 100,
+  "started_at": 1791913803614,
+  "finished_at": 1791913836645,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13662-b771-754e-92dd-289554ba7daf/output/model.glb?Expires=4945449600&Signature=iMl8Fkyau7o-QhF3v0amPiYrQe3HMfEFz5d~YqU0ho50DfCAHiGWDFUXaej-6ho0X5-8LBe2Y6dlEVcpMQM7KnnoJUpiwe1PyjOrFV-LE1YsoAK1goMsSVuP0QRiZ4QHSosTYXo4iJCXssDUav0UrNOv~sHMo~pRSf9~nI-I3WzU-CXwg~t4WGTvp6fBE3obHkEq0R6ChPGRfJejjK2KZt9rWiCRvqOhKkUimJBMHV9coDH70bI1SgPJ~dyzqPknlVpR5OFfR-bKpAvrx86xBbgX5rEj8ajWrt4DM1nLETQgBEO58mgLSEt9PnlyEfy2mq-y0pKw9M51TcVzEP428g__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13662-b771-754e-92dd-289554ba7daf/output/model.fbx?Expires=4945449600&Signature=KD2Q012hOa7d2hQF16uCO8veHac0Xn5~ZeRqjC~P5F36P~MDQFNxWLyEXC~I5DjgWwT~A16ec340NbAhTAqifVZ0HaI-bfIy3vs-3iTTaEquxYCROarvTW8HILxbhhMS5M~7pi~MopiAmhASdK3rPOUlirQf9296bSR~mbGqQ8DDivqCjL6SB3CmBGyR1TtX6ko7TUIwQIuBGFyc8z3f4ujME-Lbt2ASurod-XicoWtViSWgqyM94WoSJ8uXU8lSbmCD95PZ~os54PAxew~Oi6qUxqe1BS5dT~446Iii~-Y3QhLnQSphplYOk5LOTDJXAEegTTLhQ8-4Nbm8IUp6cA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13662-b771-754e-92dd-289554ba7daf/output/preview.png?Expires=4945449600&Signature=KGsamO5tygoVEmE-ZAQoTu5mBvcCDcL57-8S6qdpuPHh5LKq5859d33N-w2omw~dVisEIl5VsYJMS5oxkj11HLjc1AijCMqdVJFRCHu~Aw5nOYxEGMYXu-dWSF815TVpQO5CiQd5GwVUieO2GzvSYJSrbb19jFL15NleQlqIyJqcbZPo0khu4Ul1xK72YX~iRf6V-utMh5f1yP12vbsJqFSe36jch73fm8GEyTB46FrXyOK9XebvtnW3eGjVyf3uKjS8hq0CKMUDhgLvqQDGxBBATaZt2Q5boss9U~eIZdzQud260smH0racFr8749wayDydRldsDOzBjvdu-4luYQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 20
+}

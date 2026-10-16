@@ -1,0 +1,32 @@
+{
+  "id": "01a1396a-e56d-72e6-b29a-3e20915b7ea3",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "standard",
+  "seed": 1335580479,
+  "prompt": "Single sealed cylindrical dark smoked glass pantry storage jar for a worn twentieth century hotel kitchen, rounded shoulder, flat circular screw lid in tarnished tin, faded rectangular cream paper label tightly adhered and curved around front of cylinder, subtle surface scratches and aged seal. Label is part of jar, not floating or separate. Realistic detailed reusable game prop, upright, no environment or other objects.",
+  "texture_prompt": "Dark smoked glass jar, tarnished tin screw lid, cream paper label tightly bonded to surface, subtle aged hotel pantry wear.",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964670834,
+  "progress": 100,
+  "started_at": 1791964670839,
+  "finished_at": 1791964751816,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-e56d-72e6-b29a-3e20915b7ea3/output/model.fbx?Expires=4945536000&Signature=o-g4xGUdHQ75cHY~smFPIJJ~b2fHstJSCs8QgqTpH-euYFu3x~nEpAQLsuajFtKBVsxH725N-WfEfls-J~nLnxEI5mrBocn7kJcaWZs6unLhUYxZM1QWB0Y1lkicgQ06VDWewi49QGZ1ZNlKT8hlkHmrziDXqtmZRE79u3VvqjOv4dxD8ciGJkS8hkrPDpKTqMngP5kWaLYnYxSBoELzQc51ismIf8UOEsvcyDDiVti5r4TFmsUR4IWENz1NJ14jRsnn3DrywoaOv-eXcf6kHY7PcGWdiNGt6ODLIFhlgS9F0Qosp3ex9ttKqamPf20TlSlhR4AWPib13hPan1eDdw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-e56d-72e6-b29a-3e20915b7ea3/output/model.obj?Expires=4945536000&Signature=ZNwfGOZOThQlB8~sYAbcADECXtqVdQN~4KJubayYaOark5Wwy4kb51iNP2HW1nJasHk3NJUEtX1NQJfiXgzBMA3tKmBNZi7Z2iz6uwdTb6KH2B8ej9QL0P6SRYHLkmo6xt39lOhmxEu9eM4uKQjv1ILyM3LAszq4qSBShkOJUgCTYR2SGG9JxnmDPLlpj1C~C3OIK6Wn9PlREA6idlOsrTNy0JlhvW2QgU-gW28NA78BTdNKW75nRKbWD8VwriUjgr6oPPlSLB~bLeq1pwz-FrBzQZl~eJsEXqaFFYd7AVTpps4lQvuXPHSHSHVc4jyDiKBUDuPy0TMPDqZkuINGcw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "mtl": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-e56d-72e6-b29a-3e20915b7ea3/output/model.mtl?Expires=4945536000&Signature=bUuf0FQfmDwDnkuP7O5PfONCvnIn-RvQ-w-EOj-ziyKUbwfGRbkGD7enNUHH2Wkr8dTDOIb-DnxLjvssDuhmzWiT~mqVtbXCn1i7eopVLBFj~fzn-MPUspEre4YK570iKZ~yn3SCv9OPJOIXyR14wKaaRhVLumh8z9252ZyBvUH2uXPLOGPI8cyuSJ7eIhZ6cMXi~-c56mW8WZYdDhOmPl8x-k76t6K5CsebtTbLbi7uTtlhBxj3Qh5srRgV1SS1uevxfeHfr9gBIBDsqYYZ1kT4Uy8b60uxYMbb0D06vg55z2YYn80tv5ABKNy6v2JeTEm2ptondxF0kngdxugn1g__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-e56d-72e6-b29a-3e20915b7ea3/output/preview.png?Expires=4945536000&Signature=iLHYYw6Dzyy7N0PKhP59MuNxUIrIhA6aNQj-cHBVOKb77JeD6UW7mL085x7r-ycuFipHonRf4o5EWOUbrb9An1mLnjmFkjpnxEgBC-Eh1JqXc21dMpkID-9S32n~mplE30gi16Gkvvnj3kKXjS5S~0cfz14IBW9S8HwhV9LM7ja-YNawDhzC~l-aM~3rRoH7F2~GATeYwwduR0ofBSkeNF10iTeTuR2svgVoHVE7c7XPCbYfPfdPQ3-o~7~deLpIGXMbDEwphhIxGzY~DtUGx2CZe5O~0fKgoTmBy9m1gj-vjiE6ez17yv0ap3CrTDShZoRy8MvoxZdLbuZdDB8~pw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-e56d-72e6-b29a-3e20915b7ea3/output/texture_0.png?Expires=4945536000&Signature=Q~069dpK-cdlV0EKyPULNSJjX2LJyAqmo3VXgrGItJIur-iOzp319mSxoH82N57NutVgakthmaNKElpcNYZ2ZDukzH6H-UNjM16b3FC0FwF-~YfpPUPZH7N5YErUTCxaMP3Ha7jHS47Vna-fwp92q6OuAVgCkfsguufvrtiTPEB-Fn7SGMmMQ1htcsN2rpCkFzY0~GXaVAblKtmmHVc27ood4kYVCmCEE8zf~O2FBOy7YcewrDA1bf4Zk3Qms-oFfejDE~Bb3Av~39OC-pPNR3eW1~P1Y7AucFISdyMh5AkaWHNn0oiMmlofcKhw-OIgYtdy2WBfEsyWiy6pfCnpzQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-e56d-72e6-b29a-3e20915b7ea3/output/texture_0_metallic.png?Expires=4945536000&Signature=H1RTW~q80hXspzUzmqR2uWRCMth5pmxHhAqmcwbunzXa36399gtYsSJ0wR9jwLAmnZlKXVHEPgQvqmMcPVxfY9bKP4gFgWv0MSKgerXT9tRRed0atW6u0IL5xuZ5HFtR~~48IljwpRIRvFiRkI7JhO1FH-YkyfveB7AgUtzxpyIr0XraH-naBbeQ6jpdK83e7zik4wyKLBJS5DEHPLn~2JoVWXw3EGG6NvLWOrJdf99IETL5Fkb9glt3BhqdkkEiBJ0H8ad8izedi0UgGEyRl-cSSp~g1fqSHzHXLDVDhqEHlKrIIypATkC7fvYqOrLOhto1DCoqdk~-ZLdYKUz3ZA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-e56d-72e6-b29a-3e20915b7ea3/output/texture_0_roughness.png?Expires=4945536000&Signature=BJm9RYBnGn8KpchI9ARGNWBxR9ygCBCSFgyaxUyzIkapIoMpizy~5nKO-pttn7~2JmSL2vIcxzNi5TglV6EHYOy63I-rbLTam4AfdScL9p01Mk2x32Qehs7IhU0Dfln6APu5al8XAyOzYDic2yab5w9losO-~B-904YfGo3NYOIU72DPAnMDW1m9juM3CQoc5IW~lXH8M5poeyimR6JXZXprg9l0q7HHSsOIwBPVpY77Qqy63c8wOnnd-IJOjWOB84rfXxmDF0XFhp~3bmxVcSWdrN7bL8~KusYD8MwNEhobK9KAV8k77kC32mYUrSMZWg~rKibQgnOR0WAoYZFmmQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-e56d-72e6-b29a-3e20915b7ea3/output/texture_0_normal.png?Expires=4945536000&Signature=G6lgDOIyRAWrKJRB-cN74O1L1FLwfe9y6PaRDl~rO5kZd6ms3oaOG~P~Yi1fzBc2mUZp7ZwKrRyATN6kH2c0F3Y4bZn5tzQ00nmRC8k0Tpwdh2tHXrHwhPwHGBakpjdPVP1Mttiu9vilTUlE~K3H9AzEpsJqM8XgqdnYsh30Ayw7Z3nsFpSfzOztJBgix4hAqrli4BiRFfU~aQAZK8oWe0HCBrN91UnTQSHQOPea1QfPxVVuaXdq~ja6KIbY~vZawlbEMho230F560nm9~bMuJeUENdxOhGwObF9FIVeyxneN4afl2KVjK71dAF~ZIrlqK~2oNBX1ql808v4jGa1bA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

@@ -1,0 +1,24 @@
+{
+  "id": "01a13893-6966-7334-bac2-b844b25189a6",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 1965950258,
+  "prompt": "One realistic compact late-1990s beige-gray office laser printer for an old records archive. Distinct rectangular printer body, dark paper output slot with one blank sheet partly emerging, lower paper tray, small simple control buttons and a tiny status display, subtle age and scuffs. Freestanding complete desktop printer, believable proportions, isolated single object, no background, no desk, no brand, no readable text.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791950548937,
+  "progress": 100,
+  "started_at": 1791950548942,
+  "finished_at": 1791950567855,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13893-6966-7334-bac2-b844b25189a6/output/model.glb?Expires=4945536000&Signature=DCkPj-NSgKIjX4FFocddoP0JizLFKaFdB5ZcZEbBL4ayoq6ddQ0b0V-X9ZjI5vOzJ8hsEb4pavzHb3ECo9TdVe6htzjFT9yzlBrcNS4BM2l~vNsDo0IKo4YwdJpddlFW9gacG9ynFs8fJPGTvV0A~gaavcz31jN6uWtdw~KeC9uVTaHi-rcUbRGkF9Rg1RXFi9RNHFocIYNpi9McENWtRe7ccPLSOb7ZKCGus-Xknqkj8om2UGoTqmGLvH3InbYrMMyWgPKbzeBkLAFM1rQcLLcO1ocEnMaMqBgjIdJaZ~x9tMoQySLn2BfJvIuURTX1HV0zCbwW3QX81uXpS6LANg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13893-6966-7334-bac2-b844b25189a6/output/model.fbx?Expires=4945536000&Signature=CB1Hyr9ODVHn7mWvb4~zuml1ftN6YobZ3qXK-dvQ8HCnqZFnq3CdW0bGCRKhRSxOW5bPwSLeHxEBPSOEdyeQ2wsXr-NcWashmSiBbJYsOx4zs2A2srwNUkLk6OAZXjkqn~3Wn9Y-qqNZQsepnOqb5l0OEcmHQDXvdBULfozsx-roQcVz7gUeQ88QVrdabtlr4dCZVSe0s9be~XdplSnoK6b4MfCVnzu5QxOmLHT6xMYGVepjbhdMR84tNrMj2KddKLyQs6X2vRJbI3XUkosxVPbO~Jd2BgsWW~Jim4Hsp5tgh6cW3z6i77uz-X1fWte-ReJOKcr-jJk3jFA7gjqC9w__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13893-6966-7334-bac2-b844b25189a6/output/preview.png?Expires=4945536000&Signature=dYs2J1B-T8ISSxUUcwDuy33BFCVA2NONtG740Z25F4suZPZOY~6XKa1OavMb4vODqGZP8LOHuuhGYh8i0xsi4yOLtsImvC-vDQrYcCzZdRxHl2fuxCNoYxI1ts-5sJ~zWKSrQfV8RpJHHBLrEOIY7j9P6qXVPCfoN7lBqwWOB~I0g9pJeMIKJJcopYvtqsOusZBImsTYU7ATjtyy5vEz~dzW6b5E3eSAi59CAy6U8EdzdHeTF-kuQF2PpwFpJINBxrhO5scV4nvsJyeMSCOZtSAPtLrpMWpoPi3EC1ktgFhndGSN6uL2SJ3vawNprs8zh6kGpLXG0kGjyGmYmG~GxA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

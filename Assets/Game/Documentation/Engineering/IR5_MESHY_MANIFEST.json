@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "art_direction_brief": "Documentation/Engineering/IR5_MESHY_ASSETS.md",
+  "assets": [
+    {
+      "id": "ir5-JazzDrumKit",
+      "role": "static cabaret musical instrument",
+      "path": "Assets/Game/Models/Meshy/CrimsonCabaret/JazzDrumKit_Game.fbx",
+      "prefab": "Assets/Game/Prefabs/InfinityRoom5Demo/PF_IR5_JazzDrumKit.prefab",
+      "status": "demo-reviewed",
+      "technical": {
+        "triangles": 35170,
+        "textures": "2K",
+        "anchor": "prefab bottom center",
+        "rig": "none",
+        "collision": "simple BoxCollider",
+        "shader": "Universal Render Pipeline/Lit"
+      },
+      "visual_locks": [
+        "1930s cabaret",
+        "crimson / amber / ivory palette",
+        "realistic silhouettes"
+      ],
+      "source": {
+        "kind": "generated",
+        "url_or_tool": "Meshy CLI 0.4.0",
+        "created_at": "2026-10-14",
+        "license": "Subject to the connected Meshy account plan terms; final distribution review pending.",
+        "prompt": "A single complete vintage jazz drum kit for an abandoned 1930s crimson cabaret stage. Burgundy wooden bass drum, two mounted toms, floor tom, snare, three brass cymbals on slender chrome stands, stool and pedals. Realistic detailed separate silhouettes, full freestanding kit, no room, no musicians, no text. Game environment prop.",
+        "preview_task": "01a13662-9d45-70db-ae57-2e9e268178c5",
+        "refine_task": "01a13664-6e87-7358-a5b6-898c0af659ae",
+        "remesh_task": "01a1366b-482e-7762-8f7a-9567e2ea20df",
+        "credits": {
+          "preview": 20,
+          "refine": 10,
+          "remesh": 5,
+          "total": 35
+        }
+      },
+      "verification": {
+        "native_scale_reviewed": true,
+        "in_engine_reviewed": true,
+        "technical_checks_passed": false,
+        "limitations": "Visual/mesh count/UV/normal presence/reference checks performed. No manifold or FPS validation.",
+        "approved_by": "pending user review"
+      }
+    },
+    {
+      "id": "ir5-DoubleBass",
+      "role": "static cabaret musical instrument",
+      "path": "Assets/Game/Models/Meshy/CrimsonCabaret/DoubleBass_Game.fbx",
+      "prefab": "Assets/Game/Prefabs/InfinityRoom5Demo/PF_IR5_DoubleBass.prefab",
+      "status": "demo-reviewed",
+      "technical": {
+        "triangles": 14450,
+        "textures": "2K",
+        "anchor": "prefab bottom center",
+        "rig": "none",
+        "collision": "simple BoxCollider",
+        "shader": "Universal Render Pipeline/Lit"
+      },
+      "visual_locks": [
+        "1930s cabaret",
+        "crimson / amber / ivory palette",
+        "realistic silhouettes"
+      ],
+      "source": {
+        "kind": "generated",
+        "url_or_tool": "Meshy CLI 0.4.0",
+        "created_at": "2026-10-14",
+        "license": "Subject to the connected Meshy account plan terms; final distribution review pending.",
+        "prompt": "A single full size upright double bass on a small black stand, vintage jazz cabaret instrument. Warm dark amber varnished wood, elegant carved scroll, four strings, bridge, tailpiece, two F holes, slender metal endpin. Realistic detailed freestanding instrument with clear silhouette. No people, no room, no text. Game environment prop.",
+        "preview_task": "01a13662-b771-754e-92dd-289554ba7daf",
+        "refine_task": "01a13664-837f-71ee-a92e-591d5065b384",
+        "remesh_task": "01a1366b-5e96-73f6-9065-b0ad08c9610a",
+        "credits": {
+          "preview": 20,
+          "refine": 10,
+          "remesh": 5,
+          "total": 35
+        }
+      },
+      "verification": {
+        "native_scale_reviewed": true,
+        "in_engine_reviewed": true,
+        "technical_checks_passed": false,
+        "limitations": "Visual/mesh count/UV/normal presence/reference checks performed. No manifold or FPS validation.",
+        "approved_by": "pending user review"
+      }
+    },
+    {
+      "id": "ir5-DisplayMannequin",
+      "role": "static retail display decoration",
+      "path": "Assets/Game/Models/Meshy/CrimsonCabaret/DisplayMannequin_Game.fbx",
+      "prefab": "Assets/Game/Prefabs/InfinityRoom5Demo/PF_IR5_DisplayMannequin.prefab",
+      "status": "demo-reviewed",
+      "technical": {
+        "triangles": 12322,
+        "textures": "2K",
+        "anchor": "prefab bottom center",
+        "rig": "none",
+        "collision": "simple BoxCollider",
+        "shader": "Universal Render Pipeline/Lit"
+      },
+      "visual_locks": [
+        "1930s cabaret",
+        "crimson / amber / ivory palette",
+        "realistic silhouettes"
+      ],
+      "source": {
+        "kind": "generated",
+        "url_or_tool": "Meshy CLI 0.4.0",
+        "created_at": "2026-10-14",
+        "license": "Subject to the connected Meshy account plan terms; final distribution review pending.",
+        "prompt": "A single full body vintage shop display mannequin, standing upright, arms relaxed slightly away from body, elegant anatomically proportioned smooth ivory porcelain human form, blank faceless head, articulated joint seams, fingers clearly sculpted, on a small circular dark metal base. Unclothed nonsexual retail display, smooth featureless torso, no hair, no clothing, no props. Realistic game decoration.",
+        "preview_task": "01a13662-d415-76c2-b43a-b589a66a8c7f",
+        "refine_task": "01a13664-9d50-7401-b901-617110621a12",
+        "remesh_task": "01a1366b-7495-76ae-b818-808ba915ea2c",
+        "credits": {
+          "preview": 20,
+          "refine": 10,
+          "remesh": 5,
+          "total": 35
+        }
+      },
+      "verification": {
+        "native_scale_reviewed": true,
+        "in_engine_reviewed": true,
+        "technical_checks_passed": false,
+        "limitations": "Visual/mesh count/UV/normal presence/reference checks performed. No manifold or FPS validation.",
+        "approved_by": "pending user review"
+      }
+    }
+  ]
+}

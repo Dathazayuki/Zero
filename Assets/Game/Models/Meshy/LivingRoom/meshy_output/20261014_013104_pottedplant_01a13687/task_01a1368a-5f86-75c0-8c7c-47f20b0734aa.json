@@ -1,0 +1,31 @@
+{
+  "id": "01a1368a-5f86-75c0-8c7c-47f20b0734aa",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 3760374392,
+  "prompt": "Detailed realistic vintage hotel lounge indoor potted rubber plant. One ceramic terracotta pot with soil, several branching woody stems, many individual broad oval green leaves with veins and naturally curved edges, varied heights. Complete freestanding plant with pot. No background, no floor, no furniture. Game prop, believable botanical silhouette, not a solid foliage blob.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791916400527,
+  "progress": 100,
+  "started_at": 1791916400532,
+  "finished_at": 1791916611461,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-5f86-75c0-8c7c-47f20b0734aa/output/model.glb?Expires=4945449600&Signature=A5pOe2M6AYum3UKQN6Qo~RUDEpRmOgXp0LR0ONGu4wDUxNYKvM~a8rTKRuHNnIKb2wgLDD7QCtwOK~20WpzGoe~qyJiKIrY6lXAp-edzgcHA5mhQk9iqAQZdLXVhzh2o18pxmZtxJHXUizb9~e74VWxptcZZehtPuFyPCEQ5OnSxBZjoD6GIbPBGkv4KAC4PXJStuMbBfE13Lb9OvkwlmMW~bhS67FRZixyiKlqgw76W~cZkuaoqsYs5PtYK3929HHtYgbR1b-gpOdH9YiE00Z8qgn5hia11Ikw-IjUPpdGD7aPRSM308oNF9AoSEp18pMf3cjg2cjmHzHn4CiH6OQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-5f86-75c0-8c7c-47f20b0734aa/output/model.fbx?Expires=4945449600&Signature=NxPdh~sk0aNWer3QVZqoekSwXtOdCFO-sWhOUYOz08Xd6syMeeuwN8~xNxGI3boceNSeXaJYVNAt9HWsYsmeq8yZT1Qp2rGm1k6DFl4frnJZY0JI8VMRFECRMuvZ523Rx-iAEZofvuvRRwr1~HYJyjzq9l~Q9NOeZ2hPQ9nwEGK-Jx4wgGCthA7Qy26Su8AvafNFRjhnsAITuMpYnADb4C1ryXYkCUL~c5QvOPdsoIfVWc~a1Zn~LCwidHWozXnOy7QAVBaufEEzcTAFiIUtYiMfji9IAg2hnXmFjwTtiD407SZo-wGbekXDJ6dwBFB9WX9KAQ-Wtm52BAWw6hkyQg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-5f86-75c0-8c7c-47f20b0734aa/output/preview.png?Expires=4945449600&Signature=J8bHtYVitDh2pbC3Z2YzYlucy1C-nAFoVNct2dQg3hTOmrqlZx1TUqfyvGQT~MmNO7ue6tUtlubT5zsFfMnbLjRAGSId~hXY19woyfpcj-IyVySD1rndprTJGdq~7cDEIyonitV9rVJowv06fywOIVSrPdyYU1fYJzyMzn-ghnR3LnG-waovxmY0pYvpRUM2e9F6GV-MyZEoFjCd6JaJXC31q4kS5LzA~REZm~rLijHXH97OPKsF3GIKRIWjtrtfyqMb~DtbxjOAnKxSs1rvF1AlhSJ2NJkVAEZQKjq4U2Sy8qukODUIVDXq1DG5-mLODoUQk0Tqkj655LJambZsXw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-5f86-75c0-8c7c-47f20b0734aa/output/texture_0.png?Expires=4945449600&Signature=gzXiL2m6Odefm0GDDs7ZaTFv88QiCuwsKTakCP69xQA0aGVjVo36Owni-unp0sV3jwUMPflTfnoj5mAg92rddpXawIa49Q1DoL4X4UrllIn~rTErnzQiWltQ-R3bGjMhQ3-OVAd8lACuQhMetLT17pZAhfB0SvAfLudxtOPdJ~cpGUzrab9oqXiboLb4AQ2oHhIr1M9DlffM-qby1V6-T6XnqZh1hOdbMu3Eq~XB6JPyGcLXaKAZ4QnOOIE9JuGbkKulakvhnLroykhQ0sDXTTaMTbmueMhQFHELLFgzqM-ss8NYut1rxH-iCjnVP8JvjSzbgBIbxTWoDoPa4h1oiw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-5f86-75c0-8c7c-47f20b0734aa/output/texture_0_metallic.png?Expires=4945449600&Signature=RiPE0qJpZrphYF9fL5rhCpNq9qXbaPIVxrgzeFtD9qrAGAi9iYyipDClZ7gfy7MDBT-bu4KsQMRqpZKzmfhc9p3-ujyBNDWPY0QasW1XsiJf0bUeqmESnLyIRITpzo~NoKmol-tZozw8hwnXHaWM6fAP6wTtM1B72DwPiA6cDcNXRAHpoIMu2ZQ4agKawfXnUFA5SQUudK6oCenAh-T2W8mCdb7VB1m-y9Y1~Jn8KQ2e9x5AjO3ZOIckvEgVdT1in6OBCLhLw7exwyt6t09F6B7T2-Qdl32ruMIyRMbGtP7IOB-yAw91dlgqnjjjx4kOCRjjczAtbSP19gWDk5S6hA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-5f86-75c0-8c7c-47f20b0734aa/output/texture_0_roughness.png?Expires=4945449600&Signature=A9eTxToK8HUoZukh8tNf-mTn1rhpc6ZjapDttRGP5Iqlh38sM1k0xky-ZdNBRdr3F0yAoQIUGP~n-4K05aSIDmwlJ4Nwl5yhJTCX~pWbqLZUAK7AOUHQicMJUXuQLBhL8kk1kWK8A4zzA67nMGRS2beN48Z7r3xvg5t6B~5sEgKJIu3STfWY4utEqvFhrOo-Ja9r7OMSOCUXbaO52MIB8lu4brlDzdGJQefiPMxNnYFCjNtOn-PorvjCt70NJZJuIFsMMde5s6OrBQWpieLZv0z6XzpgqBaHAqZ1aCGnP6j1PjKqlpWKxrZA~cZp9p311cUn1ONbf3CpBK4qfqN0iA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-5f86-75c0-8c7c-47f20b0734aa/output/texture_0_normal.png?Expires=4945449600&Signature=ZghkYVCE8Ae2SzyhZD-I83LxsGs2jsiGPGYhOJQ9E63LnBEZ2Yn6t-CGyu4PUtdnas4SJdEarVNiHSetKAuwOYS6MxOqBW0rSArI-e8nPQjChM4Kz3pCqcJDVI7px5wAy1XQMzMAk1EWqvCFRou99tbCvp1I6I43guc2c2cXjwocsEB6Ew654~xNsGDjnZDq94IkGcmDmgQ5g6FcLhpVfVs20~gnb9~U3Mp9FSQFJPUrZGR-q4Zc8hxTGx2O86rz6Q88~jw583SbhFW4YJJXJdcBgVqOg81nEEyxLgrz0ttxZ7nBvdR0jjlqPw1nfDNer2LUlv7fhpu4CXLUHzsb1A__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

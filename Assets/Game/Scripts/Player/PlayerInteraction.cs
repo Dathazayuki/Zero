@@ -16,7 +16,7 @@ namespace Zero.AnomalyPrototype.Player
 
         private void Update()
         {
-            if (!inputEnabled)
+            if (!inputEnabled || Time.timeScale <= 0f)
             {
                 CurrentPrompt = string.Empty;
                 return;

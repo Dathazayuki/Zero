@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using Zero.AnomalyPrototype.Flow;
 
 namespace Zero.AnomalyPrototype.Player
 {
@@ -55,10 +56,15 @@ namespace Zero.AnomalyPrototype.Player
         private bool cinematicLocked;
         private float speedMultiplier = 1f;
         private float stumbleIntensity;
+        private float elevatorRideIntensity;
+        public void SetElevatorRideFeedback(float intensity) => elevatorRideIntensity = Mathf.Clamp01(intensity);
+        public void ClearElevatorRideFeedback() => elevatorRideIntensity = 0f;
         private bool forcedBreathing;
+        private SourceSoundPlayback footstepPlayback;
+        private SourceSoundPlayback breathingPlayback;
 
         public Camera PlayerCamera => playerCamera;
-        public bool InputEnabled => inputEnabled;
+        public bool InputEnabled => inputEnabled && Time.timeScale > 0f;
         public bool IsRunning { get; private set; }
         public bool IsMoving { get; private set; }
         public float WalkSpeed => walkSpeed;
@@ -99,6 +105,7 @@ namespace Zero.AnomalyPrototype.Player
 
         private void Update()
         {
+            if (Time.timeScale <= 0f) return;
             Keyboard keyboard = Keyboard.current;
             Mouse mouse = Mouse.current;
 
@@ -111,11 +118,6 @@ namespace Zero.AnomalyPrototype.Player
 
                 UpdateBreathingAudio();
                 return;
-            }
-
-            if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame)
-            {
-                SetCursorLocked(!cursorLocked);
             }
 
             if (!inputEnabled)
@@ -263,7 +265,7 @@ namespace Zero.AnomalyPrototype.Player
                 breathingAudioSource.loop = true;
                 if (!breathingAudioSource.isPlaying && breathingAudioSource.clip != null)
                 {
-                    breathingAudioSource.Play();
+                    GameAudioBootstrap.BindSource(ref breathingPlayback, breathingAudioSource, AudioBus.Sfx, false).Play("player.breathing", breathingAudioSource.clip, false);
                 }
             }
             else if (!forced && breathingAudioSource != null && !IsRunning)
@@ -274,6 +276,7 @@ namespace Zero.AnomalyPrototype.Player
 
         public void ResetLocomotionModifiers()
         {
+            ClearElevatorRideFeedback();
             speedMultiplier = 1f;
             stumbleIntensity = 0f;
             forcedBreathing = false;
@@ -391,6 +394,12 @@ namespace Zero.AnomalyPrototype.Player
                 targetOffset += new Vector3(stumbleX, stumbleY, 0f);
             }
 
+            if (elevatorRideIntensity > 0f)
+            {
+                float vibration = (Mathf.PerlinNoise(Time.time * 12f, 0.3f) - 0.5f) * 2f * elevatorRideIntensity;
+                targetOffset += new Vector3(vibration * 0.005f, vibration * 0.012f, 0f);
+                targetTilt += vibration * 0.35f;
+            }
             currentCameraOffset = Vector3.Lerp(currentCameraOffset, targetOffset, Time.deltaTime * bobResetSpeed);
             currentTilt = Mathf.Lerp(currentTilt, targetTilt, Time.deltaTime * bobResetSpeed);
 
@@ -437,18 +446,8 @@ namespace Zero.AnomalyPrototype.Player
                 clipToPlay = footstepClips[index];
             }
 
-            if (clipToPlay == null)
-            {
-                // Fallback to procedural footsteps if available
-                var audioManager = FindAnyObjectByType<Zero.AnomalyPrototype.Core.AudioManager>();
-                clipToPlay = audioManager?.GetFallbackFootsteps();
-            }
-
-            if (clipToPlay != null)
-            {
-                footstepAudioSource.pitch = Random.Range(0.93f, 1.07f) * (isRunning ? 1.12f : 1.0f);
-                footstepAudioSource.PlayOneShot(clipToPlay);
-            }
+            footstepAudioSource.pitch = Random.Range(0.93f, 1.07f) * (isRunning ? 1.12f : 1.0f);
+            GameAudioBootstrap.BindSource(ref footstepPlayback, footstepAudioSource, AudioBus.Sfx, false).Play(clipToPlay == null ? "player.footstep" : null, clipToPlay);
         }
 
         private void UpdateBreathingAudio()
@@ -469,7 +468,7 @@ namespace Zero.AnomalyPrototype.Player
             {
                 if (!breathingAudioSource.isPlaying && breathingAudioSource.clip != null)
                 {
-                    breathingAudioSource.Play();
+                    GameAudioBootstrap.BindSource(ref breathingPlayback, breathingAudioSource, AudioBus.Sfx, false).Play("player.breathing", breathingAudioSource.clip, false);
                 }
             }
             else

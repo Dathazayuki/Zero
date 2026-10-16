@@ -1,0 +1,70 @@
+﻿id,room,object_type,prefab,center_x_m,center_y_m,center_z_m,size_x_m,size_y_m,size_z_m,rotation_y_deg,tag,behavior_id,notes
+r1_floor,Room1,FLOOR,FloorTile,14.0,0.0,3.0,28.0,0.15,6.0,0.0,Ground,,Room 1 floor
+r1_wall_n,Room1,WALL,Wall_Modular,14.0,1.5,6.0,28.0,3.0,0.2,0.0,Wall,,North wall
+r1_wall_s,Room1,WALL,Wall_Modular,14.0,1.5,0.0,28.0,3.0,0.2,0.0,Wall,,South wall
+r1_wall_w_a,Room1,WALL,Wall_Modular,0.0,1.5,1.0,0.2,3.0,2.0,0.0,Wall,,West wall lower section
+r1_wall_w_b,Room1,WALL,Wall_Modular,0.0,1.5,5.0,0.2,3.0,2.0,0.0,Wall,,West wall upper section
+r1_wall_e_a,Room1,WALL,Wall_Modular,28.0,1.5,1.0,0.2,3.0,2.0,0.0,Wall,,East wall lower section
+r1_wall_e_b,Room1,WALL,Wall_Modular,28.0,1.5,5.0,0.2,3.0,2.0,0.0,Wall,,East wall upper section
+r1_spawn,Room1,SPAWN,EmptyMarker,2.0,0.0,3.0,0.5,0.1,0.5,0.0,Respawn,R1_RESET_POINT,Reset anchor / challenge spawn
+r1_activate,Room1,TRIGGER,BoxTrigger,4.0,1.5,3.0,0.5,3.0,5.5,0.0,Trigger,R1_ACTIVATE,Challenge activates after player crosses this line
+r1_mechanic_zone,Room1,TRIGGER,BoxTrigger,15.0,1.5,3.0,21.0,3.0,5.5,0.0,Trigger,R1_DONT_LOOK_BACK,Monitor camera look direction inside this zone
+r1_finish,Room1,TRIGGER,BoxTrigger,26.5,1.5,3.0,0.75,3.0,5.5,0.0,Trigger,R1_COMPLETE,Completes Room 1 and disables reset logic
+r1_bait_audio_01,Room1,AUDIO,AudioEmitter,9.0,1.6,3.0,0.2,0.2,0.2,0.0,Audio,,Soft footstep / breath behind player
+r1_bait_audio_02,Room1,AUDIO,AudioEmitter,18.0,1.6,3.0,0.2,0.2,0.2,0.0,Audio,,Second bait sound; spatialized behind player
+r1_exit_door,Room1,DOOR,DoorFrame_Open,28.0,1.5,3.0,0.3,3.0,2.0,90.0,Door,,Always open; leads to transition connector
+c1_floor,Connector1,FLOOR,FloorTile,30.0,0.0,3.0,4.0,0.15,4.0,0.0,Ground,,Short decompression connector
+c1_wall_n,Connector1,WALL,Wall_Modular,30.0,1.5,5.0,4.0,3.0,0.2,0.0,Wall,,Connector north wall
+c1_wall_s,Connector1,WALL,Wall_Modular,30.0,1.5,1.0,4.0,3.0,0.2,0.0,Wall,,Connector south wall
+r2_floor,Room2,FLOOR,FloorTile,49.0,0.0,3.0,34.0,0.15,8.0,0.0,Ground,,Room 2 floor
+r2_wall_n,Room2,WALL,Wall_Modular,49.0,1.5,7.0,34.0,3.0,0.2,0.0,Wall,,North wall
+r2_wall_s,Room2,WALL,Wall_Modular,49.0,1.5,-1.0,34.0,3.0,0.2,0.0,Wall,,South wall
+r2_wall_w_a,Room2,WALL,Wall_Modular,32.0,1.5,0.0,0.2,3.0,2.0,0.0,Wall,,West wall lower
+r2_wall_w_b,Room2,WALL,Wall_Modular,32.0,1.5,6.0,0.2,3.0,2.0,0.0,Wall,,West wall upper
+r2_wall_e_a,Room2,WALL,Wall_Modular,66.0,1.5,0.0,0.2,3.0,2.0,0.0,Wall,,East wall lower
+r2_wall_e_b,Room2,WALL,Wall_Modular,66.0,1.5,6.0,0.2,3.0,2.0,0.0,Wall,,East wall upper
+r2_spawn,Room2,SPAWN,EmptyMarker,34.0,0.0,3.0,0.5,0.1,0.5,0.0,Respawn,R2_RESET_POINT,Reset anchor for Room 2
+r2_activate,Room2,TRIGGER,BoxTrigger,35.0,1.5,3.0,0.5,3.0,7.5,0.0,Trigger,R2_ACTIVATE,Starts light cycle challenge
+r2_mechanic_zone,Room2,TRIGGER,BoxTrigger,49.5,1.5,3.0,28.0,3.0,7.5,0.0,Trigger,R2_LIGHT_STOP,Movement monitored while challenge active
+r2_finish,Room2,TRIGGER,BoxTrigger,64.5,1.5,3.0,0.75,3.0,7.5,0.0,Trigger,R2_COMPLETE,Completes Room 2
+r2_exit_door,Room2,DOOR,DoorFrame_Open,66.0,1.5,3.0,0.3,3.0,2.0,90.0,Door,,Open exit to Blue Sky threshold
+r2_light_01,Room2,LIGHT,CeilingLight,38.0,2.85,3.0,4.5,0.12,2.0,0.0,Light,R2_LIGHT_01,Controlled by shared Room2 light cycle
+r2_light_02,Room2,LIGHT,CeilingLight,44.0,2.85,3.0,4.5,0.12,2.0,0.0,Light,R2_LIGHT_02,Controlled by shared Room2 light cycle
+r2_light_03,Room2,LIGHT,CeilingLight,50.0,2.85,3.0,4.5,0.12,2.0,0.0,Light,R2_LIGHT_03,Controlled by shared Room2 light cycle
+r2_light_04,Room2,LIGHT,CeilingLight,56.0,2.85,3.0,4.5,0.12,2.0,0.0,Light,R2_LIGHT_04,Controlled by shared Room2 light cycle
+r2_light_05,Room2,LIGHT,CeilingLight,62.0,2.85,3.0,4.5,0.12,2.0,0.0,Light,R2_LIGHT_05,Controlled by shared Room2 light cycle
+r2_sector_01,Room2,ZONE,BoxTrigger,38.0,0.05,3.0,6.0,0.1,7.5,0.0,Zone,R2_SECTOR_01,Debug/authoring sector; can be hidden at runtime
+r2_sector_02,Room2,ZONE,BoxTrigger,44.0,0.05,3.0,6.0,0.1,7.5,0.0,Zone,R2_SECTOR_02,Debug/authoring sector; can be hidden at runtime
+r2_sector_03,Room2,ZONE,BoxTrigger,50.0,0.05,3.0,6.0,0.1,7.5,0.0,Zone,R2_SECTOR_03,Debug/authoring sector; can be hidden at runtime
+r2_sector_04,Room2,ZONE,BoxTrigger,56.0,0.05,3.0,6.0,0.1,7.5,0.0,Zone,R2_SECTOR_04,Debug/authoring sector; can be hidden at runtime
+r2_sector_05,Room2,ZONE,BoxTrigger,62.0,0.05,3.0,6.0,0.1,7.5,0.0,Zone,R2_SECTOR_05,Debug/authoring sector; can be hidden at runtime
+c2_floor,Connector2,FLOOR,FloorTile,69.0,0.0,3.0,6.0,0.15,4.0,0.0,Ground,,Dark-to-blue transition corridor
+c2_wall_n,Connector2,WALL,Wall_Modular,69.0,1.5,5.0,6.0,3.0,0.2,0.0,Wall,,Connector north
+c2_wall_s,Connector2,WALL,Wall_Modular,69.0,1.5,1.0,6.0,3.0,0.2,0.0,Wall,,Connector south
+c2_bluesky_trigger,Connector2,TRIGGER,BoxTrigger,71.5,1.5,3.0,0.8,3.0,4.0,0.0,Trigger,BLUESKY_ENTER,Blend ambience / lighting / post-processing
+bs_floor,BlueSky,FLOOR,BlueSkyFloor,90.0,0.0,3.0,36.0,0.15,26.0,0.0,Ground,,Open final room floor
+bs_bound_n,BlueSky,BOUNDARY,InvisibleWall,90.0,2.0,16.0,36.0,4.0,0.2,0.0,Boundary,,Invisible north boundary
+bs_bound_s,BlueSky,BOUNDARY,InvisibleWall,90.0,2.0,-10.0,36.0,4.0,0.2,0.0,Boundary,,Invisible south boundary
+bs_bound_e,BlueSky,BOUNDARY,InvisibleWall,108.0,2.0,3.0,0.2,4.0,26.0,0.0,Boundary,,Invisible east boundary
+bs_bound_w_a,BlueSky,BOUNDARY,InvisibleWall,72.0,2.0,-4.0,0.2,4.0,12.0,0.0,Boundary,,West lower boundary
+bs_bound_w_b,BlueSky,BOUNDARY,InvisibleWall,72.0,2.0,10.0,0.2,4.0,12.0,0.0,Boundary,,West upper boundary
+bs_ambient_zone,BlueSky,ZONE,BoxTrigger,90.0,3.0,3.0,35.0,6.0,25.0,0.0,Zone,BLUESKY_AMBIENCE,Blue sky ambience and final-area volume
+bs_step_01,BlueSky,STAIR,StairBlock,84.5,0.15,3.0,1.0,0.3,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_02,BlueSky,STAIR,StairBlock,85.5,0.3,3.0,1.0,0.6,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_03,BlueSky,STAIR,StairBlock,86.5,0.44999999999999996,3.0,1.0,0.8999999999999999,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_04,BlueSky,STAIR,StairBlock,87.5,0.6,3.0,1.0,1.2,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_05,BlueSky,STAIR,StairBlock,88.5,0.75,3.0,1.0,1.5,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_06,BlueSky,STAIR,StairBlock,89.5,0.8999999999999999,3.0,1.0,1.7999999999999998,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_07,BlueSky,STAIR,StairBlock,90.5,1.05,3.0,1.0,2.1,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_08,BlueSky,STAIR,StairBlock,91.5,1.2,3.0,1.0,2.4,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_09,BlueSky,STAIR,StairBlock,92.5,1.3499999999999999,3.0,1.0,2.6999999999999997,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_10,BlueSky,STAIR,StairBlock,93.5,1.5,3.0,1.0,3.0,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_11,BlueSky,STAIR,StairBlock,94.5,1.65,3.0,1.0,3.3,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_12,BlueSky,STAIR,StairBlock,95.5,1.7999999999999998,3.0,1.0,3.5999999999999996,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_13,BlueSky,STAIR,StairBlock,96.5,1.95,3.0,1.0,3.9,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_step_14,BlueSky,STAIR,StairBlock,97.5,2.1,3.0,1.0,4.2,4.0,0.0,Stair,,Blockout stair step; Codex may replace with stair prefab
+bs_platform,BlueSky,PLATFORM,Platform,101.0,4.2,3.0,6.0,0.35,6.0,0.0,Ground,,Top ending platform
+bs_top_trigger,BlueSky,TRIGGER,BoxTrigger,100.5,5.4,3.0,3.0,2.4,5.0,0.0,Trigger,BLUESKY_ENDING,Locks input and starts ending sequence
+bs_player_mark,BlueSky,MARKER,EmptyMarker,101.0,4.5,3.0,0.25,0.25,0.25,180.0,Marker,ENDING_PLAYER_MARK,Player stands here before bow
+bs_camera_mark,BlueSky,CAMERA,CinemachineCamera,106.0,5.2,3.0,0.5,0.5,0.5,270.0,MainCamera,ENDING_CAMERA,Camera faces west toward player on platform
+bs_sky_audio,BlueSky,AUDIO,AudioEmitter,90.0,2.0,3.0,0.2,0.2,0.2,0.0,Audio,,Soft wind / distant ambience

@@ -22,11 +22,30 @@ namespace Zero.EnvironmentLoop
         [SerializeField, Min(0f)] private float doorOpenDuration = 0.8f;
         [SerializeField] private EndFloorDoorTrigger doorProximityTrigger;
         [SerializeField] private EndFloorDoorTrigger endingPortalTrigger;
+        [SerializeField] private EndFloorElevatorController elevator;
+        private bool elevatorSelected;
+
+        public void SetElevatorSelected(bool selected)
+        {
+            elevatorSelected = selected;
+            if (selected)
+            {
+                StopAllCoroutines();
+                doorProximityTrigger?.SetArmed(false);
+                endingPortalTrigger?.SetArmed(false);
+            }
+            else if (State != EndFloorSequenceState.Consumed)
+            {
+                State = EndFloorSequenceState.Entered;
+                doorProximityTrigger?.SetArmed(true);
+            }
+        }
 
         public EndFloorSequenceState State { get; private set; } = EndFloorSequenceState.Dormant;
 
         private void Awake()
         {
+            if (elevator == null) elevator = GetComponentInChildren<EndFloorElevatorController>(true);
             backtrackBlocker?.SetActive(false);
             doorProximityTrigger?.Configure(this, EndFloorDoorTriggerKind.DoorProximity, false);
             endingPortalTrigger?.Configure(this, EndFloorDoorTriggerKind.EndingPortal, false);
@@ -40,14 +59,15 @@ namespace Zero.EnvironmentLoop
             }
 
             State = EndFloorSequenceState.Entered;
+            elevator?.MakeAvailable(this);
             backtrackBlocker?.SetActive(true);
-            doorProximityTrigger?.SetArmed(true);
+            doorProximityTrigger?.SetArmed(GameFlowController.Instance?.Campaign?.CanPresentEndings != false);
             Debug.Log("ENDING_BACKTRACK_BLOCKED", this);
         }
 
         public bool HandleTrigger(EndFloorDoorTriggerKind kind, FirstPersonController player)
         {
-            if (player == null)
+            if (player == null || elevatorSelected)
             {
                 return false;
             }
@@ -65,6 +85,7 @@ namespace Zero.EnvironmentLoop
                 if (gameManager != null && gameManager.CompleteRunFromEndingDoor())
                 {
                     State = EndFloorSequenceState.Consumed;
+                    elevator?.DisableRoute();
                     endingPortalTrigger?.SetArmed(false);
                     return true;
                 }

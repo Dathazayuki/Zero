@@ -16,39 +16,45 @@ namespace Zero.AnomalyPrototype.Flow
         [SerializeField] private AudioClip transitionClip;
 
         private const int SampleRate = 22050;
+        private SourceSoundPlayback ambiencePlayback;
+        private SourceSoundPlayback effectsPlayback;
 
         private void Awake()
         {
             EnsureSources();
             EnsureFallbackClips();
+            AudioPlaybackService service = GameFlowController.Instance != null ? GameFlowController.Instance.Audio : null;
+            ambiencePlayback = new SourceSoundPlayback(ambienceSource, service, AudioBus.Ambience);
+            effectsPlayback = new SourceSoundPlayback(oneShotSource, service, AudioBus.Sfx);
         }
 
         public void BeginAmbience()
         {
             EnsureSources();
             EnsureFallbackClips();
+            GameAudioBootstrap.BindSource(ref ambiencePlayback, ambienceSource, AudioBus.Ambience, false);
             if (!ambienceSource.isPlaying)
             {
-                ambienceSource.clip = ambienceClip;
                 ambienceSource.loop = true;
-                ambienceSource.Play();
+                ambiencePlayback.Play("office.ambience", ambienceClip, false);
             }
         }
 
-        public void PlayTyping() => Play(typingClip);
-        public void PlayConfirmation() => Play(confirmationClip);
-        public void PlayChair() => Play(chairClip);
-        public void PlayElevatorError() => Play(elevatorErrorClip);
-        public void PlayTransition() => Play(transitionClip);
+        public void PlayTyping() => PlayEffect("office.typing", typingClip);
+        public void PlayConfirmation() => PlayEffect("office.confirmation", confirmationClip);
+        public void PlayChair() => PlayEffect("office.chair", chairClip);
+        public void PlayElevatorError() => PlayEffect("office.elevator_error", elevatorErrorClip);
+        public void PlayTransition() => PlayEffect("office.transition", transitionClip);
 
-        private void Play(AudioClip clip)
+        private void PlayEffect(string id, AudioClip clip)
         {
-            EnsureSources();
-            EnsureFallbackClips();
-            if (clip != null)
-            {
-                oneShotSource.PlayOneShot(clip);
-            }
+            GameAudioBootstrap.BindSource(ref effectsPlayback, oneShotSource, AudioBus.Sfx, false).Play(id, clip);
+        }
+
+        private void OnDisable()
+        {
+            ambiencePlayback?.Stop();
+            effectsPlayback?.Stop();
         }
 
         private void EnsureSources()

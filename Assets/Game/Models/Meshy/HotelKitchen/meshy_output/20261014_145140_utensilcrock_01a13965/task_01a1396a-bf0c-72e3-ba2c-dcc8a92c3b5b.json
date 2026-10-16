@@ -1,0 +1,32 @@
+{
+  "id": "01a1396a-bf0c-72e3-ba2c-dcc8a92c3b5b",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "standard",
+  "seed": 2039461156,
+  "prompt": "Single open cream ceramic kitchen utensil crock holding a modest spaced assortment: two stainless serving spoons with smooth oval concave bowls, one rounded soup ladle, one perforated spatula and two slender wooden chopsticks. Utensils upright with different heights, distinct handles, realistic usable silhouettes, no sharp spear shapes, no clutter. Worn late twentieth century hotel kitchen prop, detailed ceramic glaze and brushed metal.",
+  "texture_prompt": "Cream glazed ceramic holder, brushed stainless utensils, natural dark wooden chopsticks, slightly worn professional hotel kitchen.",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964661126,
+  "progress": 100,
+  "started_at": 1791964661133,
+  "finished_at": 1791964724131,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-bf0c-72e3-ba2c-dcc8a92c3b5b/output/model.fbx?Expires=4945536000&Signature=jkZ26CXT-0ghjbIy82BTltZAj1FNyjtaGEeZ-EckUXmR5CqJq7yFDL8pkPdVI8XcFGX4D-o6AYQ6ecUPAQNtIZuGyZtMs8C65Enyhu1WjXBXY7AFBOTnFzFEhZoCVgWux0PMJas-zxUKEVpAUkJi0QoeKqNaXOQQTAq0wjFWRZAjoSBMucF6IHz1sjHyL8qQEDjpqhBrPO0Wg036Iwe0vw0ecKL5Tndv0x4GkBHk7qGn1r347QZfY330AvDFaXc7AK-t9lOu2VCxUP888kr9bl8ta2t2HWGqhw2yp4iWs5eXmeXmmHheT1BxlNePgDRaj~LX2FmcNZX7d6iFda5nOw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-bf0c-72e3-ba2c-dcc8a92c3b5b/output/model.obj?Expires=4945536000&Signature=Yoaumm9h5Tvau4a9Vhr4E~4zf-68VSj-Jp8Vb5JKj26TcKzDeK-a79Rhsf7tKnL9ui5MrNwmndogEcIBG-6wG~eo~~a9K-xUer9wrY0z4dKiz~NIcfpA3LU5V20sMcs~quaAGN9rJ0gbnSvph-uNUGPLuxP9jEej-JnEIf6mpeJiNJ3XCryoUVgN2KeB-RVETprE-xZvANZYo7SG4KO4M6V5RuZhZlpVIr990jvAC89gA6cMWEpWMzKIBl7GWbsDjCHLKk~-h6g0Fw5lZ41X93kO-mmUDuW4t-ezsDEQRJnbcw~0mUG9xuVqU3IQjR~WrQ-3BPitPGlxSkUrI3Mm9A__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "mtl": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-bf0c-72e3-ba2c-dcc8a92c3b5b/output/model.mtl?Expires=4945536000&Signature=k-ocULm-dgbmjO~f8J9-phHqtYcML-ibcrDS3xjKCHWXNFiLh8kGwbj5K9jEjwq8BodNJLCQ8GgUOwJUwjgrShAtoSpPmgVNaWMAVBXD8Dc6rrUtJKWfp-XU2m46pRBs81nAa0rAyTtBkS6Q11c~8lyBH0jBWTZCzTNKVH5epffKZBI2ne31v5BevKQoIWxZEBQhyxJkjt~EtnohOTiOUrMt7s3xW8DlY54NfzWctlitOL3-fFqXZTEX652QOp8Fibd0V80X~01Y33-~ce8HnwQrBDQqW2uZqydtlZTuGJYiz9RWba1kJAmc2GEVQwsuz5ByWhyxIqGYkvaOnAEh8Q__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-bf0c-72e3-ba2c-dcc8a92c3b5b/output/preview.png?Expires=4945536000&Signature=U58VhfL7KOmGPNKIBtgdWDIRTdepgSi3KCbw8T7dpeFYgWw4duOpCSmwsgArPe9xR5sJIzBzdXlv~dv9ax7kVeWzpyh03odLD6nIFt0U9magDsyIbFh2qpw-agk-LyOv4ssUEX2D05n4QJES-PCTAtzy891GlYhaPuUIseK98FV9bIrq1AFnPLUz~vqM3uvAKJx--cTersgLnqz6mpf-K8s-O548OA1VxdTtLK5Eyi6wwOEcZGS7kjnLm0sKnU-9x0zTDjBwWNFoVaeDQmKEMCXMJ~FNwZa8wGv-d1yB15BYPYx3Mgw0ERCIQfE7WRgoH~wZc36jOVMMlML3qR3LoA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-bf0c-72e3-ba2c-dcc8a92c3b5b/output/texture_0.png?Expires=4945536000&Signature=QgJUlxDjPOlxOAArtaF2-aB2sHHJN6jzL0iDJqjr7n4uEhe0gclkSTIVmF2yy-u1~VPBWQhZq-iynETqpeptOmRuHCiUWHZYWDObHkvcHDbOxGKs4pQ8kRvdOqcNyGRN-mFOCrVnGbAJoCKAGhL8Yd9lAlUQD5PsIoGF1oS~vO1db8KH~RBNg~40ZRSvp13Gu2UBWiH~-Tol9X4rJrTvFg7fdNdPRpAy4HxoVVkTqeZsjv2QmC6IAI2uWN6PebBEGM9967U8rj2adZfp2zWJjRuT9Yq7EJiy8regChAHdm1bBJ6iA-HA6SYY-E7NS2xTluyEhYuheaq2ABnKXBzG8Q__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-bf0c-72e3-ba2c-dcc8a92c3b5b/output/texture_0_metallic.png?Expires=4945536000&Signature=nN95i6bzlniluJP18nGgNRkVWmB5WpbXr5slOSfRa7ttDQstZvVnh2moJGNsG6Du~y56-XRjcuNsAQyO8CP1ezv19ryQjXj~bLlQhqxPp7ovJTz3d9uK6tLv78BKa-83uEDc2PHhOWvCLG~1NDonaqhuKz1STJPgKNqlx1cmQRCDYJzmF3HgV7mT2Xxe6B6OwgJVPBoW39-G1DrfiKrbEapMSdKoeZTGF5Mce6XSoONLe73scMQHX8sBRaIbFyCpc5zIpylod~Yp-lp43Pm2JXNEq6GDMc3Q6W~5g03CeXmAT3MrvmMvGLewF8QZXvGKIGX-czr2aItQR0BtEOpTiA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-bf0c-72e3-ba2c-dcc8a92c3b5b/output/texture_0_roughness.png?Expires=4945536000&Signature=Pmi0ORfO6bqrKCuCZzp4neJOrrw99qwBjOXvSpUA8OLOUIX90ckPn8C2yF2-OehKH2S4k9WZynGN2BRJH1pJkG5P1lQt4VKtizbWPebGVwQecMomGTplPW9nYvpVSYqySFWVSnHzxUcZ5GbohC7AH4qwUXty2EKKtUUbxvQZW54asXsTKz2uAC4B-leu03V2yehHOLuFaJlM6lSgZAXCVgz41etJ~0Rrar9x0Siqntxp3pbEYvwnH6JUx1iPEXgzqQcRivq9wxZf7eCgIiyoS6PC16apE8NhULCBWWAhUMKZgneJu2~LLEtMNydTBdFdRlBT9uHc~QpDx2svIB9XHQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-bf0c-72e3-ba2c-dcc8a92c3b5b/output/texture_0_normal.png?Expires=4945536000&Signature=oaSZQjb9PQuvYxySSUykPmB875vvP2vnAl7fgEPQCHTcpkcJKB9DfnQkwbgwefUkk6B2gdZVuS8S3c1zUqCBVgWHXMFWdoN1kxogJJafSFouN-NKKHgITkAx9~NaNRwv6TSFXcALVoEKLXMI0PvstXh0wSP8YXrpFA3Vp4GECKJojI9P3Ft2OTKNshFx8cgEo-ZJ9CV~lEu8shVSuI8CiIk5P4YJ-rSx1ZdEzAD95NhGevvVCQyqlTYBU91zXNpXo6-zUPbSCqERRenOwVfKnVYbWLacZaMH0ewfj2zgL-~hQC8HwWBPd-zpjP5wCd6vAQoejrPRAtL7jtHiGafoWg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

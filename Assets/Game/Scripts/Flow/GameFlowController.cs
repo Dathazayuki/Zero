@@ -4,16 +4,19 @@ using Zero.AnomalyPrototype.Player;
 using Zero.EnvironmentLoop;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Zero.AnomalyPrototype.Flow
 {
     [DefaultExecutionOrder(-2000)]
     [DisallowMultipleComponent]
-    public sealed class GameFlowController : MonoBehaviour
+    public sealed partial class GameFlowController : MonoBehaviour
     {
         public const string DefaultOfficeSceneName = "OfficeLoopScene";
         public const string DefaultLoopSceneName = "InfiniteStairwayScene";
+        public const string DefaultTitleSceneName = "TitleScene";
 
+        [SerializeField] private string titleSceneName = DefaultTitleSceneName;
         [SerializeField] private string officeSceneName = DefaultOfficeSceneName;
         [SerializeField] private string loopSceneName = DefaultLoopSceneName;
         [SerializeField, Min(0f)] private float fadeOutDuration = 1.5f;
@@ -22,15 +25,21 @@ namespace Zero.AnomalyPrototype.Flow
         [SerializeField, Min(0f)] private float endingWhiteHoldDuration = 0.35f;
         [SerializeField, Min(0f)] private float endingWhiteToBlackDuration = 0.6f;
         [SerializeField, Min(0f)] private float endingBlackHoldDuration = 2f;
+        [FormerlySerializedAs("ending2CoveredLeadInDuration"), SerializeField, Min(0f)]
+        private float endingOneCoveredLeadInDuration = 0.2f;
+        [FormerlySerializedAs("ending2FadeInDuration"), SerializeField, Min(0.1f)]
+        private float endingOneFadeInDuration = 3.5f;
+        private EndingOneCutsceneController endingOneCutscene;
         [SerializeField, Range(0, 5)] private int hiddenCutSettleFrames = 2;
         [SerializeField, Min(0f)] private float hiddenCutRevealMinimumDuration = 0f;
         [SerializeField, Min(0f)] private float hiddenCutRevealDistance = 8f;
 
         private SceneFadeController fadeController;
+        private CheckpointRuntime checkpoints;
+        private GameSettingsService settings;
         private DirectionalAnomalyGameManager boundAnomalyManager;
         private Coroutine transitionRoutine;
         private AsyncOperation preloadedLoopOperation;
-        private AsyncOperation preloadedEndingOperation;
         private bool endingTransitionActive;
         [SerializeField] private bool deferEndingLoadUntilWhiteout;
         public bool DeferEndingLoadUntilWhiteout => deferEndingLoadUntilWhiteout;
@@ -39,13 +48,18 @@ namespace Zero.AnomalyPrototype.Flow
 
         public static GameFlowController Instance { get; private set; }
         public GameFlowPhase Phase { get; private set; } = GameFlowPhase.Opening;
-        public bool IsTransitioning => transitionRoutine != null;
+        public bool IsTransitioning => transitionRoutine != null || backroomRoutine != null || Campaign?.IsTravelling == true;
         public bool HasLoopPreload => preloadedLoopOperation != null;
         public bool IsLoopPreloading => preloadedLoopOperation != null && !preloadedLoopOperation.isDone;
         public bool IsLoopPreloadReady => preloadedLoopOperation != null && preloadedLoopOperation.progress >= 0.9f;
         public bool IsEndingPresentationReady { get; private set; }
         public bool IsOpeningPresentationReady { get; private set; }
         public SceneFadeController FadeController => fadeController;
+        public string LoopSceneName => loopSceneName;
+        public CheckpointRuntime Checkpoints => checkpoints;
+        public GameSettingsService Settings => settings;
+        public AudioPlaybackService Audio { get; private set; }
+        public CampaignRuntime Campaign { get; private set; }
 
         public event Action<GameFlowPhase> PhaseChanged;
 
@@ -72,14 +86,31 @@ namespace Zero.AnomalyPrototype.Flow
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            Campaign = GetComponent<CampaignRuntime>();
+            if (Campaign == null) Campaign = gameObject.AddComponent<CampaignRuntime>();
             fadeController = GetComponent<SceneFadeController>();
             if (fadeController == null)
             {
                 fadeController = gameObject.AddComponent<SceneFadeController>();
             }
 
+            checkpoints = GetComponent<CheckpointRuntime>();
+            if (checkpoints == null) checkpoints = gameObject.AddComponent<CheckpointRuntime>();
+            settings = GetComponent<GameSettingsService>();
+            if (settings == null) settings = gameObject.AddComponent<GameSettingsService>();
+            Audio = gameObject.AddComponent<GameAudioBootstrap>().Initialize(settings);
+            gameObject.AddComponent<GameplayPauseController>().Initialize(this);
+
             string activeScene = SceneManager.GetActiveScene().name;
-            if (!string.IsNullOrEmpty(activeScene) && activeScene != officeSceneName)
+            if (activeScene == titleSceneName)
+            {
+                Phase = GameFlowPhase.Title;
+            }
+            else if (activeScene == backroomSceneName)
+            {
+                Phase = GameFlowPhase.BackroomGameplay;
+            }
+            else if (!string.IsNullOrEmpty(activeScene) && activeScene != officeSceneName)
             {
                 Phase = GameFlowPhase.LoopGameplay;
             }
@@ -100,29 +131,47 @@ namespace Zero.AnomalyPrototype.Flow
             }
 
             officeSceneName = source.officeSceneName;
+            titleSceneName = source.titleSceneName;
             loopSceneName = source.loopSceneName;
+            backroomSceneName = source.backroomSceneName;
             fadeOutDuration = source.fadeOutDuration;
             fadeInDuration = source.fadeInDuration;
             endingWhiteFadeDuration = source.endingWhiteFadeDuration;
             endingWhiteHoldDuration = source.endingWhiteHoldDuration;
             endingWhiteToBlackDuration = source.endingWhiteToBlackDuration;
             endingBlackHoldDuration = source.endingBlackHoldDuration;
+            endingOneCoveredLeadInDuration = source.endingOneCoveredLeadInDuration;
+            endingOneFadeInDuration = source.endingOneFadeInDuration;
             deferEndingLoadUntilWhiteout = source.deferEndingLoadUntilWhiteout;
             hiddenCutSettleFrames = source.hiddenCutSettleFrames;
             hiddenCutRevealMinimumDuration = source.hiddenCutRevealMinimumDuration;
             hiddenCutRevealDistance = source.hiddenCutRevealDistance;
+            CampaignRuntime authoredCampaign = source.GetComponent<CampaignRuntime>();
+            if (authoredCampaign?.Definition != null && !Campaign.IsActive)
+                Campaign.Configure(authoredCampaign.Definition);
             Debug.Log($"GAME_FLOW_SETTINGS_SYNCED: revealDistance={hiddenCutRevealDistance}, revealMinDuration={hiddenCutRevealMinimumDuration}");
         }
 
         public bool StartNewGame()
         {
-            if (IsTransitioning)
+            if (IsTransitioning || !Application.CanStreamedLevelBeLoaded(officeSceneName) ||
+                (checkpoints != null && !checkpoints.BeginNewGame()))
             {
                 return false;
             }
 
             IsOpeningPresentationReady = false;
+            Campaign.BeginNewGame();
             return StartSceneTransition(GameFlowPhase.Opening, officeSceneName);
+        }
+
+        public bool ContinueFromTitle()
+        {
+            if (Phase != GameFlowPhase.Title || IsTransitioning || checkpoints == null ||
+                !checkpoints.PrepareContinue()) return false;
+            if (StartSceneTransition(GameFlowPhase.LoopGameplay, loopSceneName)) return true;
+            checkpoints.CancelPendingContinue();
+            return false;
         }
 
         public bool EnterLoopGameplay()
@@ -134,11 +183,14 @@ namespace Zero.AnomalyPrototype.Flow
 
             if (preloadedLoopOperation != null)
             {
+                checkpoints?.EnableAutosave();
                 transitionRoutine = StartCoroutine(ActivatePreloadedLoopScene());
                 return true;
             }
 
-            return StartSceneTransition(GameFlowPhase.LoopGameplay, loopSceneName);
+            bool started = StartSceneTransition(GameFlowPhase.LoopGameplay, loopSceneName);
+            if (started) checkpoints?.EnableAutosave();
+            return started;
         }
 
         public bool BeginLoopGameplayPreload()
@@ -172,105 +224,11 @@ namespace Zero.AnomalyPrototype.Flow
             return true;
         }
 
-        public bool BeginEnding()
-        {
-            return BeginEndingFromEndDoor();
-        }
 
-        public bool BeginEndingFromEndDoor()
-        {
-            if (IsTransitioning || endingTransitionActive || Phase != GameFlowPhase.LoopGameplay ||
-                fadeController == null || !Application.CanStreamedLevelBeLoaded(officeSceneName))
-            {
-                return false;
-            }
-
-            IsEndingPresentationReady = false;
-            endingTransitionActive = true;
-            SetLoopPlayerInput(FindFirstObjectByType<FirstPersonController>(), false);
-            transitionRoutine = StartCoroutine(ActivatePreloadedEndingScene());
-            return true;
-        }
-
-        public void ResetEndingForRun()
-        {
-            // A Single-mode preload cannot be cancelled. Keep it parked and reuse
-            // it on the next successful run, rather than enqueueing another load.
-            if (Phase != GameFlowPhase.LoopGameplay)
-            {
-                return;
-            }
-
-            if (endingTransitionActive && transitionRoutine != null)
-            {
-                StopCoroutine(transitionRoutine);
-                transitionRoutine = null;
-                fadeController.SetImmediate(0f);
-                fadeController.SetColor(Color.black);
-                SetLoopPlayerInput(FindFirstObjectByType<FirstPersonController>(), true);
-            }
-
-            endingTransitionActive = false;
-            IsEndingPresentationReady = false;
-            if (preloadedEndingOperation != null)
-            {
-                preloadedEndingOperation.allowSceneActivation = false;
-            }
-        }
-
-        public bool BeginEndingPreload()
-        {
-            if (Phase != GameFlowPhase.LoopGameplay || IsTransitioning)
-            {
-                return false;
-            }
-
-            return StartEndingLoad();
-        }
-
-        private bool StartEndingLoad()
-        {
-
-            if (preloadedEndingOperation != null)
-            {
-                return true;
-            }
-
-            if (string.IsNullOrWhiteSpace(officeSceneName) ||
-                !Application.CanStreamedLevelBeLoaded(officeSceneName))
-            {
-                Debug.LogError($"GAME_FLOW_SCENE_MISSING: {officeSceneName}", this);
-                return false;
-            }
-
-            preloadedEndingOperation = SceneManager.LoadSceneAsync(officeSceneName, LoadSceneMode.Single);
-            if (preloadedEndingOperation == null)
-            {
-                Debug.LogError($"ENDING_OFFICE_PRELOAD_FAILED: {officeSceneName}", this);
-                return false;
-            }
-
-            preloadedEndingOperation.allowSceneActivation = false;
-            IsEndingPresentationReady = false;
-            Debug.Log("ENDING_OFFICE_PRELOAD_STARTED", this);
-            return true;
-        }
 
         public bool RestartLoop()
         {
-            if (IsTransitioning)
-            {
-                return false;
-            }
-
-            IsOpeningPresentationReady = false;
-            return StartSceneTransition(GameFlowPhase.Opening, officeSceneName);
-        }
-
-        public void FinishEnding()
-        {
-            SetPhase(GameFlowPhase.Finished);
-            Debug.Log("GAME_FLOW_FINISHED", this);
+            return StartNewGame();
         }
 
         public void FadeToBlack(float duration = 0.75f)
@@ -348,17 +306,13 @@ namespace Zero.AnomalyPrototype.Flow
             SetPhase(targetPhase);
             IsEndingPresentationReady = false;
             IsOpeningPresentationReady = false;
-            AsyncOperation loadOperation;
-            if (preloadedEndingOperation != null && sceneName == officeSceneName)
+            if (preloadedLoopOperation != null)
             {
-                loadOperation = preloadedEndingOperation;
-                preloadedEndingOperation = null;
-                loadOperation.allowSceneActivation = true;
+                preloadedLoopOperation.allowSceneActivation = true;
+                yield return preloadedLoopOperation;
+                preloadedLoopOperation = null;
             }
-            else
-            {
-                loadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-            }
+            AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
             if (loadOperation == null)
             {
                 Debug.LogError($"GAME_FLOW_LOAD_FAILED: {sceneName}", this);
@@ -371,8 +325,16 @@ namespace Zero.AnomalyPrototype.Flow
                 yield return null;
             }
 
+            if (targetPhase == GameFlowPhase.LoopGameplay)
+            {
+                yield return RestoreLoopCheckpointIfNeeded();
+                targetPhase = Phase;
+            }
+
             yield return null;
             yield return fadeController.FadeTo(0f, fadeInDuration);
+            if (targetPhase == GameFlowPhase.LoopGameplay || targetPhase == GameFlowPhase.BackroomGameplay)
+                checkpoints?.ReleaseRestoredPlayer();
             if (targetPhase == GameFlowPhase.Ending)
             {
                 IsEndingPresentationReady = true;
@@ -513,6 +475,7 @@ namespace Zero.AnomalyPrototype.Flow
 
         private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            if (mode == LoadSceneMode.Additive) return;
             if (!scene.IsValid())
             {
                 return;
@@ -525,14 +488,9 @@ namespace Zero.AnomalyPrototype.Flow
 
             lastHandledSceneHandle = scene.handle;
 
-            if (scene.name == loopSceneName && Phase == GameFlowPhase.Opening && transitionRoutine == null)
-            {
-                SetPhase(GameFlowPhase.LoopGameplay);
-            }
-            else if (scene.name == officeSceneName && Phase == GameFlowPhase.LoopGameplay && transitionRoutine == null)
-            {
-                SetPhase(GameFlowPhase.Opening);
-            }
+            var names = new GameFlowScenePhaseResolver.SceneNames(titleSceneName,
+                officeSceneName, loopSceneName);
+            SetPhase(GameFlowScenePhaseResolver.Resolve(scene.name, Phase, names, IsTransitioning));
 
             if (scene.name == loopSceneName)
             {
@@ -579,64 +537,32 @@ namespace Zero.AnomalyPrototype.Flow
 
         private void HandleRunCompleted()
         {
+            if (Campaign.IsActive) return;
+            if (boundAnomalyManager != null && boundAnomalyManager.SelectedEndingRoute == EndingRoute.BackroomElevator)
+                return;
             // Normal portal flow has already acquired the transition before publishing
             // RunCompleted. Retain the event adapter for the debug completion command.
             if (!endingTransitionActive)
                 BeginEndingFromEndDoor();
         }
 
-        private IEnumerator ActivatePreloadedEndingScene()
+        private IEnumerator RestoreLoopCheckpointIfNeeded()
         {
-            IsEndingPresentationReady = false;
-            Debug.Log("ENDING_WHITEOUT_STARTED", this);
-            yield return fadeController.FadeToColor(Color.white, 1f, endingWhiteFadeDuration);
-            // Ensure an opaque frame is presented before load integration can stall.
-            yield return null;
-            var loop = FindFirstObjectByType<StairLoopManager>();
-            while (loop != null && loop.IsEndingCleanupPending) yield return null;
-            StartEndingLoad();
-            yield return new WaitForSecondsRealtime(endingWhiteHoldDuration);
-            yield return fadeController.TransitionOpaqueColor(
-                Color.white,
-                Color.black,
-                endingWhiteToBlackDuration);
-            Debug.Log("ENDING_BLACKOUT", this);
-
-            float blackElapsed = 0f;
-            while (preloadedEndingOperation != null &&
-                   (preloadedEndingOperation.progress < 0.9f || blackElapsed < endingBlackHoldDuration))
+            if (checkpoints == null || !checkpoints.HasPendingRestore) yield break;
+            yield return checkpoints.RestoreLoadedLoop(backroomSceneName);
+            if (checkpoints.RestoreSucceeded && checkpoints.RestoredBackroom)
             {
-                blackElapsed += Time.unscaledDeltaTime;
-                yield return null;
+                UnbindLoopCompletion();
+                SetPhase(GameFlowPhase.BackroomGameplay);
             }
-
-            if (preloadedEndingOperation == null)
+            else if (!checkpoints.RestoreSucceeded)
             {
-                Debug.LogError("ENDING_OFFICE_PRELOAD_LOST", this);
-                endingTransitionActive = false;
-                transitionRoutine = null;
-                fadeController.SetImmediate(0f);
-                SetLoopPlayerInput(FindFirstObjectByType<FirstPersonController>(), true);
-                yield break;
+                UnbindLoopCompletion();
+                SetPhase(GameFlowPhase.Title);
+                AsyncOperation titleLoad = SceneManager.LoadSceneAsync(titleSceneName, LoadSceneMode.Single);
+                if (titleLoad != null)
+                    while (!titleLoad.isDone) yield return null;
             }
-
-            UnbindLoopCompletion();
-            SetPhase(GameFlowPhase.Ending);
-            preloadedEndingOperation.allowSceneActivation = true;
-            while (!preloadedEndingOperation.isDone)
-            {
-                yield return null;
-            }
-
-            preloadedEndingOperation = null;
-            Debug.Log("ENDING_OFFICE_ACTIVATED", this);
-            yield return null;
-            yield return null;
-            yield return fadeController.FadeTo(0f, fadeInDuration);
-            IsEndingPresentationReady = true;
-            endingTransitionActive = false;
-            transitionRoutine = null;
-            Debug.Log("ENDING_PRESENTATION_READY", this);
         }
 
         private void SetPhase(GameFlowPhase phase)
@@ -650,6 +576,8 @@ namespace Zero.AnomalyPrototype.Flow
             PhaseChanged?.Invoke(phase);
             Debug.Log($"GAME_FLOW_PHASE_CHANGED: {phase}", this);
         }
+
+        internal void SetCampaignPhase(GameFlowPhase phase) => SetPhase(phase);
 
         private void UnbindLoopCompletion()
         {

@@ -1,0 +1,24 @@
+{
+  "id": "01a13965-6b41-7608-8125-5f970ed2a8e1",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 1335580479,
+  "prompt": "Single sealed cylindrical dark smoked glass pantry storage jar for a worn twentieth century hotel kitchen, rounded shoulder, flat circular screw lid in tarnished tin, faded rectangular cream paper label tightly adhered and curved around front of cylinder, subtle surface scratches and aged seal. Label is part of jar, not floating or separate. Realistic detailed reusable game prop, upright, no environment or other objects.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964312077,
+  "progress": 100,
+  "started_at": 1791964312083,
+  "finished_at": 1791964405257,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-6b41-7608-8125-5f970ed2a8e1/output/model.fbx?Expires=4945536000&Signature=pg7HbGGR4eatw1qvEaoPGo6XHW8XGnTXaC4QZNGS28vVb27CeU0XqrYkzuwHTaYSAQlAUl538CBxH1L5XKVGlc2oyv~V7iyS5umLwwHd~q3l9X3Afqz7jKLOUo6TrqkHkAOSrtXVNn66adVk0W-zCzEjJwJzQ9~0Ow1ITCCqM4gtKO8EgEiXiPKA8dceFYgl2fIQsKYOT~bHCzpggI0t2OKtPhgryj6buT44CvRN-rtoAvFDfVPsJ-ZdpwAhu3rfrHKTEBHIb6U6ewzali7QlZ6j9HvgJBW2oWGZQv44ZJgV8VDlc8vkWwk9rdoKiF0XWRVDJrqD5viOjqcJNQE5qw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-6b41-7608-8125-5f970ed2a8e1/output/model.obj?Expires=4945536000&Signature=hxLm3wKwm0Ti~6CvQStBZrHMtj1jJzLIApuyQvL1SJiAH5rNkJ5Blt5DRfsIr4rXoBEGvDO7CbyVWxSgGPjz3mHkjsgyQ5cgDg6pv-g99VXzMGxiSgfy-i~gHLFb-1S1LV89Gsd64J4Lp-oPPPxVQxYF-fFy2bzh1ispKVr-jRnRKs4sgAXPgSk3V8aRqRnqD0anXDC8vsxK0GiHsd12vznSofpHdhjvf8dCdDsMK9K-UGAHdacTdSVBZL-eVFo8SxJocEcdbnaFmRRrsSAEjcr7omE7OSLeyIPOwcRn9udg2niyFgEWPuwUi7deKhIeNTaQH7ZicP3DEKXfWLGsBA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13965-6b41-7608-8125-5f970ed2a8e1/output/preview.png?Expires=4945536000&Signature=cl9fMDmAR-p~KRUKBJ0xGks4oKXmGxzdqS4vXjFqVSlMHMemWIqsLc1MRnZgnJDD7ZAJ33QI0vmmv8CmWy5eRe4FjP3s0PCgoqLUgHpLHseXX9h0-HumlVm4ZLTjQVh1Qab2PMkl6TUy~jTV~8aLE3GhNBJr~rfKtdWr-itv5eH82-4i4XtT95tI5hkMUQ35WJWaHgZDPUBPEfM~VnCrY~hyEAqjrFMrQQaD4VrPQYW2Gy9qc-aPq1wDgZX8b8H5K6RNuJHbAl2nApvPJIY6jGKqaidhWtrjId8SDIo4toUzUWP4kzSH5NfDL2SgtP-otm9tSv1wLIrJQh9NVhZZjA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

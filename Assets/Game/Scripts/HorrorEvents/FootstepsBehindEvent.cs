@@ -1,3 +1,4 @@
+using Zero.AnomalyPrototype.Flow;
 using Zero.AnomalyPrototype.Core;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace Zero.AnomalyPrototype.HorrorEvents
     [RequireComponent(typeof(AudioSource))]
     public sealed class FootstepsBehindEvent : HorrorEventBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         [SerializeField] private Transform player;
         [SerializeField] private AudioClip footstepClip;
         [SerializeField, Min(0.5f)] private float distanceBehindPlayer = 2.2f;
@@ -14,6 +16,7 @@ namespace Zero.AnomalyPrototype.HorrorEvents
 
         private void Awake()
         {
+            footstepClip = GameAudioBootstrap.ResolveDefaultClip(footstepClip, "clip.HorrorGirl_FootStep");
             source = GetComponent<AudioSource>();
             ConfigureSource();
         }
@@ -38,7 +41,7 @@ namespace Zero.AnomalyPrototype.HorrorEvents
             AudioClip clip = footstepClip != null ? footstepClip : audioManager?.GetFallbackFootsteps();
             if (clip != null)
             {
-                source.PlayOneShot(clip);
+                GameAudioBootstrap.BindSource(ref soundPlayback, source).Play(null, clip);
             }
         }
 

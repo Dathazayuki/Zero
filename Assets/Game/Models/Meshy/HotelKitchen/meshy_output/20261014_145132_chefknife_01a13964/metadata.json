@@ -1,0 +1,70 @@
+{
+  "schema_version": 2,
+  "project_name": "ChefKnife",
+  "folder": "20261014_145132_chefknife_01a13964",
+  "root_task_id": "01a13964-2b4c-7484-a1fb-162fca8e7f4f",
+  "created_at": "2026-10-14T07:51:32.379Z",
+  "updated_at": "2026-10-14T08:06:09.121Z",
+  "tasks": [
+    {
+      "task_id": "01a13964-2b4c-7484-a1fb-162fca8e7f4f",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.png"
+      ],
+      "task_json": "task_01a13964-2b4c-7484-a1fb-162fca8e7f4f.json",
+      "operation_id": null,
+      "created_at": "2026-10-14T07:52:11.998Z",
+      "updated_at": "2026-10-14T07:53:04.801Z"
+    },
+    {
+      "task_id": "01a1396a-a865-74d1-92cb-903b91a45f6b",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "refine",
+      "parent_task_id": "01a13964-2b4c-7484-a1fb-162fca8e7f4f",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a1396a-a865-74d1-92cb-903b91a45f6b.json",
+      "operation_id": "ir4-kitchen-20261014-chefknife-refine-compatible",
+      "created_at": "2026-10-14T07:57:34.964Z",
+      "updated_at": "2026-10-14T07:59:49.764Z"
+    },
+    {
+      "task_id": "01a1396a-a865-74d1-92cb-903b91a45f6b",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "delivered",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "textured.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-14T08:00:56.741Z",
+      "updated_at": "2026-10-14T08:01:02.582Z"
+    },
+    {
+      "task_id": "01a13964-2b4c-7484-a1fb-162fca8e7f4f",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "sourceQuad",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-14T08:06:09.121Z",
+      "updated_at": "2026-10-14T08:06:09.121Z"
+    }
+  ]
+}

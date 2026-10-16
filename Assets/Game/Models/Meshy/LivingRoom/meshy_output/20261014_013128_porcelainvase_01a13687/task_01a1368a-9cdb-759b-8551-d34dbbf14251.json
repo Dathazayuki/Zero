@@ -1,0 +1,31 @@
+{
+  "id": "01a1368a-9cdb-759b-8551-d34dbbf14251",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 109854278,
+  "prompt": "One ornate antique blue and ivory porcelain display vase for a vintage hotel glass cabinet. Elegant narrow neck, open dark mouth, flared lip, rounded body and pedestal foot. Delicate cobalt blue floral ornament and subtle glaze wear. Complete small tabletop ceramic collectible, no flowers, no background, no stand, realistic game prop.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791916416233,
+  "progress": 100,
+  "started_at": 1791916416238,
+  "finished_at": 1791916613492,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-9cdb-759b-8551-d34dbbf14251/output/model.glb?Expires=4945449600&Signature=XTbVWakJOzvqaU9m1zIvoSVSxZc3mHWxvrRM6N7g9Zo8WiCs8692N5sFLJA~jsjs2llhUFQv4xL90PfLi-EqGIA4S5Ke4fHcYNGkoO2Mlyj74MxH6zXfS8g9Qqgw26HwHMFNfMG4~xkhaZKpDnXygjCI~fSMZmbHJ1zwLb82SI3bTSn1hLkxpgC1M4QM-XwGi0kmHwGmUzbjH1HcRrP366j5RmPf8jy5O6YCK~NVNDCT6PwAL6OYewTnwxBXcQz~TslQVg4pPF4fXx0aZ1918h5RHKyS9VYn2t25pzSfAsaz3cSIK5OgtdiVIFFJByH0Presgp0atkfy0Zlk9aX58A__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-9cdb-759b-8551-d34dbbf14251/output/model.fbx?Expires=4945449600&Signature=DL~oXKtQThJlkfU7BraUs3TYlbmNq~atmd0PEgf1SOH1RlFykWEPeoqFus0wLHUOu~qFtJ1OsNhjuPqNiCv1l3d1UGuHMaGqwr7XGVLd~jtmhXT9EHb6VKvN7wrXpGbMChNNO~BzCTy7G2rccjj6xUm2Sx-JTXg8SeRWRIvBpqkBqIsMc~7oysuoP7YCUOZqkwmhNTQinGofW~Auj-0NDS5GOAzNuTGbhPdiqMGsxHO61ua2fYaINozF9gM4NjIjU1onKRw6-Xr4iKAKfrbk5ehNrblPbjMJJvsTjhFqwGznlD91WTEmfflcMU4Ks6HnbmV5jQTbb9qS-M012TuM4w__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-9cdb-759b-8551-d34dbbf14251/output/preview.png?Expires=4945449600&Signature=cVu-58rPhD5HUfe9Ks8oAn63s1J1d7t032b~wSTIYHYiJpUlB9u7RoRZzIxE3saVWPQ99k4MXwUb~fIE5UkmwsZLysuxWMT2Sn976B1n~ZRR~sHge-Y5bRqOPz8C0RfOh5Tm5q~1q-OzGv2D6nZqtdZkgkQJliXIeKjAz5tVQktc-avTQtnQcqr4xlJGhC703GCdSPZSIyfAFx0DVZpKuvdxqmke0tb-XGO5Y4jAjgOLvl7dI2tTj9z2M5tpG-wmnUTkqPYOyEbqoZPvCGQ4mR4-cR4wwbluqTk8oTzEIvqIvISmtXNZE0Jzv7BElkFQAnrV45UazCgS-yIByqkBfw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-9cdb-759b-8551-d34dbbf14251/output/texture_0.png?Expires=4945449600&Signature=JKi0Zromsrr5dy6S~OM4ZEAZhnrXaHWpK3779phPt8giDBiHEDe5BlnwtTeatcklrDLBnMG~AEQS85oOBTjg3euGwrpty0w2NeyTpJFy8RzTXMhJpHY8-ORm7R7ew8A80Ql-2bDjp6mddDP6qyT5TjA4bPuZdQjHk44bwaPtJRKmUOBdQqzH-Zyjxzy072QXZynV74X8HKsDzlGzmUom~agCBFRBdAi1GFbO9Awz3IMZMvZ9hx0mkHDK3r1ZVp8Rw3Hq235240QcFQ8mN0P42r33inOkKjcf6IQ3cY3uzW497HtNu1KbleYnu-lKhYeqbfQzbCzD2l00Q6LXrYWoGQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-9cdb-759b-8551-d34dbbf14251/output/texture_0_metallic.png?Expires=4945449600&Signature=pMw1MhXt37bDR91SAzCNj17HWKNzekD9aftWsCanQWevsUZml8Awz9Sv8rS78QFT~AmaX47QPnDSEhn0Q4PADFyqv0o0Rw3FzgOn08lBE~y5~4YTsTLBh65mvr0MIQyiTYKJg8JBLDNeAtDPAKPoeWTGnAmFRxhS16n-qTokvVasdgbDWlc1AzTtLP6fnENt7fpiRIif5TGwhPlZvakw5Win0hR5YGH-S7tQlw4JiVNPvJUeOru5iLJA8Tj1rUgL4DC619EppJ3l8ln9sKShUeb2Y2E-QncJ~51sZOZVInvbg13zNlejKKol6Kqj9rcoCkE07YC-yf0c04WN-xX8XQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-9cdb-759b-8551-d34dbbf14251/output/texture_0_roughness.png?Expires=4945449600&Signature=a2vhLMhKsL~K~2d3dl5JKCfGdG1xnXAygxkaOTb7hb3CVa04Ru43aj4P-D5GyNDC29wULRK9EfOgRWSQbw0CmLmJt1Yv~pw29fznluBFCC4VeB0P~YciIuZtmkatvbn2mfFFieJLjtLTXERt8HAY5tu8sjQSTvWhtxGem2iO-ZaS5hbIUzNTskidymE7Lxvhf1CJLFDYVDqwPQABjz4iCoc02Gzt6vBWMqNKuk6OhDJRF7YwIoFMQApbGheQ4tcBF6I4o09UjUVgIPkfqiznVCWRfNDWQOLUICRmHrR6nhopiCPT8vMm9QTUChxfuhC1aaHN6HTHcijUaoAxOBPLVg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1368a-9cdb-759b-8551-d34dbbf14251/output/texture_0_normal.png?Expires=4945449600&Signature=EsP27bOfn108tlcXRPbLC3hr9EHv8zDXnbq~mnHWhNoWaBKCriTB80GWZzPY2FX2NDs-35Ho5E2D2hU7rBzPRoauAC3JHHRo6EGeZOAR3NF7AjuKYUF4ATIE3x5XTU7Locz-QPXDTHrCnpRfeCfHU87oyb7RCqQhvhHP~gveiOqP-M7RXf-KoX8IX6bAAjbHaIAbaPRSJX~eZNlLq91jZthetgA4FXBkdjt8O1FII8mVtwJf-trlA9SaXC5meuqoM7bqARz~SRQlpAn0ITI2peggGgW052kACzgReI4FpX7lrij9yVMIU1Tq7iIPMUXdK532~jucbZBTP0XVqVEu8A__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

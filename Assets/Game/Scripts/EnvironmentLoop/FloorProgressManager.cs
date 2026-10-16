@@ -40,5 +40,16 @@ namespace Zero.EnvironmentLoop
             CommitCount++;
             FloorChanged?.Invoke(CurrentState.LogicalFloorIndex, direction);
         }
+
+        public bool RestoreLogicalFloor(int logicalFloor)
+        {
+            if (CurrentState == null || logicalFloor < -100000 || logicalFloor > 100000)
+                return false;
+
+            CurrentState.LogicalFloorIndex = logicalFloor;
+            HasTravelDirection = false;
+            CommitCount = 0;
+            return true;
+        }
     }
 }

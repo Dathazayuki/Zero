@@ -1,0 +1,22 @@
+{
+  "name": "Zero.Game.Tests.PlayMode",
+  "rootNamespace": "Zero.Tests.PlayMode",
+  "references": [
+    "Zero.Game.Runtime",
+    "Unity.TextMeshPro"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Zero.AnomalyPrototype.Anomalies;
+using Zero.AnomalyPrototype.Player;
 using UnityEngine;
 
 namespace Zero.EnvironmentLoop
@@ -18,6 +19,7 @@ namespace Zero.EnvironmentLoop
         public bool HasActiveAnomaly => ActiveAnomaly != null;
         public CorrectArrowController CorrectArrow => correctArrowController;
         public TravelDirection ArrowDirection { get; private set; } = TravelDirection.Up;
+        public TravelDirection PreparedArrowDirection { get; private set; } = TravelDirection.Up;
         public TravelDirection ExpectedDirection => HasActiveAnomaly
             ? Reverse(ArrowDirection)
             : ArrowDirection;
@@ -38,6 +40,16 @@ namespace Zero.EnvironmentLoop
 
         public void InitializeRoom(Transform player, Camera playerCamera)
         {
+            if (player == null)
+            {
+                var fp = FindFirstObjectByType<FirstPersonController>();
+                if (fp != null)
+                {
+                    player = fp.transform;
+                    if (playerCamera == null) playerCamera = fp.PlayerCamera;
+                }
+            }
+
             if (correctArrowController == null)
             {
                 correctArrowController = GetComponent<CorrectArrowController>();
@@ -105,33 +117,9 @@ namespace Zero.EnvironmentLoop
                 {
                     rotatingArrow.BindRoomContext(correctArrowController, playerCamera);
                 }
-                else if (anomaly is SpeedTimeAnomaly speedTime)
-                {
-                    speedTime.CaptureNormalState();
-                }
-                else if (anomaly is ScreenSmartPhoneAnomaly smartPhone)
-                {
-                    smartPhone.CaptureNormalState();
-                }
-                else if (anomaly is ScreamTraceAnomaly screamTrace)
-                {
-                    screamTrace.CaptureNormalState();
-                }
                 else if (anomaly is EyePictureLookAnomaly eyePicture)
                 {
                     eyePicture.BindPlayer(player);
-                }
-                else if (anomaly is PictureMissingEyeAnomaly missingEye)
-                {
-                    missingEye.CaptureNormalState();
-                }
-                else if (anomaly is TVCartoonAnomaly tvCartoon)
-                {
-                    tvCartoon.CaptureNormalState();
-                }
-                else if (anomaly is ElevatorAnomaly elevatorAnomaly)
-                {
-                    elevatorAnomaly.CaptureNormalState();
                 }
 
                 anomaly.CaptureNormalState();
@@ -146,6 +134,7 @@ namespace Zero.EnvironmentLoop
         public void PrepareRound(TravelDirection arrowDirection)
         {
             ResetRoom();
+            PreparedArrowDirection = arrowDirection;
             ArrowDirection = arrowDirection;
             correctArrowController?.SetDirection(arrowDirection);
             IsRoundPrepared = true;
@@ -167,6 +156,7 @@ namespace Zero.EnvironmentLoop
         public void ResetRoom(bool forceRestore = false)
         {
             if (forceRestore) anomalyBaselineRestored = false;
+            PreparedArrowDirection = TravelDirection.Up;
             if (!runtimeNormalStateCaptured)
             {
                 ActiveAnomaly = null;

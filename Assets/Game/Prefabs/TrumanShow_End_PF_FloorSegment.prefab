@@ -19935,7 +19935,7 @@ MonoBehaviour:
   openDuration: 1
   openAwayFromPlayer: 1
   audioSource: {fileID: 0}
-  openSound: {fileID: 0}
+  openSound: {fileID: 8300000, guid: 18eed24f8040a4d49b445803c497473c, type: 3}
   isOpen: 0
 --- !u!1 &6972903982444148267
 GameObject:

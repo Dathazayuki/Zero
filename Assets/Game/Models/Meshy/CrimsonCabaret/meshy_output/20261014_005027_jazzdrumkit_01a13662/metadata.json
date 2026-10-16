@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "project_name": "JazzDrumKit",
+  "folder": "20261014_005027_jazzdrumkit_01a13662",
+  "root_task_id": "01a13662-9d45-70db-ae57-2e9e268178c5",
+  "created_at": "2026-10-13T17:50:27.843Z",
+  "updated_at": "2026-10-13T18:07:56.035Z",
+  "tasks": [
+    {
+      "task_id": "01a13662-9d45-70db-ae57-2e9e268178c5",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a13662-9d45-70db-ae57-2e9e268178c5.json",
+      "operation_id": null,
+      "created_at": "2026-10-13T17:50:59.170Z",
+      "updated_at": "2026-10-13T17:50:59.170Z"
+    },
+    {
+      "task_id": "01a13664-6e87-7358-a5b6-898c0af659ae",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "refine",
+      "parent_task_id": "01a13662-9d45-70db-ae57-2e9e268178c5",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a13664-6e87-7358-a5b6-898c0af659ae.json",
+      "operation_id": "fcbd5aeb-6df8-488b-8a2a-d9c807b7d8c5",
+      "created_at": "2026-10-13T17:51:54.037Z",
+      "updated_at": "2026-10-13T17:54:03.470Z"
+    },
+    {
+      "task_id": "01a13662-9d45-70db-ae57-2e9e268178c5",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview-image",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T17:52:12.176Z",
+      "updated_at": "2026-10-13T17:52:12.176Z"
+    },
+    {
+      "task_id": "01a13664-6e87-7358-a5b6-898c0af659ae",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "delivered",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T17:54:46.511Z",
+      "updated_at": "2026-10-13T17:54:46.511Z"
+    },
+    {
+      "task_id": "01a13664-6e87-7358-a5b6-898c0af659ae",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "textured-preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "textured_preview.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T17:54:51.744Z",
+      "updated_at": "2026-10-13T17:54:51.744Z"
+    },
+    {
+      "task_id": "01a1366b-482e-7762-8f7a-9567e2ea20df",
+      "task_type": "remesh",
+      "resource": "remesh",
+      "endpoint": "/openapi/v1/remesh",
+      "stage": "remesh",
+      "parent_task_id": "01a13664-6e87-7358-a5b6-898c0af659ae",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a1366b-482e-7762-8f7a-9567e2ea20df.json",
+      "operation_id": "8769ff21-1453-4d51-91aa-1c19ec03e932",
+      "created_at": "2026-10-13T17:59:23.007Z",
+      "updated_at": "2026-10-13T18:02:02.510Z"
+    },
+    {
+      "task_id": "01a1366b-482e-7762-8f7a-9567e2ea20df",
+      "task_type": "remesh",
+      "resource": "remesh",
+      "endpoint": "/openapi/v1/remesh",
+      "stage": "game-fbx",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T18:03:53.973Z",
+      "updated_at": "2026-10-13T18:03:53.973Z"
+    },
+    {
+      "task_id": "01a1366b-482e-7762-8f7a-9567e2ea20df",
+      "task_type": "remesh",
+      "resource": "remesh",
+      "endpoint": "/openapi/v1/remesh",
+      "stage": "textures",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-13T18:07:56.035Z",
+      "updated_at": "2026-10-13T18:07:56.035Z"
+    }
+  ]
+}

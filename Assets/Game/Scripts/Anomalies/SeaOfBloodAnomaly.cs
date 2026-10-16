@@ -1,3 +1,4 @@
+using Zero.AnomalyPrototype.Flow;
 using UnityEngine;
 using UnityEngine.UI;
 using Zero.AnomalyPrototype.Player;
@@ -7,6 +8,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 {
     public sealed class SeaOfBloodAnomaly : AnomalyBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         public enum FloodState { Dormant, WaitingForEntry, Rising, Escaped, DeathRequested }
 
         [SerializeField] private Transform bloodSurface;
@@ -70,6 +72,22 @@ namespace Zero.AnomalyPrototype.Anomalies
 
         public override void CaptureNormalState()
         {
+            if (bloodSurface == null)
+            {
+                var t = transform.Find("BloodSurface");
+                if (t != null) bloodSurface = t;
+            }
+            if (bloodStartPoint == null)
+            {
+                var t = transform.Find("BloodStartPoint");
+                if (t != null) bloodStartPoint = t;
+            }
+            if (bloodEndPoint == null)
+            {
+                var t = transform.Find("BloodEndPoint");
+                if (t != null) bloodEndPoint = t;
+            }
+
             if (bloodSurface != null && !hasCapturedBaseTransform)
             {
                 baseSurfaceLocalPosition = bloodSurface.localPosition;
@@ -87,6 +105,10 @@ namespace Zero.AnomalyPrototype.Anomalies
 
             if (entryTrigger == null) entryTrigger = GetComponentInChildren<SeaOfBloodStartTrigger>(true);
             if (deathPresentation == null) deathPresentation = GetComponentInChildren<AnomalyDeathPresentation>(true);
+            if (deathPresentation != null && deathPresentation.MotionStyle != DeathMotionStyle.Suffocation && deathPresentation.DeathStyle != AnomalyDeathStyle.Style2_FreezeBlackout && deathPresentation.MotionStyle != DeathMotionStyle.FreezeBlackout)
+            {
+                deathPresentation.SetMotionStyle(DeathMotionStyle.Suffocation);
+            }
             if (properties == null) properties = new MaterialPropertyBlock();
             if (entryTrigger != null) entryTrigger.Configure(this);
             EnsureUnderwaterOverlay();
@@ -122,13 +144,35 @@ namespace Zero.AnomalyPrototype.Anomalies
         protected override void OnActivate()
         {
             CaptureNormalState();
+
+            if (player == null || movement == null || death == null)
+            {
+                var fp = FindFirstObjectByType<FirstPersonController>();
+                if (fp != null)
+                {
+                    BindPlayer(fp.transform, fp.PlayerCamera);
+                }
+            }
+
+            if (manager == null || owner == null)
+            {
+                var lm = FindFirstObjectByType<StairLoopManager>();
+                var seg = GetComponentInParent<FloorSegment>();
+                if (lm != null && seg != null)
+                {
+                    BindFloorContext(lm, seg);
+                }
+            }
+
+            bool validDeathStyle = deathPresentation != null && (deathPresentation.MotionStyle == DeathMotionStyle.Suffocation || deathPresentation.DeathStyle == AnomalyDeathStyle.Style2_FreezeBlackout || deathPresentation.MotionStyle == DeathMotionStyle.FreezeBlackout);
+
             if (bloodSurface == null || bloodStartPoint == null || bloodEndPoint == null ||
                 bloodRenderer == null || entryTrigger == null || player == null || movement == null ||
                 death == null || manager == null || owner == null || deathPresentation == null ||
-                deathPresentation.MotionStyle != DeathMotionStyle.Suffocation ||
+                !validDeathStyle ||
                 bloodStartPoint.IsChildOf(bloodSurface) || bloodEndPoint.IsChildOf(bloodSurface))
             {
-                Debug.LogError("SEA_OF_BLOOD_CONFIGURATION_INVALID: check surface, independent markers, trigger, floor/player binding and Suffocation presentation.", this);
+                Debug.LogError($"SEA_OF_BLOOD_CONFIGURATION_INVALID: surface={bloodSurface != null}, startPoint={bloodStartPoint != null}, endPoint={bloodEndPoint != null}, renderer={bloodRenderer != null}, trigger={entryTrigger != null}, player={player != null}, movement={movement != null}, death={death != null}, manager={manager != null}, owner={owner != null}, deathPresentation={deathPresentation != null}, motionSuffocation={validDeathStyle}, startChild={bloodStartPoint != null && bloodStartPoint.IsChildOf(bloodSurface)}, endChild={bloodEndPoint != null && bloodEndPoint.IsChildOf(bloodSurface)}", this);
                 return;
             }
             State = FloodState.WaitingForEntry;
@@ -153,7 +197,7 @@ namespace Zero.AnomalyPrototype.Anomalies
             if (riseAudio != null)
             {
                 riseAudio.volume = startVolume;
-                riseAudio.Play();
+                GameAudioBootstrap.BindSource(ref soundPlayback, riseAudio).Play(null, riseAudio.clip, false);
             }
             if (riseParticles != null) riseParticles.Play(true);
             Debug.Log("SEA_OF_BLOOD_RISING_STARTED", this);

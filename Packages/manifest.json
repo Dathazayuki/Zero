@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.besty.unity-skills": "https://github.com/Besty0728/Unity-Skills.git?path=/SkillsForUnity",
+    "com.tripo3d.unitybridge": "file:E:/Tripo3d_Unity_Bridge",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.6",
     "com.unity.collab-proxy": "2.13.6",

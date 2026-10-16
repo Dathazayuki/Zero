@@ -8,6 +8,7 @@ namespace Zero.AnomalyPrototype.Flow
     [DisallowMultipleComponent]
     public sealed class OfficeLoopTransitionTrigger : MonoBehaviour
     {
+        private SourceSoundPlayback soundPlayback;
         [Header("Audio")]
         [SerializeField] private AudioSource transitionAudioSource;
         [SerializeField] private AudioClip transitionClip;
@@ -103,7 +104,7 @@ namespace Zero.AnomalyPrototype.Flow
         {
             if (transitionAudioSource != null && transitionClip != null)
             {
-                transitionAudioSource.PlayOneShot(transitionClip);
+                GameAudioBootstrap.BindSource(ref soundPlayback, transitionAudioSource, AudioBus.Sfx, false).Play(null, transitionClip);
             }
             else
             {
@@ -254,7 +255,7 @@ namespace Zero.AnomalyPrototype.Flow
 
             if (clip != null && transitionAudioSource != null)
             {
-                transitionAudioSource.PlayOneShot(clip, 0.85f);
+                GameAudioBootstrap.BindSource(ref soundPlayback, transitionAudioSource, AudioBus.Sfx, false).Play(null, clip, true, 0.85f);
             }
         }
 

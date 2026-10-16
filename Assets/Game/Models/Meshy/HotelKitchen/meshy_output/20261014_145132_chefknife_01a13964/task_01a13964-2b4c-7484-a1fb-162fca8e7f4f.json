@@ -1,0 +1,24 @@
+{
+  "id": "01a13964-2b4c-7484-a1fb-162fca8e7f4f",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "standard",
+  "seed": 1391068553,
+  "prompt": "Single realistic hotel kitchen chef knife, 30 cm total length, broad stainless steel blade with tapered sharp edge and pointed tip, full tang black handle with three rivets, lying flat horizontally. Clean recognizable proportions, worn brushed metal and small scratches, no blood, no cutting board, no other objects. Detailed game prop.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964230183,
+  "progress": 100,
+  "started_at": 1791964230192,
+  "finished_at": 1791964326466,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13964-2b4c-7484-a1fb-162fca8e7f4f/output/model.fbx?Expires=4945536000&Signature=pix0Q7DEhje4kGD~MTTjT5Z6CUxwatXbyicpdU7fzqMXHlJA2bi~3j3Lxe2MFXik-S6VwIZh8b83hSP9XWAo2l9M8iD-icsk7OrFgVfohDY9M~p-3eqxaBOBIkYnoZ4-PcoKetiiQVAQrbzw8HueLXpU88cwtQUXdkK8GvNQIQaEXrzC4Q1m09t2l3ooTpKYnQo641fy7gV2LV7AiASEPo77IFHtE0q4qRDqmy7jkmlEp0~JMnPkkUCya~UJ1rYfU5T496iQlY1dgmjPvH3mMiW4ZNDnYNOVxw5iCffTRIsfy6z2JbS0Xjffgr1ptoI8hzE3AP3N19lJJWTmPFK5eQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13964-2b4c-7484-a1fb-162fca8e7f4f/output/model.obj?Expires=4945536000&Signature=FdWsxZZAqtm9taZplnifT3yjkvs~so~Z0kxake8aW5nP3sW0MYhiQEWGfIlcrQYG3ij2Ik0WeGeLXoTGeVkEUDwI64KLh84eehO1I-I2i~fe9LXP1Mgeek67GIFmHxxrUqHARKHmU2vl92isHV~xcOWg29syeTLBu8ztu5p7DVBS0vYRV--nOt2RB9Hxd~n0lmAUx-9WbsqxQCba4mjlivrnTo~BfJDhugAr8YAj2p~m~DkeL~2hoEpX6qfiuHxRDF9JvPkDdSU-NrT1bP22M~KIMcCtHeYRx7C2SCwQpMvDMUdHsTYRrSw~r5X7mU1N8dWqDY-vkxLyisqCbgocWg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13964-2b4c-7484-a1fb-162fca8e7f4f/output/preview.png?Expires=4945536000&Signature=K6md2ehzDURJQoBIcd0yyI18zzJw~K9iyqu~WnMCN4qOK5JRlS5~DJCOShjG-wLDB3DnfxekqL2GCNdKErqEEmGLEnwPuPAz1Jgep6gbHmgabv2bJ115FZUZoxJUTmaJBMyhC7uCAvL3z1DcUMwFF-TghpWle5ZfMR2XFvxR9hXqgLSFe9KFCwcwlvPvR-QGjZXaZ7z9qabp3ggoJOiRyvahb1uxYay4aoVVdYUv5QnwfnKmnqU7beiDA6oLwBmNHL9dK~Ir9nF24tRZJdS8quDkfv-MeY0yb9VIdhaqYFz-qnNRCPSwu~90a1SiAfNFlK8LKlhgpDMwYtIMD26wUA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

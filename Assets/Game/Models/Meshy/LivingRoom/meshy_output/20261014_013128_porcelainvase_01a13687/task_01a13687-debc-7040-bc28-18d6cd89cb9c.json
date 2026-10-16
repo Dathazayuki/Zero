@@ -1,0 +1,24 @@
+{
+  "id": "01a13687-debc-7040-bc28-18d6cd89cb9c",
+  "type": "text-to-3d-preview",
+  "mode": "preview",
+  "name": "",
+  "model_type": "smart-topology",
+  "seed": 109854278,
+  "prompt": "One ornate antique blue and ivory porcelain display vase for a vintage hotel glass cabinet. Elegant narrow neck, open dark mouth, flared lip, rounded body and pedestal foot. Delicate cobalt blue floral ornament and subtle glaze wear. Complete small tabletop ceramic collectible, no flowers, no background, no stand, realistic game prop.",
+  "texture_prompt": "",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791916238024,
+  "progress": 100,
+  "started_at": 1791916238029,
+  "finished_at": 1791916275262,
+  "task_error": null,
+  "model_urls": {
+    "glb": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13687-debc-7040-bc28-18d6cd89cb9c/output/model.glb?Expires=4945449600&Signature=mQW8Bk~F8jeionimZJdYjrOckSw3T5lBRTcKyU3yoFJlAN9uvxPBzroTHgkrq4vCBxrH8GFvNJAmCFaIE8RUwGukW-Xkw2-25FTT2YiQL-VpmQPk2wKQP1xqn0pm~pwNfwqvDWN1CcKGpX9Hrs2Mn6mYrxYMR5yQvd0M4~-mXuXv5O6Y3WuHLS-I~qT2di9LgW01Zy3s6rKT0-vIZ-d2hGQIeQ0pDchWSuurl1y~ysQ3uR~kzrjq~ixmHZVnY9DfM9ArR0Lwjge3aa~FH9rFl8T7EhD48zY2lGHEt0IdQJLpWH7fP6q37cfhYBgCyPrrp22qa5dXzNH5vpr4~nIZDw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13687-debc-7040-bc28-18d6cd89cb9c/output/model.fbx?Expires=4945449600&Signature=hLcyACko1RmNI9ii~J-i6jfHA2W1bV2GyiHyfkHFN3UHAyC6bDkxc4yZL50cwwEeUZ4hDskiAbmpuOeA1aFOw1L9D0YKelPVBo2ACAXT7v4chWSSUIDu6APGUPFmOvpWCrrQG7KgJFbMQxvpXsdTYoVEUJAcqZjnn431YEO5nLnIvMKz1pUJpCgf1cn-5bo31xnKlYFffUyDK6lI7hfsqA9wGd7aPEXN0tUpX2uK3VBcRbHkddnxlzwgvT7nVT0Amem90CG3Ih2NaJNkxk3USq43sguCEwpQIATeaV9yixWMInR8A4EFBng~piMp4A-F~USngkhRqXn0utqpphlHTw__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a13687-debc-7040-bc28-18d6cd89cb9c/output/preview.png?Expires=4945449600&Signature=EwutfETLWjZDeJyop8PyQDHV4qm3Q9A3M6FKuDZWHZGoX4V4JyhUFes~dHjr-JkeoFGSuqYUZgjeFKO6WNwhS~XLutOSl2oSIRSYsBquaE03xE~YZiRxNPATRQhrbGrG6NnIlSmHcKEFMttJyWlWpWnrqaPYurc9SLLOmIRRaOIPngMtPbh7ujNufJ0jSIotJRLMb5sdjnf0geBaiAZWFZppFFmb1Cf3y~OALHaBYFpTiHnUkOcKwmpKD2H11tP95lV4TseMph24mry6Q14FUV578KpMI4LvtXn8G8AgzQclZyqET4PmKmyNvisswhAOFKD4uqRedVA~9jtIbo790g__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [],
+  "consumed_credits": 5
+}

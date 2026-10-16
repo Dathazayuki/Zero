@@ -1,0 +1,70 @@
+{
+  "schema_version": 2,
+  "project_name": "SoapDispenser",
+  "folder": "20261014_145148_soapdispenser_01a13965",
+  "root_task_id": "01a13965-5a95-7284-8467-1b5203c66af7",
+  "created_at": "2026-10-14T07:51:48.882Z",
+  "updated_at": "2026-10-14T08:06:14.984Z",
+  "tasks": [
+    {
+      "task_id": "01a13965-5a95-7284-8467-1b5203c66af7",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.png"
+      ],
+      "task_json": "task_01a13965-5a95-7284-8467-1b5203c66af7.json",
+      "operation_id": null,
+      "created_at": "2026-10-14T07:53:37.462Z",
+      "updated_at": "2026-10-14T07:55:09.026Z"
+    },
+    {
+      "task_id": "01a1396a-d924-7393-aaa9-6fe4abcf5dd9",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "refine",
+      "parent_task_id": "01a13965-5a95-7284-8467-1b5203c66af7",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a1396a-d924-7393-aaa9-6fe4abcf5dd9.json",
+      "operation_id": "ir4-kitchen-20261014-soapdispenser-refine-compatible",
+      "created_at": "2026-10-14T07:57:47.946Z",
+      "updated_at": "2026-10-14T07:59:55.277Z"
+    },
+    {
+      "task_id": "01a1396a-d924-7393-aaa9-6fe4abcf5dd9",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "delivered",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "textured.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-14T08:01:28.653Z",
+      "updated_at": "2026-10-14T08:01:33.760Z"
+    },
+    {
+      "task_id": "01a13965-5a95-7284-8467-1b5203c66af7",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "sourceQuad",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-14T08:06:14.984Z",
+      "updated_at": "2026-10-14T08:06:14.984Z"
+    }
+  ]
+}

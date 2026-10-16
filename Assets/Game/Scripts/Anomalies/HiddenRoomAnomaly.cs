@@ -298,7 +298,7 @@ namespace Zero.AnomalyPrototype.Anomalies
 
             if (blinkAudioClip != null)
             {
-                AudioSource.PlayClipAtPoint(blinkAudioClip, playerCamera != null ? playerCamera.transform.position : transform.position);
+                Zero.AnomalyPrototype.Flow.GameFlowController.Instance?.Audio?.PlayClip(blinkAudioClip, transform);
             }
 
             // Giữ mắt nhắm một khoảng ngắn

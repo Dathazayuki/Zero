@@ -1,0 +1,56 @@
+{
+  "schema_version": 2,
+  "project_name": "[object Object]",
+  "folder": "20261014_110254_object-object_01a13893",
+  "root_task_id": "01a13893-4940-7470-8915-c9bdb0f3be09",
+  "created_at": "2026-10-14T04:02:54.182Z",
+  "updated_at": "2026-10-14T04:07:22.936Z",
+  "tasks": [
+    {
+      "task_id": "01a13893-4940-7470-8915-c9bdb0f3be09",
+      "task_type": "text-to-3d-preview",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "preview",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "preview.png"
+      ],
+      "task_json": "task_01a13893-4940-7470-8915-c9bdb0f3be09.json",
+      "operation_id": null,
+      "created_at": "2026-10-14T04:03:03.225Z",
+      "updated_at": "2026-10-14T04:04:09.719Z"
+    },
+    {
+      "task_id": "01a13895-a6e8-748f-9273-a2d2a33147f0",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "refine",
+      "parent_task_id": "01a13893-4940-7470-8915-c9bdb0f3be09",
+      "status": "SUCCEEDED",
+      "files": [],
+      "task_json": "task_01a13895-a6e8-748f-9273-a2d2a33147f0.json",
+      "operation_id": "ec323d6f-6139-4403-a0b9-0abfd94ea9a1",
+      "created_at": "2026-10-14T04:04:56.564Z",
+      "updated_at": "2026-10-14T04:06:07.461Z"
+    },
+    {
+      "task_id": "01a13895-a6e8-748f-9273-a2d2a33147f0",
+      "task_type": "text-to-3d-refine",
+      "resource": "text-to-3d",
+      "endpoint": "/openapi/v2/text-to-3d",
+      "stage": "delivered",
+      "parent_task_id": null,
+      "status": "SUCCEEDED",
+      "files": [
+        "textured.png"
+      ],
+      "task_json": null,
+      "operation_id": null,
+      "created_at": "2026-10-14T04:07:05.631Z",
+      "updated_at": "2026-10-14T04:07:22.936Z"
+    }
+  ]
+}

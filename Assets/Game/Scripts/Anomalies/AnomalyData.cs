@@ -19,6 +19,12 @@ namespace Zero.AnomalyPrototype.Anomalies
         MajorAnomaly
     }
 
+    public enum AnomalyDeathStyle
+    {
+        Style1_JumpscareBlood = 0,
+        Style2_FreezeBlackout = 1
+    }
+
     [CreateAssetMenu(fileName = "AnomalyData", menuName = "Zero/Anomaly Prototype/Anomaly Data")]
     public sealed class AnomalyData : ScriptableObject
     {
@@ -29,6 +35,7 @@ namespace Zero.AnomalyPrototype.Anomalies
         [SerializeField, Range(1, 3)] private int difficulty = 1;
         [SerializeField, Min(0.01f)] private float spawnWeight = 1f;
         [SerializeField] private bool canKillPlayer;
+        [SerializeField] private AnomalyDeathStyle deathStyle = AnomalyDeathStyle.Style1_JumpscareBlood;
         [SerializeField, TextArea] private string description;
 
         public string Id => id;
@@ -38,7 +45,10 @@ namespace Zero.AnomalyPrototype.Anomalies
         public int Difficulty => difficulty;
         public float SpawnWeight => spawnWeight;
         public bool CanKillPlayer => canKillPlayer;
+        public AnomalyDeathStyle DeathStyle => deathStyle;
         public string Description => description;
+
+        public void SetDeathStyle(AnomalyDeathStyle style) => deathStyle = style;
 
         public void Configure(
             string anomalyId,

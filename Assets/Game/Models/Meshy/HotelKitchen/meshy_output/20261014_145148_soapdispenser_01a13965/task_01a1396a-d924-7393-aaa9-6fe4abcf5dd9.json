@@ -1,0 +1,32 @@
+{
+  "id": "01a1396a-d924-7393-aaa9-6fe4abcf5dd9",
+  "type": "text-to-3d-refine",
+  "mode": "refine",
+  "name": "",
+  "model_type": "standard",
+  "seed": 2733744447,
+  "prompt": "Single practical commercial kitchen liquid soap dispenser, translucent amber rounded plastic bottle with a black screw cap and clearly formed pump nozzle projecting forward, small integrated faded cream rectangular label bonded to bottle surface. Modest wear, realistic proportions, upright on its bottom, no floating label, no text required, no table or other objects.",
+  "texture_prompt": "Translucent amber soap bottle, black pump, faded cream label adhered to bottle, slight worn plastic.",
+  "texture_image_url": "",
+  "status": "SUCCEEDED",
+  "created_at": 1791964667912,
+  "progress": 100,
+  "started_at": 1791964667917,
+  "finished_at": 1791964742989,
+  "task_error": null,
+  "model_urls": {
+    "fbx": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-d924-7393-aaa9-6fe4abcf5dd9/output/model.fbx?Expires=4945536000&Signature=cDI4vmFVw~Lsb7OfSswRAbTjwLap49A-zirrv3~0yK~ljFhvX9Jeinp8tDkpKR9aWCu-QLel0Ac7kL6E9D~b0Te5pkBmRyp39DlWPV6UfFFr8finQglEvix2wkqnhNziX2bF5l-viftSqJQeH3PExyFCAOe~bRxHCAMdRIjQuQDeyvTtGpGgZCw1r0G2I4cw1HAPTAZmf8dYvKZ1J4nJs64r9e5CIOq9JZBVOzWCj9X8qPpQ30YBhlbyuVz6G0Cafmh72Ulr4U7F0jTHSxtFJZM4bzaJs2Jylp09Lr-pHUtlWkwkczznNrMlsHXldP-FhKBSOsE5Uw7eWIlszMDC9w__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "obj": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-d924-7393-aaa9-6fe4abcf5dd9/output/model.obj?Expires=4945536000&Signature=bHCquXU1c3u~yTsl5FBlfwosulzROii3yEz8opdBMPNVLcIYwKI3Z3yCmIcyvJzCp3h5X6vivWqCJYDciPO69t0jtCdM1oZNOZG2J08ycR8~tVAlEppT~mvN-v3yvgi~8dtTrzGycYay2HpP7JwxDe30zoYTUsvWzWey1FPVMVfULO0960JutirpACvjE-iQ0QOGTBdjmx~~2WV4G7uCGK0FhvLadZGn~CbWaPNzwJ1F8VAvmDmoz-1veoKBmG9NPoRWgFY8jx~SMmc8iXXQXYcVtvMca9PbDUOf4UlztrcRVeh3M7hyi3xx~3wDiPn8ikPmfk7J0KzE1uBRTi94Tg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "mtl": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-d924-7393-aaa9-6fe4abcf5dd9/output/model.mtl?Expires=4945536000&Signature=VnlZE5oUGNWdyfwuWeykXCwQjALlY54~YwTFF~ellREWgd4l1htMWL2MxAMv2SPzJHJ8A09tDnLTNYrHmYasCW6apR4xMHQwmizpCMB9hs8SCiX9hxVuLAJhLKiaUkD5irL7LnapXqL9gwG-Vry~j5z-CZt~cfHxg34rny-Bw3YaV6J-45~ZCJkJBZM6y6srpWJYguIh3~Q-1P5fI1S5m8nvUu88UjgqphsvYAUWJUdkt5OzXukCl6DpjgkE2szgYpCXF9v5P7~2CsaB8A10soSlOyh~tpPeNkTB5RaABTrMA2IRXkCcjSbMs--VQ5HDuDPEANfT7tbW~eaYAAV1hQ__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "thumbnail_url": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-d924-7393-aaa9-6fe4abcf5dd9/output/preview.png?Expires=4945536000&Signature=OeyJCRYM2qCNxvyS3tMGPjQeZ9DjtHcBdA61qgdKpescq97Bc7VMCSXGW7DkFipgi3dK6YzqER2J7Q9crcZEiDZCZlkl3KI9WDSSLmgNtHVdkMyPxgHXtGusBlcGvIfnujwXnCxxL8qkzt2RNo42KkmDFvE1CDg61MRK0718rgwOe-eMYg7moTph0qLxcv19HTL1lxx2vlsKKtyxvFbwOv0JprjAjKRwl4YJ-zaTNuvAO2-EtJv9kCb2yOVtN6fnD84uOryBEUXo6FjceuRykwoHjLcIqMIT1L2rU4RlXmszEbIkhAXAQgFUatcF7hLNPoiUezDzsCMRLcy4eSdR6A__&Key-Pair-Id=K1VGYTHIYLM9UM",
+  "texture_urls": [
+    {
+      "base_color": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-d924-7393-aaa9-6fe4abcf5dd9/output/texture_0.png?Expires=4945536000&Signature=NT9SBzuwsEwFSaiUWujD63wGmm~gjTTivVk47L3nXdUKSxUXUl4-NQxWM7SKv4m6PLozlvAlVTc-ZJBzkR3mar-cN3hIiUfte15mtq-wWgRzpX15Sm3QPZqKgDQPd0rhHdGjdQRZ3PLZoPskh-4FBEatP0NwZlKttgZD3pEpEbsZegmdn8R3vQRDcTO4gMzgpXYX4CXs6~xFTSEayn9TBpia8q5QBb4ur2PmQIXyL0kNcn0NXKEHfRRlOm8fByQLhoceVsxIG2edzQbpBdP8vS4~QQ0jd4HzK8p~VNFKSKtDEBsLlxFdhRMc1mt6j~6VbjM-Ik00uM~Gk8g8t9Qk-g__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "metallic": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-d924-7393-aaa9-6fe4abcf5dd9/output/texture_0_metallic.png?Expires=4945536000&Signature=h2Doft1TikUcKZCtNnc4ktoKvN1QIHdciujnAFlq~Y9~e4I6l0NP0LAkOhDuCZHlPebC65qs6Cy1e1f1oqeSINL5YpRE4LdNDEX12IJ-V20NqXE-CtZTUjuiU0ZJwOu3lxCtY-SCLPtb0nBHRAdBE3uYs7FGXx-wvp1KkXS0j1kSYZEC7C3lUkmPDntKi7TgxR7G~edizjtkSxSUKaMivIfdo2Cs7-qGgLkVtLO6v6MNpp-QnAQuQ3Q-LSMVCknwoJt9l9bWFfNXHzVKfirCvuAtimiBIkESIgr3jP0gbCm1axSmA~pBfyxI5~4QJXZhKqtFxjdNQLXUqD0iF7C~Gw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "roughness": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-d924-7393-aaa9-6fe4abcf5dd9/output/texture_0_roughness.png?Expires=4945536000&Signature=Nez~E934kWbM3-uz4QmqUIUUU92JEOHWOb401YQ6A8gyC5c9d2WKSE7ivQ~LIaqIRVmE5cyCcqq6DVvm~GjUnd05DLPDh0jGlYr4HeNcJ8AT0C7FCYilzDeXcw-sC1Sd4NxedO-pzwSNSSg2RywvEXOlWYjLNwgGBSND3yjEtyHE74Aug9Q~96tBXMBZxzcgtmvBj53H7VKqdn42x4ygPkERKcXrEr4relBJMRBI7UpsUNhG9rb2uqyL1gp6TttTxCFCP5j6v91R1c-hZV7qlJ0uejck5n6YuDJpJE2GrfPrhypti7CI8M2Q~qGB2-1IipmbckpTjOJOdOIPQ87L0Q__&Key-Pair-Id=K1VGYTHIYLM9UM",
+      "normal": "https://assets.meshy.ai/d6a170f9-b6ac-447c-ad5c-7d2b9920ea3d/tasks/01a1396a-d924-7393-aaa9-6fe4abcf5dd9/output/texture_0_normal.png?Expires=4945536000&Signature=NqZlRzZUU0R0hxBdwZv-uq0c0yVG8-agP6gpHKK5nvKw4FMLSWpHonBY5FJEA4Oocyx7JkvJqY8OOXrTdJw8t6WqL9VJUzGppIotPVz5ZXu4pfThJtRYPTrJ~g-Ql2136um78~58qOXFbsMfLYDFHnLbyUOK3Uy-H5yJuSCzuB0ct9m6NnABCkdxe10~H-eTAhYYPQyWmYuOuBqq0XQoTxWVDU80w5nCWH-SMcoUgMxAqxpc08RoEaAfnsre1BSbEPP06hE~nE6d~j6vmzQJMfMx39G4nldu~31NUlJfG6qwX-mx4lMB05OLuVxDQJxKLifON2lW0qBpsO4qWH3TzQ__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    }
+  ],
+  "consumed_credits": 10
+}

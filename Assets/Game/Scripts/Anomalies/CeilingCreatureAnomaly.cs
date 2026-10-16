@@ -63,6 +63,8 @@ namespace Zero.AnomalyPrototype.Anomalies
         private Vector3 normalLocalPosition;
         private Quaternion normalLocalRotation;
         private bool normalActiveSelf;
+        private Renderer arrowRenderer;
+        private Renderer creatureRenderer;
 
         public string CurrentState => state.ToString();
         public float CreatureLookTime => creatureLookTimer;
@@ -73,6 +75,9 @@ namespace Zero.AnomalyPrototype.Anomalies
             player = playerTransform;
             playerCamera = camera;
             arrowController = controller;
+            arrowRenderer = controller != null && controller.ArrowTransform != null
+                ? controller.ArrowTransform.GetComponentInChildren<Renderer>()
+                : null;
         }
 
         public void BindFloorContext(StairLoopManager manager, FloorSegment segment)
@@ -199,6 +204,8 @@ namespace Zero.AnomalyPrototype.Anomalies
         protected override void OnActivate()
         {
             ResolveReferences();
+            arrowRenderer = arrowController != null && arrowController.ArrowTransform != null
+                ? arrowController.ArrowTransform.GetComponentInChildren<Renderer>() : null;
             StopCeilingRoutine();
             StopLandingRoutine();
             DisableAgent();
@@ -282,6 +289,7 @@ namespace Zero.AnomalyPrototype.Anomalies
         {
             DisableAgent();
             SetCreatureActive(true);
+            creatureRenderer = creature.GetComponentInChildren<Renderer>();
             creature.SetPositionAndRotation(ambushSpawnPoint.position, ambushSpawnPoint.rotation);
 
             animator.enabled = true;
@@ -444,45 +452,15 @@ namespace Zero.AnomalyPrototype.Anomalies
                 return false;
             }
 
-            return IsTargetVisible(arrowController.ArrowTransform);
+            return AnomalyGazeVisibility.IsVisible(playerCamera, arrowController.ArrowTransform,
+                arrowRenderer, arrowObstructionMask, arrowTargetClearance);
         }
 
         private bool IsCreatureVisible()
         {
-            return creature != null && creature.gameObject.activeInHierarchy && IsTargetVisible(creature);
-        }
-
-        private bool IsTargetVisible(Transform target)
-        {
-            if (playerCamera == null || target == null)
-            {
-                return false;
-            }
-
-            Renderer renderer = target.GetComponentInChildren<Renderer>();
-            Vector3 targetPoint = renderer != null ? renderer.bounds.center : target.position;
-            Vector3 viewport = playerCamera.WorldToViewportPoint(targetPoint);
-            if (viewport.z <= 0f || viewport.x < 0f || viewport.x > 1f || viewport.y < 0f || viewport.y > 1f)
-            {
-                return false;
-            }
-
-            Vector3 origin = playerCamera.transform.position;
-            Vector3 direction = targetPoint - origin;
-            float distance = direction.magnitude;
-            float rayDistance = Mathf.Max(0f, distance - arrowTargetClearance);
-            if (distance <= Mathf.Epsilon || rayDistance <= Mathf.Epsilon || !Physics.Raycast(
-                    origin,
-                    direction / distance,
-                    out RaycastHit hit,
-                    rayDistance,
-                    arrowObstructionMask,
-                    QueryTriggerInteraction.Ignore))
-            {
-                return true;
-            }
-
-            return hit.transform == target || hit.transform.IsChildOf(target);
+            return creature != null && creature.gameObject.activeInHierarchy &&
+                   AnomalyGazeVisibility.IsVisible(playerCamera, creature, creatureRenderer,
+                       arrowObstructionMask, arrowTargetClearance);
         }
 
         private Quaternion ResolveCeilingPathRotation(Transform pathPoint, Vector3 pathDirection)
