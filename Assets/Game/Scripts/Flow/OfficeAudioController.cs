@@ -128,7 +128,7 @@ namespace Zero.AnomalyPrototype.Flow
             return MakeClip("Office Keyboard", samples);
         }
 
-        private static AudioClip CreateChairScrape()
+        public static AudioClip CreateChairScrape()
         {
             const float duration = 0.72f;
             int count = Mathf.CeilToInt(duration * SampleRate);

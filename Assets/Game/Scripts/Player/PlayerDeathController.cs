@@ -254,7 +254,7 @@ namespace Zero.AnomalyPrototype.Player
                 // =========================================================
                 duration = customFreezeDuration >= 0f
                     ? customFreezeDuration
-                    : (presentation != null && presentation.FreezeDuration > 0f ? presentation.FreezeDuration : defaultFreezeDuration);
+                    : (presentation != null ? presentation.FreezeDuration : defaultFreezeDuration);
                 duration = Mathf.Max(0f, duration);
 
                 // Giữ nguyên Player bất động trong vài giây, không rung lắc, không zoom FOV, không máu

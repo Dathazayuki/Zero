@@ -316,7 +316,8 @@ năng lượng trên cùng map, mở khóa cửa đích rồi đi qua cửa.
   1,5 giây trước mỗi lần bắt đầu/nạp tiếp; thời gian này không tính vào 15 giây nạp.
   Xoay camera nhìn quanh không làm gián đoạn.
 
-- Một Watcher trên cao xoay vùng nhìn và spotlight; thấy liên tục 1,5 giây thì báo vị trí
+- Mảng Watcher trên cao cho phép thêm số lượng tùy ý (demo hiện có hai con). Mỗi con đi ngang
+  giữa hai mốc trên bục; rig `mixamorig:Neck` quét riêng và spotlight đi theo đầu. Thấy liên tục 1,5 giây thì báo vị trí
   cho Patrol gần nhất theo đường đi NavMesh. Khi mất LOS, ngừng cập nhật vị trí.
 - Hai Patrol chạy `Patrolling → Chasing → Investigating → Searching → Patrolling`.
   Thấy Player thì đuổi; mất dấu thì tới vị trí cuối, tìm quanh tám giây rồi về tuyến.
@@ -341,7 +342,7 @@ cửa khóa khi còn thiếu ô, reset cả bốn ô khi chết, callback trùng
 Demo đã gán bốn ô, thanh nạp và khóa cửa qua `WatchfulHallSession` trên `WH_Objectives`.
 Chỉnh `Charge Seconds` (15), `Settle Seconds` (1,5) tại component này. `ResetAttempt()`
 xóa toàn bộ tiến trình và đóng cửa. AI/capture đã nối qua `WatchfulHallThreatDirector`:
-một Watcher báo cho Patrol gần nhất, hai Patrol tuần tra/chase/search; tủ chỉ an toàn từ xa.
+các Watcher báo riêng cho Patrol gần nhất, hai Patrol tuần tra/chase/search; tủ chỉ an toàn từ xa.
 Chưa có networking, chưa bật `Content Ready`.
 Xem setup chi tiết trong `WATCHFUL_HALL_DEMO.md`.
 

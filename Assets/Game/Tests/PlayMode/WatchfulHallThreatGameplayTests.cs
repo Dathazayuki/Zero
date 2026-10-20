@@ -32,10 +32,14 @@ namespace Zero.Tests.PlayMode
             yield return null;
             session = Object.FindFirstObjectByType<WatchfulHallSession>();
             director = Object.FindFirstObjectByType<WatchfulHallThreatDirector>();
-            watcher = Object.FindFirstObjectByType<WatchfulHallWatcher>();
-            player = Object.FindFirstObjectByType<FirstPersonController>();
             Assert.IsNotNull(director, "Save the configured Watchful Hall scene before testing.");
+            watcher = new SerializedObject(director).FindProperty("watchers").GetArrayElementAtIndex(0)
+                .objectReferenceValue as WatchfulHallWatcher;
+            WatchfulHallWatcher[] watchers = Object.FindObjectsByType<WatchfulHallWatcher>(FindObjectsSortMode.None);
+            player = Object.FindFirstObjectByType<FirstPersonController>();
             Assert.IsTrue(director.IsReady, "Bake navigation and bind both patrols.");
+            Assert.AreEqual(new SerializedObject(director).FindProperty("watchers").arraySize, watchers.Length);
+            for (int i = 0; i < watchers.Length; i++) watchers[i].enabled = false;
             patrols = director.GetComponentsInChildren<WatchfulHallPatrol>();
             Assert.AreEqual(2, patrols.Length);
             Assert.AreEqual(39, director.Hiding.Count);
@@ -90,12 +94,14 @@ namespace Zero.Tests.PlayMode
             Hide();
             Vector3 reported = new Vector3(-19f, 0.01f, -34f);
             int nearest = patrols[0].PathDistance(reported) < patrols[1].PathDistance(reported) ? 0 : 1;
-            director.ReportWatcher(reported, true);
+            WatchfulHallPatrol assigned = director.ReportWatcher(reported, null);
             Assert.AreEqual(patrols[nearest], director.Responder);
             Assert.AreEqual(WatchfulHallPursuitRules.Phase.Investigating, patrols[nearest].State);
             Assert.AreEqual(WatchfulHallPursuitRules.Phase.Patrolling, patrols[1 - nearest].State);
+            WatchfulHallPatrol other = director.ReportWatcher(patrols[1 - nearest].transform.position, null);
+            Assert.AreEqual(patrols[1 - nearest], other);
             Vector3 updated = reported + Vector3.forward * 2f;
-            director.ReportWatcher(updated, false);
+            director.ReportWatcher(updated, assigned);
             Assert.AreEqual(updated, patrols[nearest].LastKnownPosition);
             Assert.AreEqual(patrols[nearest], director.Responder);
             yield return new WaitForSeconds(0.5f);
@@ -106,10 +112,11 @@ namespace Zero.Tests.PlayMode
         public IEnumerator WatcherMustActuallySeePlayerForDetectionDelay()
         {
             player.Teleport(new Vector3(-5f, 0.03f, -14f), Quaternion.identity);
-            Transform eye = watcher.transform.Find("WH_WatcherEye");
-            watcher.transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(player.transform.position - eye.position, Vector3.up));
+            Transform eye = WatcherEye(watcher);
+            AimWatcherAtPlayer(watcher, eye);
             Physics.SyncTransforms();
-            Assert.IsTrue(director.CanSee(eye.position, eye.forward, 65f, 100f), "Watcher sightline to the central lane must be clear.");
+            Assert.IsTrue(director.ClearLine(eye.position, player.transform.position + Vector3.up * 0.05f,
+                player.transform), "Watcher light must reach the Player's feet.");
             watcher.enabled = true;
             yield return new WaitForSeconds(0.7f);
             Assert.IsFalse(watcher.IsAlerted);
@@ -124,6 +131,61 @@ namespace Zero.Tests.PlayMode
             Assert.IsFalse(watcher.IsAlerted);
             Assert.AreEqual(lastSeen, responder.LastKnownPosition);
         }
+
+        [UnityTest]
+        public IEnumerator LeavingSpotlightClearsWatcherAndStopsUpdatingLastSeen()
+        {
+            player.Teleport(new Vector3(-5f, 0.03f, -14f), Quaternion.identity);
+            Transform eye = WatcherEye(watcher);
+            Light light = eye.GetComponent<Light>();
+            AimWatcherAtPlayer(watcher, eye);
+            Physics.SyncTransforms();
+            watcher.enabled = true;
+            yield return new WaitForSeconds(1.7f);
+            Assert.IsTrue(watcher.IsAlerted);
+            WatchfulHallPatrol responder = director.Responder;
+            Vector3 lastSeen = responder.LastKnownPosition;
+            // Same horizontal bearing, but the beam now points above the Player.
+            eye.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(eye.forward, Vector3.up))
+                * Quaternion.Euler(-60f, 0f, 0f);
+            Assert.IsTrue(director.CanSee(eye.position, eye.forward, 65f, 100f));
+            yield return new WaitForSeconds(0.5f);
+            Assert.IsFalse(watcher.IsAlerted);
+            Assert.AreEqual(lastSeen, responder.LastKnownPosition);
+            light.enabled = false;
+            eye.LookAt(player.transform.position);
+            yield return new WaitForSeconds(1.7f);
+            Assert.IsFalse(watcher.IsAlerted, "An unlit spotlight cannot reveal the Player.");
+        }
+
+        [UnityTest]
+        public IEnumerator AdditionalWatcherDetectsPlayerAndAlertsNearestPatrol()
+        {
+            WatchfulHallWatcher additional = new SerializedObject(director)
+                .FindProperty("watchers").GetArrayElementAtIndex(1).objectReferenceValue as WatchfulHallWatcher;
+            Assert.IsNotNull(additional);
+            player.Teleport(new Vector3(-5f, 0.03f, -14f), Quaternion.identity);
+            Transform eye = WatcherEye(additional);
+            AimWatcherAtPlayer(additional, eye);
+            Physics.SyncTransforms();
+            additional.enabled = true;
+            yield return new WaitForSeconds(1.7f);
+            Assert.IsTrue(additional.IsAlerted);
+            Assert.IsNotNull(director.Responder);
+        }
+
+        private void AimWatcherAtPlayer(WatchfulHallWatcher targetWatcher, Transform eye)
+        {
+            var settings = new SerializedObject(targetWatcher);
+            settings.FindProperty("scanDegreesPerSecond").floatValue = 0f;
+            settings.FindProperty("patrolSpeed").floatValue = 0f;
+            settings.ApplyModifiedPropertiesWithoutUndo();
+            targetWatcher.GetComponent<Animator>().enabled = false;
+            eye.LookAt(player.transform.position + Vector3.up * 0.05f);
+        }
+
+        private static Transform WatcherEye(WatchfulHallWatcher targetWatcher) =>
+            new SerializedObject(targetWatcher).FindProperty("eye").objectReferenceValue as Transform;
 
         [UnityTest]
         public IEnumerator DirectSightChasesThenSearchesLastPositionAndReturns()
@@ -172,7 +234,7 @@ namespace Zero.Tests.PlayMode
         public IEnumerator InvalidAIReferencesReportErrorButDoNotSoftLockChargePads()
         {
             var serialized = new SerializedObject(director);
-            serialized.FindProperty("watcher").objectReferenceValue = null;
+            serialized.FindProperty("watchers").GetArrayElementAtIndex(0).objectReferenceValue = null;
             serialized.ApplyModifiedPropertiesWithoutUndo();
             LogAssert.Expect(LogType.Error, "WATCHFUL_HALL_CONFIGURATION_INVALID: missing threat references");
             Assert.IsFalse(director.Bind(session, player));

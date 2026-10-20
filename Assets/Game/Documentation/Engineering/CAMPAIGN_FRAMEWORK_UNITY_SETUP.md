@@ -91,11 +91,13 @@ nearby accessible cover and a readable route onward. Allow useful charging windo
 the 1.5-second settle, with time to retreat; partial progress allows multiple visits.
 Use authored sightline protection or readable look-away windows, not unavoidable detection.
 
-- Use one elevated Watcher and two ground Patrols. The Watcher rotates its scan sector;
-  solid walls and cover block line of sight. After 1.5 seconds of continuous sight it
+- Use an authored array of elevated Watchers (two initially in the demo) and two ground
+  Patrols. Each Watcher walks between two clear points on its gallery. Its `mixamorig:Neck`
+  scans independently of body turning at route endpoints; the eye spotlight follows the head.
+  Solid walls and cover block line of sight. After 1.5 seconds of continuous sight it
   reports the last-seen position to the closest reachable Patrol by NavMesh path distance.
-  Further reports update that same responder while sight is maintained; losing sight ends
-  updates. The other Patrol continues its own work, unless it independently sees a Player.
+  Each Watcher's further reports update its own responder while sight is maintained; losing sight ends
+  updates. Patrols without an alert continue their own work unless they independently see a Player.
 - Patrols follow authored routes, chase visible Players, investigate the last-seen position
   after losing sight, search nearby for eight seconds, then resume their routes. A radio
   report does not grant wall-penetrating vision or override a Patrol's direct visual chase.

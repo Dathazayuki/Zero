@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallManCreepy
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: afdc80c4443956f4a8eaa4be439d0e3f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c8947a2abeac2794d864e71fa43e13ce, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -5117700066308340382, guid: afdc80c4443956f4a8eaa4be439d0e3f, type: 3}

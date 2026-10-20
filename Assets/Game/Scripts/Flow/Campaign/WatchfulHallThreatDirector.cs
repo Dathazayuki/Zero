@@ -7,7 +7,7 @@ namespace Zero.AnomalyPrototype.Flow
     public sealed class WatchfulHallThreatDirector : MonoBehaviour
     {
         [SerializeField] private WatchfulHallPatrol[] patrols;
-        [SerializeField] private WatchfulHallWatcher watcher;
+        [SerializeField] private WatchfulHallWatcher[] watchers;
         [SerializeField] private WatchfulHallHidingSpots hiding;
         [SerializeField] private Transform entrance;
         [SerializeField] private SceneFadeController fade;
@@ -43,7 +43,7 @@ namespace Zero.AnomalyPrototype.Flow
                 Debug.LogError("WATCHFUL_HALL_CONFIGURATION_INVALID: missing threat references", this);
                 return false;
             }
-            watcher.Bind(this);
+            for (int i = 0; i < watchers.Length; i++) watchers[i].Bind(this);
             for (int i = 0; i < patrols.Length; i++)
                 if (patrols[i] == null || !patrols[i].Bind(this)) IsReady = false;
             fade.SetImmediate(0f);
@@ -51,8 +51,20 @@ namespace Zero.AnomalyPrototype.Flow
             return IsReady;
         }
 
-        private bool ReferencesReady() => patrols != null && patrols.Length == 2 && watcher != null
-            && watcher.IsConfigured && hiding != null && entrance != null && fade != null && Player != null;
+        private bool ReferencesReady() => patrols != null && patrols.Length == 2 && WatchersReady()
+            && hiding != null && entrance != null && fade != null && Player != null;
+
+        private bool WatchersReady()
+        {
+            if (watchers == null || watchers.Length == 0) return false;
+            for (int i = 0; i < watchers.Length; i++)
+            {
+                if (watchers[i] == null || !watchers[i].IsConfigured) return false;
+                for (int j = 0; j < i; j++)
+                    if (watchers[j] == watchers[i]) return false;
+            }
+            return true;
+        }
 
         public bool CanSee(Vector3 origin, Vector3 forward, float range, float angle)
         {
@@ -74,11 +86,14 @@ namespace Zero.AnomalyPrototype.Flow
             return targetRoot != null && hit.transform.IsChildOf(targetRoot);
         }
 
-        public void ReportWatcher(Vector3 lastSeen, bool newAlarm)
+        public WatchfulHallPatrol ReportWatcher(Vector3 lastSeen, WatchfulHallPatrol assigned)
         {
-            if (!IsPlaying) return;
-            if (newAlarm || responder == null || !responder.isActiveAndEnabled) responder = NearestPatrol(lastSeen);
-            if (responder != null) responder.ReceiveReport(lastSeen);
+            if (!IsPlaying) return null;
+            bool canKeep = assigned != null && assigned.isActiveAndEnabled
+                && !float.IsInfinity(assigned.PathDistance(lastSeen));
+            responder = canKeep ? assigned : NearestPatrol(lastSeen);
+            if (responder != null && !responder.ReceiveReport(lastSeen)) responder = null;
+            return responder;
         }
 
         private WatchfulHallPatrol NearestPatrol(Vector3 point)
@@ -161,7 +176,7 @@ namespace Zero.AnomalyPrototype.Flow
             ReleaseInput();
             if (!IsReady) return;
             responder = null;
-            watcher.ResetWatcher();
+            for (int i = 0; i < watchers.Length; i++) watchers[i].ResetWatcher();
             for (int i = 0; i < patrols.Length; i++) patrols[i].ResetPatrol();
             fade.SetImmediate(0f);
             if (!isActiveAndEnabled) StopActors();
@@ -169,7 +184,9 @@ namespace Zero.AnomalyPrototype.Flow
 
         public void StopActors()
         {
-            if (watcher != null) watcher.ClearNotice();
+            if (watchers != null)
+                for (int i = 0; i < watchers.Length; i++)
+                    if (watchers[i] != null) watchers[i].StopWatcher();
             if (patrols == null) return;
             for (int i = 0; i < patrols.Length; i++)
                 if (patrols[i] != null) patrols[i].StopPatrol();

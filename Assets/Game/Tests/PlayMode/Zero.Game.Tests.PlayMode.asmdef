@@ -3,7 +3,8 @@
   "rootNamespace": "Zero.Tests.PlayMode",
   "references": [
     "Zero.Game.Runtime",
-    "Unity.TextMeshPro"
+    "Unity.TextMeshPro",
+    "Unity.InputSystem"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

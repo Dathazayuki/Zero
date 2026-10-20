@@ -1,5 +1,40 @@
 # Infinity Room3 — The Records Room Demo
 
+## Preview anomaly Records Room
+
+Trong Play Mode, nhấn **F3** để chọn lần lượt IR3-01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18 rồi quay vòng; nhấn **F2** để trả phòng về bình thường. Sau F2, F3 bắt đầu lại từ IR3-01. Overlay ở góc màn hình hiển thị ID đang chọn.
+
+| ID | Dấu hiệu | Vị trí |
+|---|---|---|
+| IR3-01 | Hai mã A-12 và A-13 đổi chỗ; nhãn còn lại giữ nguyên. | Hai ngăn trên của `IR3_Cabinet1`, dãy tủ phía Tây gần bàn. |
+| IR3-02 | Một cây bút xoay 180° tại chỗ trên mặt bàn. | `IR3_DetailFolder_Desk/Pen/Pen`. |
+| IR3-03 | Năm tập hồ sơ bật vật lý rồi đổ khỏi kệ, va chạm và rơi tự nhiên xuống sàn. | `IR3_File_A_L3_S0_B0..4`, tầng trên kệ A; mỗi tập có BoxCollider và Rigidbody. |
+| IR3-04 | Ngăn trên hé ra 2,5 cm, tay nắm và nhãn đi cùng. | `IR3_Cabinet1_Drawer3`. |
+| IR3-05 | Góc giấy gấp từ trên phải đổi sang trên trái; chữ không đổi. | `IR3_Notice_0` trên bảng thông báo cuối phòng. |
+| IR3-06 | Ba chồng giấy hiện chữ máu R/U/N. | Bàn cuối phòng, `Tailieu (1..3)`. |
+| IR3-07 | Dấu bàn tay đen trên mặt ngăn kéo. | Các tủ hồ sơ. |
+| IR3-08 | Máy in liên tục nhả giấy xuống sàn. | Máy in gần bàn làm việc. |
+| IR3-09 | Gáy hồ sơ có mặt cười bằng máu từ `Art/InfinityRoom3/Smile.png`. | Hai kệ hồ sơ giữa phòng; nhóm `IR3_09_ClosedDossiers/BloodSmiles`. |
+| IR3-10 | Mặt người nhìn theo, tới gần sẽ rút vào khe hồ sơ. | Tầng trên kệ A, hàng `L3_S2`. |
+| IR3-11 | Ảnh thẻ từ trống thành mắt nhắm, rồi mở mắt sau hai lần quay đi và nhìn lại. | Hồ sơ nhân viên phía trên bên phải bảng cuối phòng. |
+| IR3-12 | Hộp hồ sơ rung như có người bên trong. | Hộp trên Cabinet3. |
+| IR3-13 | Chín ngăn kéo rải lệch hàng trên tám tủ mở lần lượt khi tới gần, chứa các bộ phận nhân viên lưu trữ, không có đầu. | Đủ tám prefab `IR3_Cabinet1 (8)`–`(15)`, dãy bên phải; tủ `(11)` có hai ngăn. |
+| IR3-14 | Đèn bàn chập chờn với nhịp không đều suốt anomaly. | `IR3_Lighting/IR3_DeskLampLight`; cấu hình tại `IR3_14_DeskLampFlicker`. |
+| IR3-15 | Hộp rơi, đầu mọc sáu chân; nhìn tới khi mọc xong sẽ bị vồ và gây chết. | Hộp trên Cabinet4. |
+| IR3-16 | Vòng tròn pentagram bằng máu trên trần, dùng `Art/InfinityRoom3/SatanCircle.png`. | Trần cuối phòng; `IR3_16_CeilingPentagram/SatanCircle`. |
+| IR3-17 | Tủ `(8)` rung; tới gần sẽ kích hoạt tủ `(5)` lao ngang để nghiền Player, camera xoay mượt theo hướng lao. Né ra khỏi đường lao để sống. | Hai tủ đối diện nhau ở cuối phòng; `IR3_17_CabinetCrush`. |
+| IR3-18 | Các phần cơ thể kèm nhãn rơi rải trên sàn, lết về vòng tròn quỷ, ráp thành người không đầu rồi bò đuổi; tới gần sẽ Attack và gây chết. | Vòng tròn tại `(0; 0,014; 3,5)`, nhóm `IR3_18_BodyAssembly`; Animator `RecordRoomWoman`. |
+
+Các entry được nhóm trong `IR3_Anomalies`, dùng lại `LivingRoomArrangementAnomaly` và `LivingRoomAnomalyPreview` của IR2. Mười tám cấu hình `AnomalyData` nằm trong `ScriptableObjects/Anomalies/InfinityRoom3`; chỉ IR3-15/17/18 gây chết. Menu `Tools > Zero > Records Room > Update Anomalies 03 09 14 16` cập nhật bốn mục theo kế hoạch mới; `Add Encounters 17 18` nối hai encounter cuối và bake NavMesh. Scene được lưu thủ công. Các tên node cũ IR3-03/09 được giữ để bảo toàn tham chiếu.
+
+IR3-03 chỉ bật Rigidbody và trọng lực; không cộng vận tốc ngang, hất lên hoặc lực xoay. Unity Physics tự mô phỏng chuyển động và va chạm. Hồ sơ nằm vững trên mặt kệ sẽ được kệ đỡ; cần đặt chênh mép/mất cân bằng nếu muốn nó tự đổ bằng trọng lực. F2/reset/disable dừng chuyển động, trả pose trên kệ và trạng thái kinematic ban đầu. Menu migration riêng: `Tools > Zero > Records Room > Use Physics For Falling Files 03`; nó gán Rigidbody/collider, bỏ marker Landing và cấu hình lực/quỹ đạo cũ khi scene được lưu lại. IR3-14 có `Lit Seconds`, `Dark Seconds` và `Seed` để điều chỉnh nhịp sáng/tắt. Hai ảnh nguồn không bị sửa: material dùng chung đọc texture mask riêng chỉ giữ nét đỏ, loại nền đen/ô caro.
+
+IR3-17: `Trigger Distance` 1,9 m tính từ bounds tủ `(8)` trên mặt sàn, cảnh báo 0,9 giây, lao trong 0,55 giây. Tủ di chuyển cùng collider; vùng quét kiểm tra Player giữa hai bước vật lý. Khi va trúng Player, màn hình đen ngay trong cùng bước vật lý (`Freeze Duration = 0`). Đây là tùy chọn chung: anomaly có `Style2_FreezeBlackout` và gọi `TryBeginDeath` cũng có thể đặt `Freeze Duration = 0` để dùng cùng kiểu chết. Camera chỉ hướng về tủ `(5)` trong cú lao/cảnh bắt; reset khôi phục cả hai tủ và nhả camera.
+
+IR3-18: rơi 1,5 giây → lết về vòng tròn 9 giây → ghép 3 giây → chase không giới hạn thời gian. Dùng chín mesh/material gốc IR3-13 và thêm phần hông tách từ cùng model để nối kín thân, giữ nguyên asset/ngăn kéo IR3-13. Nhãn gắn theo bone trên bản sao rigged. `ArchiveAssemblyPresentation/Chase Speed` mặc định 3,8 m/s; model phát `Running Crawl` khi đuổi, `Attack` khi bắt trong 0,85 m và không có vật cản. NavMesh chỉ thu geometry trong room; dữ liệu tại `IR3_18_Navigation.asset`. F2/disable dọn agent, vòng tròn, các phần cơ thể và pose; không có vùng an toàn hay timeout trong phòng. Khi đưa vào campaign, reset/deactivate room lúc chuyển tầng sẽ kết thúc truy đuổi; bản demo độc lập hiện chưa có tuyến chuyển tầng hoạt động.
+
+Kiểm thử tích hợp: `RecordsRoomAnomalyPreviewTests` bao phủ danh sách 18 anomaly, phím F2/F3, quay vòng và khôi phục/disable. `RecordsRoomDossierPresentationTests` bao phủ reset cụm hồ sơ/khuôn mặt và collider Player khi nhìn ảnh. `ArchiveDrawerSequenceTests` kiểm tra khoảng cách, nhịp mở và reset chuỗi ngăn kéo. `ArchiveFallingFilesAnomalyTests` và `DeskLampFlickerAnomalyTests` kiểm tra reset/disable trong lúc đang rơi hoặc nhấp nháy. `ArchiveCabinetCrushRulesTests`/`ArchiveAssemblyRulesTests` kiểm tra pha cảnh báo, một lần lao, ghép trước chase và chase không timeout; các test lifecycle cùng tên anomaly kiểm tra reset. Scene phải được lưu thủ công trước khi chạy test.
+
 Bản scene demo độc lập theo concept Phòng Hồ Sơ của campaign Zero. Geometry được dựng qua UnitySkills REST, có dry-run và Undo; không dùng Scene Builder hoặc thêm script tự dựng scene.
 
 > **Trạng thái khôi phục sau crash (03-10-2026):** Đã dựng lại bố cục theo ảnh tham chiếu trong Unity Editor và chụp preview. File scene trên đĩa hiện có 16 tủ, 80 hồ sơ và các cụm cây; một số chi tiết cuối (bao gồm vent trần) chưa thấy trong bản lưu. Hãy kiểm tra scene đang mở và nhấn `Ctrl+S` để lưu bản khôi phục mới nhất. Không dùng script rebuild để phục hồi.

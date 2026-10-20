@@ -5,25 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Game/Scenes/TitleScene.unity
     guid: a6d3cbc40131fd04685b0cd358c10d77
-  - enabled: 1
+  - enabled: 0
     path: Assets/Game/Scenes/OfficeLoopScene.unity
     guid: 815295adedf231e448a5a372c4195cad
-  - enabled: 1
+  - enabled: 0
     path: Assets/Game/Scenes/InfiniteStairwayScene.unity
     guid: b6e4c358e72f68e4e8878fde7e96b8fb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Game/Scenes/BackRoomScene.unity
     guid: 76ea19cfc7b9c464da510189b08a893d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Game/Scenes/Campaign/Minigame1_Backroom.unity
     guid: ac613d7422065c047a8c7d861b0f304f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Game/Scenes/Campaign/Minigame2_Rooms.unity
     guid: fb3832b580122f249ab134728e098fe0
   - enabled: 1

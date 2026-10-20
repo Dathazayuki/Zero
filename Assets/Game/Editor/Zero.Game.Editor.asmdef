@@ -4,7 +4,9 @@
   "references": [
     "Zero.Game.Runtime",
     "Unity.AI.Navigation",
-    "Unity.Cinemachine"
+    "Unity.Cinemachine",
+    "Unity.TextMeshPro",
+    "Unity.ugui"
   ],
   "includePlatforms": [
     "Editor"

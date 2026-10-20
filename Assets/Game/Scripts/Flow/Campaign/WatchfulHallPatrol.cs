@@ -118,19 +118,22 @@ namespace Zero.AnomalyPrototype.Flow
                 && director.ClearLine(EyePosition, playerPosition + Vector3.up, director.Player.transform);
         }
 
-        private void Move()
+        private bool Move()
         {
             nextPath = Time.time + 0.2f;
             bool running = State == WatchfulHallPursuitRules.Phase.Chasing || State == WatchfulHallPursuitRules.Phase.Investigating;
             agent.isStopped = false;
             agent.speed = running ? chaseSpeed : patrolSpeed;
             Vector3 destination = Destination();
-            if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 2f, agent.areaMask)) agent.SetDestination(hit.position);
+            bool accepted = NavMesh.SamplePosition(destination, out NavMeshHit hit, 2f, agent.areaMask)
+                && agent.SetDestination(hit.position);
+            if (!accepted) agent.ResetPath();
             int nextAnimation = running ? Run : Walk;
-            if (animationState == nextAnimation) return;
+            if (animationState == nextAnimation) return accepted;
             animationState = nextAnimation;
             animator.speed = 1f;
             animator.CrossFade(nextAnimation, 0.15f);
+            return accepted;
         }
 
         private Vector3 Destination()
@@ -146,11 +149,11 @@ namespace Zero.AnomalyPrototype.Flow
             return rules.LastKnownPosition + new Vector3(Mathf.Sin(angle), 0f, Mathf.Cos(angle)) * 2.5f;
         }
 
-        public void ReceiveReport(Vector3 position)
+        public bool ReceiveReport(Vector3 position)
         {
-            if (!IsReady) return;
-            rules.Report(position);
-            nextPath = 0f;
+            if (!IsReady || !isActiveAndEnabled || !agent.enabled || !agent.isOnNavMesh) return false;
+            rules.Report(position, visible);
+            return Move();
         }
 
         public float PathDistance(Vector3 position)

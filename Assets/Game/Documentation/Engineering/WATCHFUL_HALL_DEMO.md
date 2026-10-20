@@ -7,7 +7,7 @@ Nhấn Play để đi kiểm tra bằng WASD, chuột nhìn và Shift chạy.
 Scene dùng lại `FirstPersonController`, không cần mở campaign.
 
 Demo đã có bốn ô nạp và khóa cửa đích, cùng sự kiện completion khi đi qua cửa đã mở.
-Đã có một Watcher trên cao, hai Patrol dưới đất, phát hiện/capture trong tủ ở cự ly gần
+Đã có hai Watcher trên cao qua mảng tùy chỉnh số lượng, hai Patrol dưới đất, phát hiện/capture trong tủ ở cự ly gần
 và reset về entrance. Chưa nối campaign, multiplayer hoặc save checkpoint giữa lượt.
 Không đánh dấu Minigame4 ready và
 không thêm vào Build Settings. Tủ mở cố định để kiểm tra kích thước/lối vào;
@@ -45,9 +45,8 @@ sau 1,5 giây ổn định và có đường rút về cover; không cần 15 gi
   vị trí dọc sảnh, lan can và dầm đỡ.
 - `WH_Column` chính tăng từ 14 lên 28. Tính cả cột trong mười nhịp
   `WH_ExtensionBay`, tổng cột tăng từ 34 lên 68, bố trí ở X=±8 và ±22.
-- Quái vật dùng ba model TallManCreepy có sẵn: Watcher giữ scale 2.7 ở gallery giữa;
-  hai instance gallery đầu/cuối chuyển xuống `WH_Threats/WH_PatrolLeft/Right`,
-  visual scale 1 (cao khoảng 2.2 m), không sửa prefab model gốc.
+- Watcher giữ scale 2.7 trên gallery; Patrol dưới đất nằm trong
+  `WH_Threats/WH_PatrolLeft/Right`, visual scale 1 (cao khoảng 2.2 m).
 - Camera/Player chỉ dành cho demo. Khi tích hợp additive phải bỏ Player demo
   và bind Player thật qua bootstrap của campaign.
 
@@ -112,13 +111,21 @@ Các thay đổi scene được dựng qua UnitySkills và cần người dùng 
 - `WatchfulHallChargeRules` là chủ sở hữu tiến trình; session đọc vị trí/grounded và cập nhật
   thanh nạp/đèn/khóa. Chưa nối campaign hoặc đổi `Minigame4.asset` sang ready.
 
-### Watcher và hai Patrol
+### Mảng Watcher và hai Patrol
 
-- `WH_Threats > WatchfulHallThreatDirector`: nối hai Patrol, Watcher, 39 tủ,
+- `WH_Threats > WatchfulHallThreatDirector > Watchers`: đổi Size và kéo thả mỗi Watcher một lần;
+  không giới hạn một/hai con, không được để phần tử rỗng hoặc trùng reference. Director còn nối hai Patrol, 39 tủ,
   entrance và fade. Session gọi bind/reset; không tìm Player ngầm trong scene.
-- Watcher ở `WH_UpperGallery/TallManCreepy_WH_GiantWatcher`: chỉnh `View Distance` (65 m),
-  `View Angle` (100°), `Detection Seconds` (1.5), `Scan Degrees Per Second` (15).
-  `WH_WatcherEye` là mắt nhìn và spotlight; đèn dần đỏ khi thấy Player.
+- Mỗi `WatchfulHallWatcher`: gán `Neck Bone` vào `mixamorig:Neck`, `Animator` vào Animator
+  của model, `Patrol Start/End` vào hai mốc `WH_WatcherRoute/Start/End` dưới gallery tương ứng.
+  Hai tuyến hiện nằm giữa cột, X từ -5 tới +5 m. Thân chỉ đổi hướng khi tới cuối tuyến;
+  cổ quét ±75°, tốc độ 15°/s, không xoay liên tục toàn model.
+  `Patrol Speed` (2.4 m/s), `Turn Degrees Per Second` (120), `Walk Animation Speed` (0.45)
+  có thể chỉnh riêng từng con. Root motion tắt, Animator dùng Always Animate.
+  Giữ `View Distance` (65 m), `View Angle` (100°), `Detection Seconds` (1.5).
+  `WH_WatcherEye` nằm dưới `mixamorig:Head`, đi theo cổ và đèn dần đỏ khi thấy Player.
+- Reference cũ `watcher`/`additionalWatcher` được chuyển tường minh sang `watchers` trong
+  scene demo bằng Editor; không có hook tự rebuild hoặc tự lưu scene khi compile.
 - Hai Patrol trong `WH_Threats`: chỉnh `Patrol Speed` (2.2), `Chase Speed` (5.6),
   `View Distance` (22 m), `View Angle` (110°), `Search Seconds` (8),
   `Cabinet Inspection Distance` (3 m), `Catch Distance` (1.15 m ngoài tủ).

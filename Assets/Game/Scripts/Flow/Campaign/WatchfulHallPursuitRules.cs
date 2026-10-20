@@ -17,15 +17,29 @@ namespace Zero.AnomalyPrototype.Flow
             this.searchSeconds = Math.Max(0.1f, searchSeconds);
         }
 
+        public static bool IsInsideViewCone(Vector3 origin, Vector3 forward, Vector3 target, float range, float angle)
+        {
+            Vector3 direction = target - origin;
+            return range > 0f && angle > 0f && direction.sqrMagnitude < range * range
+                && Vector3.Angle(forward, direction) < angle * 0.5f;
+        }
+
+        public static float WatcherScanYaw(float seconds, float halfAngle, float degreesPerSecond)
+        {
+            if (halfAngle <= 0f) return 0f;
+            return Mathf.PingPong(Mathf.Max(0f, seconds) * Mathf.Max(0f, degreesPerSecond) + halfAngle,
+                halfAngle * 2f) - halfAngle;
+        }
+
         public void Observe(Vector3 position)
         {
             LastKnownPosition = position;
             Transition(Phase.Chasing);
         }
 
-        public void Report(Vector3 position)
+        public void Report(Vector3 position, bool hasDirectSight = false)
         {
-            if (State == Phase.Chasing) return;
+            if (hasDirectSight) return;
             LastKnownPosition = position;
             Transition(Phase.Investigating);
         }

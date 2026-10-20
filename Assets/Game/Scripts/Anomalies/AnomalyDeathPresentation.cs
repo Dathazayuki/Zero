@@ -45,6 +45,7 @@ namespace Zero.AnomalyPrototype.Anomalies
         [SerializeField] private AudioClip cameraCutAudioClip;
 
         public float FreezeDuration => freezeDuration;
+        public void SetFreezeDuration(float seconds) => freezeDuration = Mathf.Max(0f, seconds);
         public AudioClip CameraCutAudioClip => cameraCutAudioClip;
 
         private void Awake()
@@ -59,6 +60,7 @@ namespace Zero.AnomalyPrototype.Anomalies
         [SerializeField] private AudioClip jumpscareAudioClip;
 
         public Transform FocusTarget => focusTarget;
+        public void SetFocusTarget(Transform target) => focusTarget = target;
         public Transform JumpscareCameraAnchor => jumpscareCameraAnchor;
         public AudioClip JumpscareAudioClip => jumpscareAudioClip;
         public bool HasCameraPose => jumpscareCameraAnchor != null;
