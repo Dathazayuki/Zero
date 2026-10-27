@@ -1,0 +1,177 @@
+{
+  "name": "human_figure_3d_model_1",
+  "bounds": [
+    [
+      -0.46774306893348694,
+      -0.11569209396839142,
+      2.8257048256818962e-08
+    ],
+    [
+      0.46774280071258545,
+      0.11569220572710037,
+      0.9787597060203552
+    ]
+  ],
+  "meshes": [
+    {
+      "name": "tripo_node_3ca90817",
+      "vertices": 11699,
+      "faces": 23430,
+      "groups": [
+        "mixamorig:Hips",
+        "mixamorig:LeftUpLeg",
+        "mixamorig:LeftLeg",
+        "mixamorig:LeftFoot",
+        "mixamorig:LeftToeBase",
+        "mixamorig:RightUpLeg",
+        "mixamorig:RightLeg",
+        "mixamorig:RightFoot",
+        "mixamorig:RightToeBase",
+        "mixamorig:Spine",
+        "mixamorig:Spine1",
+        "mixamorig:Spine2",
+        "mixamorig:LeftShoulder",
+        "mixamorig:LeftArm",
+        "mixamorig:LeftForeArm",
+        "mixamorig:LeftHand",
+        "mixamorig:LeftHandIndex1",
+        "mixamorig:LeftHandIndex2",
+        "mixamorig:LeftHandIndex3",
+        "mixamorig:LeftHandMiddle1",
+        "mixamorig:LeftHandMiddle2",
+        "mixamorig:LeftHandMiddle3",
+        "mixamorig:LeftHandPinky1",
+        "mixamorig:LeftHandPinky2",
+        "mixamorig:LeftHandPinky3",
+        "mixamorig:LeftHandRing1",
+        "mixamorig:LeftHandRing2",
+        "mixamorig:LeftHandRing3",
+        "mixamorig:LeftHandThumb1",
+        "mixamorig:LeftHandThumb2",
+        "mixamorig:LeftHandThumb3",
+        "mixamorig:Neck",
+        "mixamorig:Head",
+        "mixamorig:RightShoulder",
+        "mixamorig:RightArm",
+        "mixamorig:RightForeArm",
+        "mixamorig:RightHand",
+        "mixamorig:RightHandIndex1",
+        "mixamorig:RightHandIndex2",
+        "mixamorig:RightHandIndex3",
+        "mixamorig:RightHandMiddle1",
+        "mixamorig:RightHandMiddle2",
+        "mixamorig:RightHandMiddle3",
+        "mixamorig:RightHandPinky1",
+        "mixamorig:RightHandPinky2",
+        "mixamorig:RightHandPinky3",
+        "mixamorig:RightHandRing1",
+        "mixamorig:RightHandRing2",
+        "mixamorig:RightHandRing3",
+        "mixamorig:RightHandThumb1",
+        "mixamorig:RightHandThumb2",
+        "mixamorig:RightHandThumb3"
+      ]
+    }
+  ],
+  "bones": [
+    {
+      "name": "mixamorig:Hips",
+      "head": [
+        0.0019118038471788168,
+        -0.005735091865062714,
+        0.5295407176017761
+      ],
+      "tail": [
+        0.001911805709823966,
+        -0.005735089536756277,
+        0.5819337368011475
+      ]
+    },
+    {
+      "name": "mixamorig:LeftUpLeg",
+      "head": [
+        0.05543940141797066,
+        -0.005735097918659449,
+        0.5333640575408936
+      ],
+      "tail": [
+        0.05926281958818436,
+        0.0019116962794214487,
+        0.2924898862838745
+      ]
+    },
+    {
+      "name": "mixamorig:LeftLeg",
+      "head": [
+        0.059262797236442566,
+        0.0019116941839456558,
+        0.2924898862838745
+      ],
+      "tail": [
+        0.05926280841231346,
+        0.02867545187473297,
+        0.07455623149871826
+      ]
+    },
+    {
+      "name": "mixamorig:LeftFoot",
+      "head": [
+        0.05926280841231346,
+        0.02867545187473297,
+        0.07455623149871826
+      ],
+      "tail": [
+        0.05926278978586197,
+        -0.036322273313999176,
+        0.024852043017745018
+      ]
+    },
+    {
+      "name": "mixamorig:RightUpLeg",
+      "head": [
+        -0.05161578208208084,
+        -0.005735083483159542,
+        0.5333639979362488
+      ],
+      "tail": [
+        -0.05543913319706917,
+        0.001911695348098874,
+        0.2924901843070984
+      ]
+    },
+    {
+      "name": "mixamorig:RightLeg",
+      "head": [
+        -0.05543913319706917,
+        0.0019117022166028619,
+        0.2924901843070984
+      ],
+      "tail": [
+        -0.05543910712003708,
+        0.028675468638539314,
+        0.07455657422542572
+      ]
+    },
+    {
+      "name": "mixamorig:RightFoot",
+      "head": [
+        -0.05543910712003708,
+        0.028675468638539314,
+        0.07455657422542572
+      ],
+      "tail": [
+        -0.05543908849358559,
+        -0.036322277039289474,
+        0.024852411821484566
+      ]
+    }
+  ],
+  "repair": {
+    "removed_bridge_faces": 118,
+    "caps": 4,
+    "cut_below_z": 0.33164057141763065,
+    "remaining_faces": 23316,
+    "uv_layers": 1,
+    "corrected_opposite_leg_weights": 1561
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "folder": "20261020_235916_ir4-butcher-heavychop_01a15a40",
+      "prompt": "IR4_Butcher_HeavyChop",
+      "task_type": "text-to-motion",
+      "root_task_id": "01a15a40-65e9-7748-b433-2e41234b2ca6",
+      "created_at": "2026-10-20T16:59:16.080Z",
+      "updated_at": "2026-10-20T17:03:34.271Z",
+      "task_count": 1
+    }
+  ]
+}

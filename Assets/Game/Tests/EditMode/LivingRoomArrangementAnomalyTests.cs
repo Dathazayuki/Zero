@@ -7,6 +7,29 @@ namespace Zero.Tests.EditMode
     public sealed class LivingRoomArrangementAnomalyTests
     {
         [Test]
+        public void MirroredScalePreservesOtherAxesAndRestoresAfterRepeatedActivationAndReset()
+        {
+            var root = new GameObject("MirrorScaleTest");
+            try
+            {
+                var target = new GameObject("Sink").transform;
+                target.SetParent(root.transform);
+                Vector3 normal = new Vector3(2f, 3f, 4f);
+                target.localScale = normal;
+                var anomaly = root.AddComponent<LivingRoomArrangementAnomaly>();
+                anomaly.ConfigureScale(target, new Vector3(-0.5f, 1f, 1f));
+                anomaly.Activate();
+                anomaly.Activate();
+                Assert.That(target.localScale, Is.EqualTo(new Vector3(-1f, 3f, 4f)));
+                anomaly.ResetAnomaly();
+                Assert.That(target.localScale, Is.EqualTo(normal));
+                anomaly.ResetAnomaly();
+                Assert.That(target.localScale, Is.EqualTo(normal));
+            }
+            finally { Object.DestroyImmediate(root); }
+        }
+
+        [Test]
         public void MissingTargetFailsSafeAndDestroyedExtraDoesNotBreakCleanup()
         {
             var root = new GameObject("MissingReferenceTest");

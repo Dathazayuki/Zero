@@ -35,14 +35,17 @@ namespace Zero.AnomalyPrototype.Anomalies
         [Tooltip("Khoảng thời gian tối thiểu giữa các lần phát tiếng vặn cổ (giây).")]
         [SerializeField, Min(0.1f)] private float soundInterval = 0.6f;
 
-        private Transform player;
-        private Camera playerCamera;
+        [SerializeField] private Transform player;
+        [SerializeField] private Camera playerCamera;
         private bool baselineCaptured;
         private bool dollInitialActive = true;
         private Vector3 initialHeadLocalPosition;
         private Quaternion initialHeadLocalRotation;
-        private Vector3 dollForward;
         private float lastSoundTime;
+        private Quaternion animatedHeadRotation;
+        private Quaternion trackingHeadRotation;
+        private bool headOverrideApplied;
+        private bool trackingPoseCaptured;
 
         public void BindPlayer(Transform playerTransform, Camera cameraReference)
         {
@@ -66,7 +69,6 @@ namespace Zero.AnomalyPrototype.Anomalies
                 initialHeadLocalRotation = headBone.localRotation;
             }
 
-            dollForward = transform.forward;
             baselineCaptured = true;
 
             if (hideInNormalState && dollObject != null)
@@ -118,37 +120,32 @@ namespace Zero.AnomalyPrototype.Anomalies
             if (!IsActive || headBone == null) return;
 
             // Xác định vị trí mục tiêu cần nhìn vào (mắt/Camera của Player)
+            animatedHeadRotation = headBone.localRotation;
+            if (!trackingPoseCaptured) trackingHeadRotation = animatedHeadRotation;
+            trackingPoseCaptured = true;
             Vector3 targetPosition = GetTargetLookPosition();
-            if (targetPosition == Vector3.zero) return;
 
             // Kiểm tra khoảng cách
             float distance = Vector3.Distance(headBone.position, targetPosition);
-            if (distance > maxTrackingDistance) return;
 
             Vector3 directionToPlayer = (targetPosition - headBone.position).normalized;
-            if (directionToPlayer.sqrMagnitude < 0.0001f) return;
 
             // Nếu không bật 360 độ thì kiểm tra giới hạn góc nhìn so với hướng trước mặt
-            if (!full360Rotation)
-            {
-                float angle = Vector3.Angle(transform.forward, directionToPlayer);
-                if (angle > maxAngleFromForward)
-                {
-                    return;
-                }
-            }
+            bool canTrack = targetPosition != Vector3.zero && distance <= maxTrackingDistance &&
+                directionToPlayer.sqrMagnitude > 0.0001f && IsInsideView(directionToPlayer);
 
             // Tính toán góc quay nhìn thẳng vào Player
-            Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+            Quaternion lookRotation = canTrack ? Quaternion.LookRotation(directionToPlayer, Vector3.up) : headBone.rotation;
 
             // Áp dụng góc xoay bù trừ (rotationOffset) nếu trục bone bị lệch
-            Quaternion desiredRotation = lookRotation * Quaternion.Euler(rotationOffset);
+            Quaternion desiredRotation = canTrack ? lookRotation * Quaternion.Euler(rotationOffset) : lookRotation;
 
             // Quay đầu theo tốc độ mượt mà hoặc quay tức thì
-            Quaternion oldRotation = headBone.rotation;
+            Quaternion parentRotation = headBone.parent != null ? headBone.parent.rotation : Quaternion.identity;
+            Quaternion oldRotation = parentRotation * trackingHeadRotation;
             if (turnSpeed > 0f)
             {
-                headBone.rotation = Quaternion.RotateTowards(headBone.rotation, desiredRotation, turnSpeed * Time.deltaTime);
+                headBone.rotation = Quaternion.RotateTowards(oldRotation, desiredRotation, turnSpeed * Time.deltaTime);
             }
             else
             {
@@ -156,7 +153,21 @@ namespace Zero.AnomalyPrototype.Anomalies
             }
 
             // Phát âm thanh vặn cổ rắc rắc nếu đầu đang xoay một góc đáng kể
-            float rotDelta = Quaternion.Angle(oldRotation, headBone.rotation);
+            trackingHeadRotation = headBone.localRotation;
+            headOverrideApplied = true;
+            PlayTurnSound(Quaternion.Angle(oldRotation, headBone.rotation));
+        }
+
+        private void Update()
+        {
+            // Release the override before Animator evaluates this frame's normal pose.
+            if (!headOverrideApplied || headBone == null) return;
+            headBone.localRotation = animatedHeadRotation;
+            headOverrideApplied = false;
+        }
+
+        private void PlayTurnSound(float rotDelta)
+        {
             if (rotDelta > 0.5f && neckCreakAudio != null && audioSource != null)
             {
                 if (Time.time - lastSoundTime >= soundInterval)
@@ -189,8 +200,18 @@ namespace Zero.AnomalyPrototype.Anomalies
             return Vector3.zero;
         }
 
+        private bool IsInsideView(Vector3 direction)
+        {
+            Vector3 forward = dollObject != null ? dollObject.transform.forward : transform.forward;
+            return full360Rotation || Vector3.Angle(
+                Vector3.ProjectOnPlane(forward, Vector3.up),
+                Vector3.ProjectOnPlane(direction, Vector3.up)) <= maxAngleFromForward;
+        }
+
         private void RestoreHeadPose()
         {
+            headOverrideApplied = false;
+            trackingPoseCaptured = false;
             if (headBone == null) return;
 
             if (baselineCaptured)
@@ -231,6 +252,7 @@ namespace Zero.AnomalyPrototype.Anomalies
             if (target != Vector3.zero)
             {
                 Vector3 dir = (target - headBone.position).normalized;
+                if (!IsInsideView(dir) || Vector3.Distance(target, headBone.position) > maxTrackingDistance) return;
                 headBone.rotation = Quaternion.LookRotation(dir, Vector3.up) * Quaternion.Euler(rotationOffset);
             }
         }
