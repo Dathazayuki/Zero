@@ -27,6 +27,7 @@ namespace Zero.AnomalyPrototype.Interaction
         [SerializeField] private bool isOpen = false;
 
         public bool IsOpen => isOpen;
+        public float OpenAngle => openAngle;
 
         private Quaternion initialRotation;
         private Coroutine rotateRoutine;

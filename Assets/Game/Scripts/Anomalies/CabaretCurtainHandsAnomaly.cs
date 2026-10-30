@@ -5,18 +5,18 @@ namespace Zero.AnomalyPrototype.Anomalies
     public sealed class CabaretCurtainHandsAnomaly : AnomalyBehaviour
     {
         [SerializeField] private Transform observer;
+        [SerializeField] private BoxCollider stageZone;
         [SerializeField] private Transform[] handGroups;
         [SerializeField] private Vector3[] retreatOffsets;
-        [SerializeField, Min(.1f)] private float approachDistance=1.8f;
         [SerializeField, Min(.1f)] private float retreatSeconds=.65f;
-        private enum Phase { Waiting, Retreating, Hidden }
-        private Phase[] phases;
         private Vector3[] starts;
-        private float[] timers;
+        private float retreatTimer;
+        private bool retreatStarted;
+        private bool CanAdvance => observer!=null && stageZone!=null && starts!=null;
 
-        public void Configure(Transform player,Transform[] groups,Vector3[] offsets)
+        public void Configure(Transform player,BoxCollider stage,Transform[] groups,Vector3[] offsets)
         {
-            observer=player; handGroups=groups; retreatOffsets=offsets;
+            observer=player; stageZone=stage; handGroups=groups; retreatOffsets=offsets;
         }
 
         public override void CaptureNormalState()
@@ -24,8 +24,6 @@ namespace Zero.AnomalyPrototype.Anomalies
             if (starts!=null || handGroups==null || retreatOffsets==null) return;
             if (handGroups.Length!=retreatOffsets.Length) return;
             starts=new Vector3[handGroups.Length];
-            phases=new Phase[handGroups.Length];
-            timers=new float[handGroups.Length];
             for (int i=0;i<handGroups.Length;i++)
                 if (handGroups[i]!=null) starts[i]=handGroups[i].localPosition;
         }
@@ -36,36 +34,34 @@ namespace Zero.AnomalyPrototype.Anomalies
             SetGroups(true);
         }
 
-        private void Update()
-        {
-            if (!IsActive || observer==null || starts==null) return;
-            for (int i=0;i<handGroups.Length;i++) AdvanceGroup(i);
-        }
+        private void Update() => Advance(Time.deltaTime);
 
-        private void AdvanceGroup(int i)
+        public void Advance(float delta)
         {
-            var group=handGroups[i];
-            if (group==null || phases[i]==Phase.Hidden) return;
-            if (phases[i]==Phase.Waiting)
+            if (!IsActive || !CanAdvance || delta<=0f) return;
+            if (!retreatStarted)
             {
-                var delta=observer.position-group.position; delta.y=0;
-                if (delta.sqrMagnitude>approachDistance*approachDistance) return;
-                phases[i]=Phase.Retreating;
+                if (!stageZone.bounds.Contains(observer.position+Vector3.up)) return;
+                retreatStarted=true;
             }
-            timers[i]+=Time.deltaTime;
-            float progress=Mathf.Clamp01(timers[i]/Mathf.Max(.1f,retreatSeconds));
-            group.localPosition=starts[i]+retreatOffsets[i]*Mathf.SmoothStep(0,1,progress);
-            if (progress<1) return;
-            phases[i]=Phase.Hidden;
-            group.gameObject.SetActive(false);
+            if (retreatTimer>=retreatSeconds) return;
+            retreatTimer+=delta;
+            float progress=Mathf.Clamp01(retreatTimer/Mathf.Max(.1f,retreatSeconds));
+            for (int i=0;i<handGroups.Length;i++)
+            {
+                var group=handGroups[i];
+                if (group==null) continue;
+                group.localPosition=starts[i]+retreatOffsets[i]*Mathf.SmoothStep(0,1,progress);
+                if (progress>=1f) group.gameObject.SetActive(false);
+            }
         }
 
         private void SetGroups(bool visible)
         {
             if (starts==null) return;
+            retreatStarted=false; retreatTimer=0f;
             for (int i=0;i<handGroups.Length;i++)
             {
-                phases[i]=Phase.Waiting; timers[i]=0;
                 if (handGroups[i]==null) continue;
                 handGroups[i].localPosition=starts[i];
                 handGroups[i].gameObject.SetActive(visible);

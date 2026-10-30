@@ -167,10 +167,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2877744001875730310}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.809249, y: 1.263, z: -15.789999}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8164169537478151522}
   m_Father: {fileID: 0}
@@ -300,6 +300,7 @@ MonoBehaviour:
   openAngle: 70
   openDuration: 1
   openAwayFromPlayer: 1
+  startOpen: 0
   audioSource: {fileID: 0}
   openSound: {fileID: 8300000, guid: 18eed24f8040a4d49b445803c497473c, type: 3}
   isOpen: 0
@@ -414,9 +415,9 @@ Transform:
   m_GameObject: {fileID: 8793036778606106584}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.928, y: -1.263, z: 24.93}
-  m_LocalScale: {x: 0.01656, y: 0.015, z: 0.015}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -6.928, y: -1.468, z: 24.93}
+  m_LocalScale: {x: 0.013248001, y: 0.012, z: 0.012}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 70074814425897966}
   m_Father: {fileID: 9053543576837457080}

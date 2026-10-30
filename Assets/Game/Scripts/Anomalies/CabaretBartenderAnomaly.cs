@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using Phase = Zero.AnomalyPrototype.Anomalies.CabaretBartenderRules.Phase;
 
 namespace Zero.AnomalyPrototype.Anomalies
@@ -23,9 +24,10 @@ namespace Zero.AnomalyPrototype.Anomalies
         [SerializeField] private float liquidBottom = .016f;
         [SerializeField] private float liquidHeight = .064f;
         [SerializeField] private float rimHeight = .12f;
-        [SerializeField, Min(.01f)] private float capArcHeight = .18f;
-        [SerializeField, Min(.01f)] private float capSideOffset = .22f;
-        [SerializeField, Min(.01f)] private float capLift = .16f;
+        [FormerlySerializedAs("capArcHeight")]
+        [SerializeField, Min(.01f)] private float capArcWidth = .18f;
+        [SerializeField, Min(.01f)] private float capSideOffset = .28f;
+        [SerializeField, Min(.01f)] private float capLift = .045f;
         private Transform[] moved;
         private Vector3[] positions, scales;
         private Quaternion[] rotations;
@@ -33,8 +35,8 @@ namespace Zero.AnomalyPrototype.Anomalies
         private CabaretBartenderRules rules;
         private Vector3 bottleStart, glassStart, laneEntry, preparation, served, readyBottle;
         private Quaternion bottleRotation, pouringRotation;
-        private Vector3 liquidInGlass, capInBottle, capHome, capPark;
-        private Quaternion liquidRotationInGlass, capClosedRotation;
+        private Vector3 capInBottle, capHome, capPark;
+        private Quaternion capClosedRotation;
         private bool HasSnapshot => moved != null && moved.Length == 4 && positions?.Length == 4 &&
             scales?.Length == 4 && rotations?.Length == 4;
         public Phase State => rules == null ? Phase.Waiting : rules.State;
@@ -54,8 +56,6 @@ namespace Zero.AnomalyPrototype.Anomalies
             }
             normalLiquidActive = liquid.gameObject.activeSelf;
             normalStreamEnabled = stream.enabled;
-            liquidInGlass = glass.InverseTransformPoint(liquid.position);
-            liquidRotationInGlass = Quaternion.Inverse(glass.rotation) * liquid.rotation;
             capInBottle = bottle.InverseTransformPoint(cap.position);
         }
 
@@ -99,7 +99,7 @@ namespace Zero.AnomalyPrototype.Anomalies
             Vector3 mouth = preparation + Vector3.up * (rimHeight + .16f);
             readyBottle = mouth - pouringRotation * Vector3.Scale(bottleMouth, bottle.lossyScale);
             capHome = readyBottle + bottleRotation * Vector3.Scale(capInBottle, bottle.lossyScale);
-            capPark = capHome - servingSurface.forward * capSideOffset + Vector3.up * capLift;
+            capPark = capHome + servingSurface.right * capSideOffset + Vector3.up * capLift;
             capClosedRotation = cap.rotation;
             return rules.TryStart();
         }
@@ -133,7 +133,9 @@ namespace Zero.AnomalyPrototype.Anomalies
         {
             glass.position = preparation;
             bottle.SetPositionAndRotation(readyBottle, bottleRotation);
-            cap.position = CapArc(capHome, capPark, t, capArcHeight);
+            Vector3 lifted = capHome + Vector3.up * capLift;
+            cap.position = t < .2f ? Vector3.Lerp(capHome, lifted, t / .2f) :
+                CapArc(lifted, capPark, (t - .2f) / .8f, -servingSurface.forward * capArcWidth);
             cap.rotation = capClosedRotation * Quaternion.Euler(0f, 540f * t, 0f);
         }
 
@@ -153,7 +155,9 @@ namespace Zero.AnomalyPrototype.Anomalies
             glass.position = Vector3.Lerp(preparation, served, t);
             bottle.SetPositionAndRotation(readyBottle, Quaternion.Slerp(pouringRotation, bottleRotation, Mathf.Clamp01(t / .35f)));
             float closing = Mathf.Clamp01((t - .35f) / .65f);
-            cap.position = CapArc(capPark, capHome, closing, capArcHeight);
+            Vector3 lifted = capHome + Vector3.up * capLift;
+            cap.position = closing < .8f ? CapArc(capPark, lifted, closing / .8f, -servingSurface.forward * capArcWidth) :
+                Vector3.Lerp(lifted, capHome, (closing - .8f) / .2f);
             cap.rotation = Quaternion.Slerp(capClosedRotation * Quaternion.Euler(0f, 540f, 0f), capClosedRotation, closing);
             SetFill(1f);
         }
@@ -179,14 +183,13 @@ namespace Zero.AnomalyPrototype.Anomalies
         {
             liquid.gameObject.SetActive(amount > .001f);
             liquid.localScale = Vector3.Scale(scales[3], new Vector3(1f, Mathf.Max(.001f, amount), 1f));
-            liquid.SetPositionAndRotation(glass.TransformPoint(liquidInGlass + Vector3.up * (liquidBottom * (1f - amount))),
-                glass.rotation * liquidRotationInGlass);
+            liquid.localPosition = positions[3] + Vector3.up * (liquidBottom * (1f - amount));
         }
 
-        public static Vector3 CapArc(Vector3 start, Vector3 end, float progress, float height)
+        public static Vector3 CapArc(Vector3 start, Vector3 end, float progress, Vector3 bend)
         {
             float t = Mathf.Clamp01(progress);
-            return Vector3.Lerp(start, end, t) + Vector3.up * (Mathf.Sin(t * Mathf.PI) * height);
+            return Vector3.Lerp(start, end, t) + bend * Mathf.Sin(t * Mathf.PI);
         }
 
         private void DrawStream(float fill)

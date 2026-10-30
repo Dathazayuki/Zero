@@ -29,9 +29,8 @@ namespace Zero.Tests.EditMode
             finally { Object.DestroyImmediate(root); }
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public void FilledWaterFollowsGlassWithEitherSiblingOrChildHierarchy(bool sibling)
+        [Test]
+        public void FilledChildWaterRemainsVisibleInsideServedGlass()
         {
             var root = CreateFixture();
             try
@@ -39,7 +38,6 @@ namespace Zero.Tests.EditMode
                 var anomaly = root.GetComponent<CabaretBartenderAnomaly>();
                 var glass = root.transform.Find("glass");
                 var liquid = glass.Find("liquid");
-                if (sibling) liquid.SetParent(root.transform, true);
                 anomaly.Activate();
                 for (int i = 0; i < 220; i++) anomaly.Advance(.05f);
                 Assert.That(anomaly.State, Is.EqualTo(Phase.Finished));
@@ -54,14 +52,16 @@ namespace Zero.Tests.EditMode
         }
 
         [Test]
-        public void CapArcLiftsAboveStraightPathAndReturnsToExactMouthPosition()
+        public void CapArcMovesHorizontallyAndReturnsToExactMouthPosition()
         {
             Vector3 mouth = Vector3.up * 2f;
-            Vector3 parked = mouth + new Vector3(.22f, .16f, 0f);
-            Vector3 midpoint = CabaretBartenderAnomaly.CapArc(parked, mouth, .5f, .18f);
-            Assert.That(midpoint.y, Is.GreaterThan(Vector3.Lerp(parked, mouth, .5f).y + .17f));
-            Assert.That(CabaretBartenderAnomaly.CapArc(mouth, parked, 0f, .18f), Is.EqualTo(mouth));
-            Assert.That(Vector3.Distance(CabaretBartenderAnomaly.CapArc(parked, mouth, 1f, .18f), mouth), Is.LessThan(.0001f));
+            Vector3 parked = mouth + Vector3.right * .28f;
+            Vector3 bend = Vector3.forward * .18f;
+            Vector3 midpoint = CabaretBartenderAnomaly.CapArc(parked, mouth, .5f, bend);
+            Assert.That(midpoint.y, Is.EqualTo(mouth.y).Within(.0001f));
+            Assert.That(midpoint.z, Is.GreaterThan(.17f));
+            Assert.That(CabaretBartenderAnomaly.CapArc(mouth, parked, 0f, bend), Is.EqualTo(mouth));
+            Assert.That(Vector3.Distance(CabaretBartenderAnomaly.CapArc(parked, mouth, 1f, bend), mouth), Is.LessThan(.0001f));
         }
 
         [TestCase(1f)]
